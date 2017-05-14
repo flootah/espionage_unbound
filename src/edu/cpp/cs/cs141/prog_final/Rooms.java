@@ -7,6 +7,6 @@ package edu.cpp.cs.cs141.prog_final;
  * @author Corey Perez
  *
  */
-public class Rooms extends GameBoard {
+public class Rooms{
 
 }
