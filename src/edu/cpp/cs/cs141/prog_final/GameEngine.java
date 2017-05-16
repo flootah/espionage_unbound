@@ -2,12 +2,7 @@ package edu.cpp.cs.cs141.prog_final;
 
 public class GameEngine {
 	
-	/**
-	 * Constructor for the class GameEngine.
-	 */
-	public GameEngine() {
-		//code
-	}
+	
 	
 	/**
 	 * Instances the building.
@@ -99,5 +94,10 @@ public class GameEngine {
 	 */
 	private void moveEntity(int move, int dir) {
 		
+	}
+	
+	public String displayBoard() 
+	{
+		return grid.toString();
 	}
 }
