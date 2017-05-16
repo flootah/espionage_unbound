@@ -23,8 +23,10 @@ public class UserInterface {
 		 * Takes a game state as an input.
 		 * Creates a new Game Engine and Scanner to be used, and fills in default values for the game's state.
 		 */
-		public UserInterface(){
-			//code
+		public UserInterface()
+		{
+			this.ge = ge;
+			sc = new Scanner(System.in);
 		}
 		
 		
