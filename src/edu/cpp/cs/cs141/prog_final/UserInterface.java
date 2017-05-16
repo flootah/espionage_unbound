@@ -142,7 +142,9 @@ public class UserInterface {
 		public void debugMode() {
 			//code
 		}
-		/**
-		 * Moves an entity on the board.
-		 */
+		
+		 public void printBoard() 
+		{
+			System.out.println(ge.displayBoard());
+		}
 }
