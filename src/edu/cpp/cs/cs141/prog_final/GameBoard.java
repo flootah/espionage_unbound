@@ -27,5 +27,20 @@ public class GameBoard {
             }
         }
     }
+    
+    public String toString()
+	{
+		String result = "";
+		
+		for(String[] row : grid)
+		{
+			for(String column : row)
+			{
+				result += column = "[*]";
+			}
+			result += "\n";
+		}
+		return result;
+	}
 
 }
