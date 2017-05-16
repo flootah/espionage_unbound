@@ -15,6 +15,13 @@ public class Ninja extends ActiveAgents {
     private int[][] position;
     
     /**
+     * Adding Ninja constructor.
+     */
+    public Ninja(int[][] pos) {
+        position = pos;
+    }
+    
+    /**
      * Method that retrieves the ninjas' positions within the game board.
      * @return the 2D arrays that dictate where the ninjas are on the game board.
      */
