@@ -1,11 +1,13 @@
-package edu.cpp.cs.cs141.prog_final;
+/**
+ * 
+ */
+package edu.cpp.cs.cs141.final_project;
 
 /**
- * Class which will hold save information.
- * Actual loading of the saves will occur in the Game Engine
- * 
- * @author Eduardo
+ * @author Corey Perez
+ *
  */
-public class SaveState {
-	//code
+public class SaveState 
+{
+
 }

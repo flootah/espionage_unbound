@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.cpp.cs.cs141.prog_final;
+package edu.cpp.cs.cs141.final_project;
 
 /**
  * @author Corey Perez
@@ -12,11 +12,11 @@ public class MainLaunch {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args)
+	public static void main(String[] args) 
 	{
-	   // GameBoard gameBoard = new GameBoard();
-	   // gameBoard.printBoard();
-		UserInterface ui = new UserInterface(1);
+		UserInterface ui = new UserInterface(new GameEngine());
+		//ui.printBoard();
+		//ui.debugBoard();
 		ui.mainMenu();
 	}
 

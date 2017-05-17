@@ -1,24 +1,32 @@
 /**
  * 
  */
-package edu.cpp.cs.cs141.prog_final;
+package edu.cpp.cs.cs141.final_project;
 
 /**
  * @author Corey Perez
  *
  */
-public class Player extends ActiveAgents {
+public class Player 
+{
+	private final int maxLives = 3;
 	
 	private int lives;
 	
 	private Gun gun;
 	
-	public Player(Gun gun, int lives)
-	{
-	    this.gun = gun;
-	    this.lives = lives;
-	}
+	private int row = 8;
 	
+	private int column = 0;
+	
+	public Player(Gun weapon)
+	{
+		gun = weapon;
+		lives = maxLives;
+		row = getRow();
+		column = getColumn();		
+	}
+
 	public void shoot()
 	{
 		gun.shoot();
@@ -34,9 +42,19 @@ public class Player extends ActiveAgents {
 		return lives;
 	}
 	
-	public String toString(){ 
-	    String playerInfo = "[P]";
-	    return playerInfo;
+	public void move()
+	{
+		
+	}
+	
+	public int getRow()
+	{
+		return row;
 	}
 
+	public int getColumn() 
+	{
+		return column;
+	}
+	
 }

@@ -1,17 +1,17 @@
 /**
  * 
  */
-package edu.cpp.cs.cs141.prog_final;
+package edu.cpp.cs.cs141.final_project;
 
 /**
  * @author Corey Perez
  *
  */
-public class Gun{
-
-    private int ammo;
+public class Gun
+{
+	private int ammo;
 	
-    private final int maxAmmo = 1;
+	private final int maxAmmo = 1;
 	
 	public Gun()
 	{

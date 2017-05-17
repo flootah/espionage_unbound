@@ -1,17 +1,22 @@
 /**
  * 
  */
-package edu.cpp.cs.cs141.prog_final;
+package edu.cpp.cs.cs141.final_project;
 
 /**
  * @author Corey Perez
  *
  */
-public class Radar extends PowerUps{
-    
-    public String toString() {
-        String radarInfo = "[R]";
-        return radarInfo;
-    }
-
+public class Radar extends PowerUps
+{
+	private int row;
+	
+	private int column;
+	
+	public Radar()
+	{
+		row = calculateRow();
+		column = calculateColumn();
+	}
+	
 }

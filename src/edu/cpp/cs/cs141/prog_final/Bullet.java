@@ -1,23 +1,23 @@
 /**
  * 
  */
-package edu.cpp.cs.cs141.prog_final;
+package edu.cpp.cs.cs141.final_project;
 
 /**
  * @author Corey Perez
  *
  */
-public class Bullet extends PowerUps {
-    
-    private Gun gun;
-    
-    public Bullet (Gun gun) {
-        this.gun = gun;
-    }
-    
-    public String toString() {
-        String bulletInfo = "[G]";
-        return bulletInfo;
-    }
-
+public class Bullet extends PowerUps 
+{
+	private int row;
+	
+	private int column;
+	
+	public Bullet()
+	{
+		row = calculateRow();
+		column = calculateColumn();
+	}
+	
+	
 }

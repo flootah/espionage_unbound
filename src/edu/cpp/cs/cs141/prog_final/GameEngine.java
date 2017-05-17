@@ -1,22 +1,30 @@
-package edu.cpp.cs.cs141.prog_final;
+/**
+ * 
+ */
+package edu.cpp.cs.cs141.final_project;
 
-public class GameEngine {
+/**
+ * @author Corey Perez
+ *
+ */
+public class GameEngine 
+{	
+	private Player player;
 	
-	Player player;
-	GameBoard gb;
-	Briefcase briefcase;
-	
-	public GameEngine(){
-		gb = new GameBoard();
-	}
+	private GameBoard grid; // = new GameBoard(new Player(new Gun()));
 	/**
 	 * Instances the building.
 	 * Constructs the player character and ninja-assassins.
 	 * Constructs the rooms and powerups.
 	 */
-	public void instanceBuilding() {
-		gb.printBoard();
+	public void createBuilding()
+	{
+		grid = new GameBoard(new Player(new Gun()), new Ninja(), new Ninja(), new Ninja(), new Ninja(), new Ninja(), new Ninja(), new Briefcase(), 
+								new Rooms(), new Rooms(), new Rooms(), new Rooms(), new Rooms(), new Rooms(), new Rooms(), new Rooms(), new Rooms(), new Bullet(),
+								new Radar(), new Invincibility());
+		
 	}
+	
 	
 	/**
 	 * Instances an enemy.
@@ -101,8 +109,22 @@ public class GameEngine {
 		
 	}
 	
+	/*
 	public String displayBoard() 
 	{
-		return gb.toString();
+		return grid.toString();
 	}
+	*/
+	
+	public void displayBoard()
+	{
+		grid.printGrid();
+	}
+	
+	public void displayDebugBoard()
+	{
+		grid.printGridDebug();
+	}
+	
+
 }
