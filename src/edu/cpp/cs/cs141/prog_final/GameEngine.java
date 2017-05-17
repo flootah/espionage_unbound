@@ -2,15 +2,20 @@ package edu.cpp.cs.cs141.prog_final;
 
 public class GameEngine {
 	
+	Player player;
+	GameBoard gb;
+	Briefcase briefcase;
 	
-	
+	public GameEngine(){
+		gb = new GameBoard();
+	}
 	/**
 	 * Instances the building.
 	 * Constructs the player character and ninja-assassins.
 	 * Constructs the rooms and powerups.
 	 */
 	public void instanceBuilding() {
-		//code
+		gb.printBoard();
 	}
 	
 	/**
@@ -98,6 +103,6 @@ public class GameEngine {
 	
 	public String displayBoard() 
 	{
-		return grid.toString();
+		return gb.toString();
 	}
 }

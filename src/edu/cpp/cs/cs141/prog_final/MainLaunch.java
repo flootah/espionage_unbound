@@ -14,8 +14,10 @@ public class MainLaunch {
 	 */
 	public static void main(String[] args)
 	{
-	    GameBoard gameBoard = new GameBoard();
-	    gameBoard.printBoard();
+	   // GameBoard gameBoard = new GameBoard();
+	   // gameBoard.printBoard();
+		UserInterface ui = new UserInterface(1);
+		ui.mainMenu();
 	}
 
 }

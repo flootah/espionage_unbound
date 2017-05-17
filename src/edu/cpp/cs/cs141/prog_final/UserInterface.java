@@ -23,13 +23,13 @@ public class UserInterface {
 		 * Takes a game state as an input.
 		 * Creates a new Game Engine and Scanner to be used, and fills in default values for the game's state.
 		 */
-		public UserInterface()
-		{
-			this.ge = ge;
+		public UserInterface(int state) {
+			this.ge = new GameEngine();
 			sc = new Scanner(System.in);
+			this.state = state;
 		}
-		
-		
+
+
 		/**
 		 * Main UI class.
 		 * Will act initially as the main UI for the main menu.
@@ -43,8 +43,26 @@ public class UserInterface {
 		 * 
 		 * After page 4, mainMenu ends by calling either TUI or GUI, which will take over main UI responsibilities.
 		 */
-		private void mainMenu(){
-			//code
+		public void mainMenu(){
+			while(1 == 1) { //TODO create gameActive boolean...
+				switch(state) {
+				case 1:
+					firstMenu();
+					break;
+				case 2:
+					aboutMenu();
+					break;
+				case 3:
+					loadMenu();
+					break;
+				case 4:
+					uiMenu();
+					break;
+				case 5:
+					inGame();
+					break;
+				}
+			}
 		}
 		
 		/**
@@ -84,15 +102,47 @@ public class UserInterface {
 		 * changes game state accordingly, or exit the program.
 		 */
 		private void firstMenu() {
-			//code
+			System.out.println("Welcome to proj_final v0.1!");
+			System.out.println("");
+			System.out.println("Please select an option:");
+			System.out.println("   1. New Game");
+			System.out.println("   2. Load Game");
+			System.out.println("   3. About");
+			int option = 0;
+			if(sc.hasNextInt()) {
+				option = sc.nextInt();
+			}
+			sc.nextLine();
+			
+			switch(option) {
+			case 1:
+				state = 4;
+				break;
+			case 2:
+				state = 3;
+				break;
+			case 3:
+				state = 2;
+				break;
+			}
+			System.out.println(state);
 		}
 		
+		private void changeState(int i) {
+			state = i;
+		}
+
+
 		/**
 		 * About/help page.
 		 * Displays information about how to play, backstory, and returns to firstMenu() if any input is recieved.
 		 */
 		private void aboutMenu() {
-			//code
+			System.out.println("This is a placeholder about page...");
+			System.out.println();
+			System.out.println("press ENTER to return");
+			sc.nextLine();
+			changeState(1);
 		}
 		/**
 		 * Save loading page.
@@ -100,7 +150,11 @@ public class UserInterface {
 		 * Note: must first send player to uiMenu() to get the type of UI to use.
 		 */
 		private void loadMenu() {
-			//code
+			System.out.println("This is a placeholder save loading page...");
+			System.out.println();
+			System.out.println("press ENTER to return");
+			sc.nextLine();
+			changeState(1);
 		}
 		/**
 		 * UI choice page.
@@ -108,14 +162,38 @@ public class UserInterface {
 		 * Sets a global variable accordingly, then send the game state to inGame()
 		 */
 		private void uiMenu() {
-			//code
+			System.out.println("Please choose a UI type:");
+			System.out.println();
+			System.out.println("1. Text-Based");
+			System.out.println("2. Graphics-Based **UNDER CONSTRUCTION**");
+			System.out.println("3. Back");
+			int option = 0;
+			
+			if(sc.hasNextInt()) {
+				option = sc.nextInt();
+			}
+			sc.nextLine();
+			
+			switch(option) {
+			case 1:
+				changeState(5);
+				break;
+			case 2:
+				System.out.println("Sorry, this UI is under construction!");
+				break;
+			case 3:
+				changeState(1);
+				break;
+			}
 		}
+			
 		/**
 		 * Main ui state, for when the player is ingame.
 		 * Displays the map, player stats, and follows prompts from the player.
 		 */
 		private void inGame() {
-			//code
+			ge.instanceBuilding();
+			sc.nextLine();
 		}
 		/**
 		 * Pause menu.
