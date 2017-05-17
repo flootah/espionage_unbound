@@ -8,5 +8,10 @@ package edu.cpp.cs.cs141.prog_final;
  *
  */
 public class Radar extends PowerUps{
+    
+    public String toString() {
+        String radarInfo = "[R]";
+        return radarInfo;
+    }
 
 }

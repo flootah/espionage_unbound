@@ -8,17 +8,15 @@ package edu.cpp.cs.cs141.prog_final;
  *
  */
 public class Player extends ActiveAgents {
-
-    private final int maxLives = 3;
 	
 	private int lives;
 	
 	private Gun gun;
 	
-	public Player(Gun weapon)
+	public Player(Gun gun, int lives)
 	{
-		gun = weapon;
-		lives = maxLives;
+	    this.gun = gun;
+	    this.lives = lives;
 	}
 	
 	public void shoot()
@@ -34,6 +32,11 @@ public class Player extends ActiveAgents {
 	public int getLives()
 	{
 		return lives;
+	}
+	
+	public String toString(){ 
+	    String playerInfo = "[P]";
+	    return playerInfo;
 	}
 
 }
