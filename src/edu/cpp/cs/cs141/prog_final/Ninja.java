@@ -9,14 +9,32 @@ package edu.cpp.cs.cs141.prog_final;
  */
 public class Ninja extends ActiveAgents {
     
-    private int numOfNinjas;
-    
-    public Ninja(int numOfNinjas) {
-        this.numOfNinjas = numOfNinjas;
-    }
-    
-    public String toString() {
-        String ninjaInfo = "[N]";
-        return ninjaInfo;
-    }
+    private int row;
+	
+	private int column;
+	
+	private String ninjaMark = "A";
+	
+	public Ninja()
+	{
+		row = calculateRow();
+		column = calculateColumn();
+	}
+
+	public int calculateColumn() 
+	{
+		int randColumn = new Random().nextInt(9);
+		return randColumn;
+	}
+
+	public int calculateRow() 
+	{
+		int randRow = new Random().nextInt(9);
+		return randRow;
+	}
+
+	public String getNinjaMark() 
+	{
+		return ninjaMark;
+	}
 }
