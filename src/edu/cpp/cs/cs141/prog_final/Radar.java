@@ -9,9 +9,21 @@ package edu.cpp.cs.cs141.prog_final;
  */
 public class Radar extends PowerUps{
     
-    public String toString() {
-        String radarInfo = "[R]";
-        return radarInfo;
-    }
+    private int row;
+	
+	private int column;
+	
+	private String radarMark = "r";
+	
+	public Radar()
+	{
+		row = calculateRow();
+		column = calculateColumn();
+	}
+
+	public String getRadarMark() 
+	{
+		return radarMark;
+	}
 
 }
