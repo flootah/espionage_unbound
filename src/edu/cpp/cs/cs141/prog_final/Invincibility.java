@@ -9,15 +9,21 @@ package edu.cpp.cs.cs141.prog_final;
  */
 public class Invincibility extends PowerUps {
     
-    private int protection;
-    
-    public Invincibility (int protection) {
-        this.protection = protection;
-    }
-    
-    public String toString() {
-        String invincibilityInfo = "[I]";
-        return invincibilityInfo;
-    }
+    private int row;
+	
+	private int column;
+	
+	private String invincibleMark = "i";
+
+	public Invincibility()
+	{
+		row = calculateRow();
+		column = calculateColumn();
+	}
+
+	public String getInvincibleMark() 
+	{
+		return invincibleMark;
+	}
 
 }
