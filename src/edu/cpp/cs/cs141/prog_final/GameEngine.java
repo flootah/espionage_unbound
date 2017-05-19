@@ -2,20 +2,17 @@ package edu.cpp.cs.cs141.prog_final;
 
 public class GameEngine {
 	
-	Player player;
-	GameBoard gb;
-	Briefcase briefcase;
-	
-	public GameEngine(){
-		gb = new GameBoard();
-	}
+	private Player player;
+	private GameBoard grid;
+
 	/**
 	 * Instances the building.
 	 * Constructs the player character and ninja-assassins.
 	 * Constructs the rooms and powerups.
 	 */
-	public void instanceBuilding() {
-		gb.printBoard();
+	public void createBuilding() {
+		grid = new GameBoard(new Player(new Gun()), new Ninja(), new Briefcase(), new Rooms(), new Bullet(),
+								new Radar(), new Invincibility());
 	}
 	
 	/**
@@ -101,8 +98,13 @@ public class GameEngine {
 		
 	}
 	
-	public String displayBoard() 
+	public void displayBoard()
 	{
-		return gb.toString();
+		grid.printGrid();
+	}
+	
+	public void displayDebugBoard()
+	{
+		grid.printGridDebug();
 	}
 }
