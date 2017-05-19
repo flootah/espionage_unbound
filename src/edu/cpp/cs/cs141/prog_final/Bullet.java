@@ -9,15 +9,20 @@ package edu.cpp.cs.cs141.prog_final;
  */
 public class Bullet extends PowerUps {
     
-    private Gun gun;
-    
-    public Bullet (Gun gun) {
-        this.gun = gun;
-    }
-    
-    public String toString() {
-        String bulletInfo = "[G]";
-        return bulletInfo;
-    }
+    private int row;
+	
+	private int column;
+	
+	private String bulletMark = "b";
+	
+	public Bullet()
+	{
+		row = calculateRow();
+		column = calculateColumn();
+	}
 
+	public String getBulletMark() 
+	{
+		return bulletMark;
+	}
 }
