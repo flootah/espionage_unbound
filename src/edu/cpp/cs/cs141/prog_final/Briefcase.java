@@ -8,16 +8,12 @@ package edu.cpp.cs.cs141.prog_final;
  *
  */
 
-public class Briefcase {
-    
-    private int position;
-    
-    public Briefcase(int position) {
-        this.position = position;
-    }
-    
-    public String toString() {
-        String briefcaseInfo = "[B]";
-        return briefcaseInfo;
-    }
+public class Briefcase
+{
+    private String briefCaseMark = "B";
+	
+	public String getBriefCaseMark()
+	{
+		return briefCaseMark;
+	}
 }
