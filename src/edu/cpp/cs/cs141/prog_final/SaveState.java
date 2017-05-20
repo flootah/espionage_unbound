@@ -6,6 +6,7 @@ package edu.cpp.cs.cs141.prog_final;
  * 
  * @author Eduardo
  */
-public class SaveState {
-	//code
+public class SaveState implements serializable
+{
+	
 }
