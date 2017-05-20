@@ -16,7 +16,7 @@ public class MainLaunch {
 	{
 	   // GameBoard gameBoard = new GameBoard();
 	   // gameBoard.printBoard();
-		UserInterface ui = new UserInterface(1);
+		UserInterface ui = new UserInterface(1, new GameEngine());
 		ui.mainMenu();
 	}
 
