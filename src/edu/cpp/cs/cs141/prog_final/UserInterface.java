@@ -192,15 +192,9 @@ public class UserInterface {
 		 * Displays the map, player stats, and follows prompts from the player.
 		 */
 		private void inGame() {
-			String userInput = null;
 			ge.instanceBuilding();
 			printBoard();
 			userInput = sc.nextLine();
-			
-			if(userInput == "debug")
-			{
-				debugMode();
-			}
 		}
 		/**
 		 * Pause menu.
