@@ -23,8 +23,8 @@ public class UserInterface {
 		 * Takes a game state as an input.
 		 * Creates a new Game Engine and Scanner to be used, and fills in default values for the game's state.
 		 */
-		public UserInterface(int state) {
-			this.ge = new GameEngine();
+		public UserInterface(int state, GameEngine ge) {
+			this.ge = ge;
 			sc = new Scanner(System.in);
 			this.state = state;
 		}
@@ -219,12 +219,13 @@ public class UserInterface {
 		 * Method handling debug mode.
 		 * Prints the map for the player in a different way, giving full vision to the board.
 		 */
-		public void debugMode() {
-			//code
+		public void debugMode() 
+		{
+			ge.displayDebugBoard();
 		}
 		
 		 public void printBoard() 
 		{
-			System.out.println(ge.displayBoard());
+			ge.displayBoard();
 		}
 }
