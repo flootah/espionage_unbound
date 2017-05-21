@@ -25,13 +25,13 @@ public class Ninja extends ActiveAgents {
 
 	public int calculateColumn() 
 	{
-		int randColumn = new Random().nextInt(9);
+		int randColumn = new Random().nextInt(6) + 3;
 		return randColumn;
 	}
 
 	public int calculateRow() 
 	{
-		int randRow = new Random().nextInt(9);
+		int randRow = new Random().nextInt(6) + 3;
 		return randRow;
 	}
 	
