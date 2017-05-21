@@ -3,6 +3,8 @@
  */
 package edu.cpp.cs.cs141.prog_final;
 
+import java.util.Random;
+
 /**
  * @author Corey Perez
  *

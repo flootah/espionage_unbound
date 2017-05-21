@@ -44,9 +44,28 @@ public class Player extends ActiveAgents {
 		return lives;
 	}
 	
-	public void move()
+	public void move(char userMove)
 	{
-		
+		switch (userMove) {
+		case 'W':
+		case 'w':
+		    row--;
+		    break;
+		case 'S':
+		case 's':
+		    row++;
+		    break;
+		case 'A':
+		case 'a':
+		    column--;
+		    break;
+		case 'D':
+		case 'd':
+		    column++;
+		    break;
+		default:
+		    System.out.println("Invalid move selection");
+		}
 	}
 	
 	public int getRow()
