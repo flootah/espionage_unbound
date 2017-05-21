@@ -49,19 +49,39 @@ public class Player extends ActiveAgents {
 		switch (userMove) {
 		case 'W':
 		case 'w':
+			if (row > 0) {
 		    row--;
+			} else {
+			System.out.println("It's a wall.");
+			move();
+			}
 		    break;
 		case 'S':
 		case 's':
+		    if (row < 8) {
 		    row++;
+			} else {
+			System.out.println("It's a wall.");
+			move();
+			}
 		    break;
 		case 'A':
 		case 'a':
+		    if (column > 0) {
 		    column--;
+			} else {
+			System.out.println("It's a wall.");
+			move();
+			}
 		    break;
 		case 'D':
 		case 'd':
+		    if (column < 8) {
 		    column++;
+			} else {
+			System.out.println("It's a wall.");
+			move();
+			}
 		    break;
 		default:
 		    System.out.println("Invalid move selection");
