@@ -198,7 +198,12 @@ public class UserInterface {
 			        + "S = move player down one cell.\n"
 			        + "A = move player left one cell.\n"
 			        + "D = move player right one cell.\n");
+	        Player player;
+	        Ninja ninja;
+			char playerMove = sc.next().charAt(0);
 			userInput = sc.nextLine();
+            player.move(playerMove);
+            ninja.move();
 		}
 		/**
 		 * Pause menu.

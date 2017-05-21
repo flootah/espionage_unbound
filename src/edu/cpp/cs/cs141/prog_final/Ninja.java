@@ -35,7 +35,9 @@ public class Ninja extends ActiveAgents {
 		return randRow;
 	}
 	
-	public void move(int rng) {
+	public void move() {
+        Random r = new Random();
+        int rng = r.nextInt(4)+1;
 	    switch (rng) {
 	    case 1:
 	        row--;
