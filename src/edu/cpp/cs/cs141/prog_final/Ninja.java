@@ -31,7 +31,7 @@ public class Ninja extends ActiveAgents {
 
 	public int calculateRow() 
 	{
-		int randRow = new Random().nextInt(6) + 3;
+		int randRow = new Random().nextInt(6);
 		return randRow;
 	}
 	
