@@ -194,6 +194,10 @@ public class UserInterface {
 		private void inGame() {
 			ge.instanceBuilding();
 			printBoard();
+			System.out.println("W = move player up one cell."
+			        + "S = move player down one cell."
+			        + "A = move player left one cell."
+			        + "D = move player right one cell.");
 			userInput = sc.nextLine();
 		}
 		/**
