@@ -53,7 +53,6 @@ public class Player extends ActiveAgents {
 		    row--;
 			} else {
 			System.out.println("It's a wall.");
-			move();
 			}
 		    break;
 		case 'S':
@@ -62,7 +61,6 @@ public class Player extends ActiveAgents {
 		    row++;
 			} else {
 			System.out.println("It's a wall.");
-			move();
 			}
 		    break;
 		case 'A':
@@ -71,7 +69,6 @@ public class Player extends ActiveAgents {
 		    column--;
 			} else {
 			System.out.println("It's a wall.");
-			move();
 			}
 		    break;
 		case 'D':
@@ -80,7 +77,6 @@ public class Player extends ActiveAgents {
 		    column++;
 			} else {
 			System.out.println("It's a wall.");
-			move();
 			}
 		    break;
 		default:
