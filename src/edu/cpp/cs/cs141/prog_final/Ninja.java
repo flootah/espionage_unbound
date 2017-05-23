@@ -25,42 +25,52 @@ public class Ninja extends ActiveAgents {
 
 	public int calculateColumn() 
 	{
-		int randColumn = new Random().nextInt(6) + 3;
+		int randColumn = new Random().nextInt(9);
 		return randColumn;
 	}
 
 	public int calculateRow() 
 	{
-		int randRow = new Random().nextInt(6);
+		int randRow = new Random().nextInt(9);
 		return randRow;
+	}
+	
+	public void setRow(int r)
+	{
+		row = r;
+	}
+	
+	public void setColumn(int c)
+	{
+		column = c;
 	}
 	
 	public void move() {
         Random r = new Random();
-        int rng = r.nextInt(4)+1;
+        int rng = r.nextInt(4);
 	    switch (rng) {
-	    case 1:
+	    case 0:
 			if (row > 0) {
 	        row--;
 			} else {
 			move();
 			}
 	        break;
-	    case 2:
+	    case 1:
 			if (row < 8) {
 	        row++;
 			} else {
 			move();
 			}
 	        break;
-	    case 3:
+	    case 2:
 			if (column > 0) {
 	        column--;
 			} else {
 			move();
 			}
 	        break;
-	    case 4:
+	    case 3:
 			if (column < 8) {
 	        column++;
 			} else {
