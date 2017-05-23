@@ -112,31 +112,27 @@ public class GameBoard {
 	{
 		int counter = 0;
 		
-		grid[8][1] = getPlayerMark();
-		grid[8][2] = getPlayerMark();
-		grid[8][3] = getPlayerMark();
-		grid[7][0] = getPlayerMark();
-		grid[6][0] = getPlayerMark();
-		grid[5][0] = getPlayerMark();
-		
 		while(counter < 6)
 		{
 			int randRow = ninjas[counter].calculateRow();
 			int randColumn = ninjas[counter].calculateColumn();
 			
-			if(grid[randRow][randColumn] == null)
+			if(randRow < 6 && grid[randRow][randColumn] == null)
 			{
 				grid[randRow][randColumn] = getNinjaMark();
+				ninjas[counter].setRow(randRow);
+				ninjas[counter].setColumn(randColumn);
+				counter++;
+			}
+			
+			if(randRow >= 6 && randColumn >= 3 && grid[randRow][randColumn] == null)
+			{
+				grid[randRow][randColumn] = getNinjaMark();
+				ninjas[counter].setRow(randRow);
+				ninjas[counter].setColumn(randColumn);
 				counter++;
 			}
 		}
-		
-		grid[8][1] = null;
-		grid[8][2] = null;
-		grid[8][3] = null;
-		grid[7][0] = null;
-		grid[6][0] = null;
-		grid[5][0] = null;
 	}
 	
 	public void calculateBriefCasePosition()
