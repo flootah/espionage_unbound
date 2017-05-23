@@ -1,5 +1,10 @@
 package edu.cpp.cs.cs141.prog_final;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 public class GameEngine {
 	
 	private Player player;
@@ -71,15 +76,30 @@ public class GameEngine {
 	/**
 	 * Saves the game's state as a file.
 	 */
-	public void saveGame() {
-		//code
+	public void saveGame(String saveName) {
+	    try {
+	        FileOutputStream fos = new FileOutputStream(saveName);
+	        ObjectOutputStream oos = new ObjectOutputStream(fos);
+	        oos.writeObject(grid);
+	        oos.close();
+	    } catch (Exception e) {
+
+	    }
 	}
 	
 	/**
 	 * Loads the game's state as a file.
 	 */
-	public void loadGame() {
-		//code
+	public void loadGame(String loadName) {
+
+        try {
+            FileInputStream fis = new FileInputStream(loadName);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            grid = (GameBoard) ois.readObject();
+            ois.close();
+        }catch (Exception e) {
+            System.out.println("Invalid Name");    
+        }
 	}
 	/**
 	 * checks for a game over scenario

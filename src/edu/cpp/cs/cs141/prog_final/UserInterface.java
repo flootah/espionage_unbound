@@ -238,4 +238,18 @@ public class UserInterface {
 		{
 			ge.displayBoard();
 		}
+		 
+		 public void saveGameName() {
+		     String saveName;
+		     System.out.print("Enter name for the save file: ");
+		     saveName = sc.next();
+		     ge.saveGame(saveName);
+		 }
+		 
+		 public void loadGameName() {
+		     String loadName;
+		     System.out.print("Enter save file name: ");
+		     loadName = sc.next();
+		     ge.loadGame(loadName);
+		 }
 }
