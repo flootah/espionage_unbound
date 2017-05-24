@@ -15,9 +15,9 @@ public class GameEngine {
 	 * Constructs the player character and ninja-assassins.
 	 * Constructs the rooms and powerups.
 	 */
-	public void createBuilding() {
-		grid = new GameBoard(new Player(new Gun()), new Ninja(), new Briefcase(), new Rooms(), new Bullet(),
-								new Radar(), new Invincibility());
+	public void createBuilding() 
+	{
+		grid = new GameBoard(new Player(new Gun()), new Briefcase(), new Bullet(), new Radar(), new Invincibility());
 	}
 	
 	/**
