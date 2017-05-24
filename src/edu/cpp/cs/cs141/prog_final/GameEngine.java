@@ -47,8 +47,62 @@ public class GameEngine {
 	/**
 	 * Moves an agent.
 	 */
-	public void move() {
-		//code
+	public void move(String userMove) 
+	{
+		switch (userMove) 
+		{
+		case "W":
+		case "w":
+			if (grid.getPlayerRow() > 0) 
+			{
+				grid.movePlayerUp();
+			} 
+			else 
+			{
+				System.out.println("It's a wall.");
+			}
+		    break;
+		case "S":
+		case "s":
+		    if (grid.getPlayerRow() < 8) 
+		    {
+		    	grid.movePlayerDown();
+			} 
+		    else 
+		    {
+		    	System.out.println("It's a wall.");
+			}
+		    break;
+		case "A":
+		case "a":
+		    if (grid.getPlayerColumn() > 0) 
+		    {
+		    	grid.movePlayerLeft();
+			} 
+		    else 
+		    {
+		    	System.out.println("It's a wall.");
+			}
+		    break;
+		case "D":
+		case "d":
+		    if (grid.getPlayerColumn() < 8) 
+		    {
+		    	grid.movePlayerRight();
+			} 
+		    else 
+		    {
+		    	System.out.println("It's a wall.");
+			}
+		    break;
+		default:
+		    System.out.println("Invalid move selection");
+		}
+	}
+	
+	public void printNewBoard()
+	{
+		grid.printNewBoard();
 	}
 	
 	/**
