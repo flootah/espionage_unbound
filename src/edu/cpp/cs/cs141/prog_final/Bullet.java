@@ -25,4 +25,14 @@ public class Bullet extends PowerUps {
 	{
 		return bulletMark;
 	}
+	
+	public void getRow()
+	{
+		return row;
+	}
+	
+	public void getColumn()
+	{
+		return column;
+	}
 }
