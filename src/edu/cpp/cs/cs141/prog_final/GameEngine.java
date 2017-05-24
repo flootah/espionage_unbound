@@ -47,7 +47,7 @@ public class GameEngine {
 	/**
 	 * Moves an agent.
 	 */
-	public void move(String userMove) 
+	public void movePlayer(String userMove) 
 	{
 		switch (userMove) 
 		{
@@ -97,6 +97,39 @@ public class GameEngine {
 		    break;
 		default:
 		    System.out.println("Invalid move selection");
+		}
+	}
+	
+	public void moveNinja()
+	{
+		int counter = 0;
+		
+		while(counter < 6)
+		{
+			int rng = new Random().nextInt(4);
+			if(rng == 3 && grid.getNinjaRow(counter) > 0 && grid.getNinjaRow(counter) <= 8)
+			{
+				grid.moveNinjaUp(counter);
+				counter++;
+			}
+			else
+				if(rng == 2 && grid.getNinjaRow(counter) < 8 && grid.getNinjaRow(counter) >= 0)
+				{
+					grid.moveNinjaDown(counter);
+					counter++;
+				}
+				else
+					if(rng == 1 && grid.getNinjaColumn(counter) >= 0 && grid.getNinjaColumn(counter) < 8)
+					{
+						grid.moveNinjaRight(counter);
+						counter++;
+					}
+					else
+						if(rng == 0 && grid.getNinjaColumn(counter) <= 8 && grid.getNinjaColumn(counter) > 0)
+						{
+							grid.moveNinjaLeft(counter);
+							counter++;
+						}						
 		}
 	}
 	
