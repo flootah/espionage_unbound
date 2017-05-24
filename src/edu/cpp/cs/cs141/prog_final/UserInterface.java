@@ -23,11 +23,87 @@ public class UserInterface {
 		 * Takes a game state as an input.
 		 * Creates a new Game Engine and Scanner to be used, and fills in default values for the game's state.
 		 */
-		public UserInterface(int state, GameEngine ge) {
+		public UserInterface(GameEngine ge) {
 			this.ge = ge;
 			sc = new Scanner(System.in);
-			this.state = state;
 		}
+		
+		public void mainMenu()
+		{
+			printStartScreen();
+			boolean exit = false;
+		
+			while(!exit)
+			{
+				int choice = startMenu();
+		
+				switch(choice)
+				{
+				case 1:
+					runGame();
+					break;
+				
+				case 2:
+					ge.createBuilding();
+					debugBoard();
+					break;
+				
+				case 3:
+					exit = true;
+					break;
+				
+				default:
+					System.out.println("Invalid choice, please choose again.");					
+				}
+			}		
+		}
+	
+
+	
+	private int startMenu() 
+	{
+		int choice = 0;
+		
+		System.out.println("Select an option: ");
+		System.out.println("1. Normal ");
+		System.out.println("2. Debug  ");
+		System.out.println("3. Exit   ");
+		
+		choice = sc.nextInt();
+		sc.nextLine();
+		
+		return choice;
+	}
+
+	private void runGame()
+	{
+		ge.createBuilding();
+		ge.displayDebugBoard();
+		
+		while(!gamePlay());
+	}
+
+	private boolean gamePlay() 
+	{
+		String choice = "";
+		System.out.println("Choose your move: W A S D");
+		
+		choice = sc.nextLine();
+		
+		ge.move(choice);
+		
+		ge.printNewBoard();
+		
+		
+		return false;
+	}
+
+
+	private void printStartScreen() 
+	{
+		System.out.println("Welcome to Espionage Unbound!");
+		
+	}
 
 
 		/**
