@@ -44,44 +44,39 @@ public class Ninja extends ActiveAgents {
 	{
 		column = c;
 	}
-	
-	public void move() {
-        Random r = new Random();
-        int rng = r.nextInt(4);
-	    switch (rng) {
-	    case 0:
-			if (row > 0) {
-	        row--;
-			} else {
-			move();
-			}
-	        break;
-	    case 1:
-			if (row < 8) {
-	        row++;
-			} else {
-			move();
-			}
-	        break;
-	    case 2:
-			if (column > 0) {
-	        column--;
-			} else {
-			move();
-			}
-	        break;
-	    case 3:
-			if (column < 8) {
-	        column++;
-			} else {
-			move();
-			}
-	        break;
-	    }
-	}
 
 	public String getNinjaMark() 
 	{
 		return ninjaMark;
+	}
+	
+	public void moveDown() 
+	{
+		row++;
+	}
+
+	public void moveUp() 
+	{
+		row--;
+	}
+
+	public void moveRight()
+	{
+		column++;
+	}
+
+	public void moveLeft() 
+	{
+		column--;
+	}
+	
+	public int getRow() 
+	{
+		return row;
+	}
+
+	public int getColumn() 
+	{
+		return column;
 	}
 }
