@@ -15,9 +15,9 @@ public class Player extends ActiveAgents {
 	
 	private Gun gun;
 	
-	private int row = 8;
+	private int row;
 	
-	private int column = 0;
+	private int column;
 	
 	private String playerMark = "P";
 	
@@ -25,8 +25,8 @@ public class Player extends ActiveAgents {
 	{
 		gun = weapon;
 		lives = maxLives;
-		row = getRow();
-		column = getColumn();		
+		row = 8;
+		column = 0;		
 	}
 
 	public void shoot()
@@ -57,5 +57,25 @@ public class Player extends ActiveAgents {
 	public String getPlayerMark()
 	{
 		return playerMark;
+	}
+	
+	public void moveLeft()
+	{
+		column--;
+	}
+	
+	public void moveRight()
+	{
+		column++;
+	}
+	
+	public void moveUp()
+	{
+		row--;
+	}
+	
+	public void moveDown()
+	{
+		row++;
 	}
 }
