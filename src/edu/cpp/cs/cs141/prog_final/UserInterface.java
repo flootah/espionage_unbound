@@ -119,7 +119,7 @@ public class UserInterface {
 		 * 
 		 * After page 4, mainMenu ends by calling either TUI or GUI, which will take over main UI responsibilities.
 		 */
-		public void mainMenu(){
+		public void mainMenu1(){
 			while(1 == 1) { //TODO create gameActive boolean...
 				switch(state) {
 				case 1:
