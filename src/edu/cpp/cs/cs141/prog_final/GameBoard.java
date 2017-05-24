@@ -276,4 +276,51 @@ public class GameBoard {
 	{
 		return radar.getRadarMark();
 	}
+	
+	public void printNewBoard()
+	{		
+		for(int i = 0; i < grid.length; i++)
+		{
+			for(int j = 0; j < grid[i].length; j++)
+			{
+				if(grid[i][j] == getPlayerMark())
+				{
+					grid[i][j] = " ";
+				}
+				grid[player.getRow()][player.getColumn()] = getPlayerMark();
+				System.out.print("[" + grid[i][j] + "]");
+			}
+			System.out.println();
+		}
+	}
+	
+	public int getPlayerRow()
+	{
+		return player.getRow();
+	}
+	
+	public int getPlayerColumn()
+	{
+		return player.getColumn();
+	}
+	
+	public void movePlayerUp()
+	{
+		player.moveUp();
+	}
+	
+	public void movePlayerDown()
+	{
+		player.moveDown();
+	}
+	
+	public void movePlayerRight()
+	{
+		player.moveRight();
+	}
+	
+	public void movePlayerLeft()
+	{
+		player.moveLeft();
+	}
 }
