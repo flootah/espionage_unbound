@@ -283,11 +283,12 @@ public class GameBoard {
 		{
 			for(int j = 0; j < grid[i].length; j++)
 			{
-				if(grid[i][j] == getPlayerMark())
+				if(grid[i][j] == getPlayerMark() || grid[i][j] == getNinjaMark())
 				{
 					grid[i][j] = " ";
 				}
 				grid[player.getRow()][player.getColumn()] = getPlayerMark();
+				grid[ninjas[0].getRow()][ninjas[0].getColumn()] = getNinjaMark();
 				System.out.print("[" + grid[i][j] + "]");
 			}
 			System.out.println();
@@ -322,5 +323,35 @@ public class GameBoard {
 	public void movePlayerLeft()
 	{
 		player.moveLeft();
+	}
+	
+	public int getNinjaRow()
+	{
+		return ninjas[0].getRow();
+	}
+	
+	public int getNinjaColumn()
+	{
+		return ninjas[0].getColumn();
+	}
+	
+	public void moveNinjaDown()
+	{
+		ninjas[0].moveDown();
+	}
+	
+	public void moveNinjaUp()
+	{
+		ninjas[0].moveUp();
+	}
+	
+	public void moveNinjaRight()
+	{
+		ninjas[0].moveRight();
+	}
+	
+	public void moveNinjaLeft()
+	{
+		ninjas[0].moveLeft();
 	}
 }
