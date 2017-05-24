@@ -14,9 +14,7 @@ public class MainLaunch {
 	 */
 	public static void main(String[] args)
 	{
-	   // GameBoard gameBoard = new GameBoard();
-	   // gameBoard.printBoard();
-		UserInterface ui = new UserInterface(1, new GameEngine());
+		UserInterface ui = new UserInterface(new GameEngine());
 		ui.mainMenu();
 	}
 
