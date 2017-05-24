@@ -24,16 +24,16 @@ public class GameBoard {
 	
 	private Invincibility invincible;
 	
-	public GameBoard(Player play, Ninja enemy, Briefcase bc, Rooms room, Bullet b, Radar r, Invincibility i)
+	public GameBoard(Player play, Briefcase bc, Bullet b, Radar r, Invincibility i)
 	{
 		player = play;
-		setNinjas(enemy);
-		setRooms(room);
+		setNinjas();
+		setRooms();
 		bCase  = bc;
 		bullet = b;
 		radar = r;
 		invincible = i;
-		grid[player.getRow()][player.getColumn()] = getPlayerMark();
+		calculatePlayerPosition();
 		calculateRoomPositions();
 		calculateNinjaPositions();
 		calculateBriefCasePosition();
@@ -79,33 +79,35 @@ public class GameBoard {
 		}
 	}
 	
-	public void setNinjas(Ninja ninja)
+	public void setNinjas()
 	{
 		for(int i = 0; i < ninjas.length; i++)
 		{
-			ninjas[i] = ninja;
+			ninjas[i] = new Ninja();
 		}
 	}
 	
-	public void setRooms(Rooms room)
+	public void setRooms()
 	{
 		for(int i = 0; i < rooms.length; i++)
 		{
-			rooms[i] = room;
+			rooms[i] = new Rooms();
 		}
+	}
+	
+	public void calculatePlayerPosition()
+	{
+		grid[player.getRow()][player.getColumn()] = getPlayerMark();
 	}
 	
 	public void calculateRoomPositions()
 	{
-		grid[rooms[0].getRoomRow1()][rooms[0].getRoomColumn1()] = getRoomMark();
-		grid[rooms[1].getRoomRow1()][rooms[1].getRoomColumn2()] = getRoomMark();
-		grid[rooms[2].getRoomRow1()][rooms[2].getRoomColumn3()] = getRoomMark();
-		grid[rooms[3].getRoomRow2()][rooms[3].getRoomColumn1()] = getRoomMark();
-		grid[rooms[4].getRoomRow2()][rooms[4].getRoomColumn2()] = getRoomMark();
-		grid[rooms[5].getRoomRow2()][rooms[5].getRoomColumn3()] = getRoomMark();
-		grid[rooms[6].getRoomRow3()][rooms[6].getRoomColumn1()] = getRoomMark();
-		grid[rooms[7].getRoomRow3()][rooms[7].getRoomColumn2()] = getRoomMark();
-		grid[rooms[8].getRoomRow3()][rooms[8].getRoomColumn3()] = getRoomMark();
+		for(int i = 0; i < rooms.length; i++)
+		{
+			rooms[i].setRow(i);
+			rooms[i].setColumn(i);
+			grid[rooms[i].getRow()][rooms[i].getColumn()] = getRoomMark();
+		}
 	}
 	
 	public void calculateNinjaPositions()
@@ -142,31 +144,49 @@ public class GameBoard {
 		switch(randNum)
 		{
 		case 0:
-			grid[rooms[0].getRoomRow1()][rooms[0].getRoomColumn1()] = getBriefCaseMark();
+			grid[rooms[0].getRow()][rooms[0].getColumn()] = getBriefCaseMark();
+			bCase.setRow(rooms[0].getRow());
+			bCase.setColumn(rooms[0].getColumn());
 			break;
 		case 1:
-			grid[rooms[0].getRoomRow1()][rooms[0].getRoomColumn2()] = getBriefCaseMark();
+			grid[rooms[1].getRow()][rooms[1].getColumn()] = getBriefCaseMark();
+			bCase.setRow(rooms[1].getRow());
+			bCase.setColumn(rooms[1].getColumn());
 			break;
 		case 2:
-			grid[rooms[0].getRoomRow1()][rooms[0].getRoomColumn3()] = getBriefCaseMark();
+			grid[rooms[2].getRow()][rooms[2].getColumn()] = getBriefCaseMark();
+			bCase.setRow(rooms[2].getRow());
+			bCase.setColumn(rooms[2].getColumn());
 			break;
 		case 3:
-			grid[rooms[0].getRoomRow2()][rooms[0].getRoomColumn1()] = getBriefCaseMark();
+			grid[rooms[3].getRow()][rooms[3].getColumn()] = getBriefCaseMark();
+			bCase.setRow(rooms[3].getRow());
+			bCase.setColumn(rooms[3].getColumn());
 			break;
 		case 4:
-			grid[rooms[0].getRoomRow2()][rooms[0].getRoomColumn2()] = getBriefCaseMark();
+			grid[rooms[4].getRow()][rooms[4].getColumn()] = getBriefCaseMark();
+			bCase.setRow(rooms[4].getRow());
+			bCase.setColumn(rooms[4].getColumn());
 			break;
 		case 5:
-			grid[rooms[0].getRoomRow2()][rooms[0].getRoomColumn3()] = getBriefCaseMark();
+			grid[rooms[5].getRow()][rooms[5].getColumn()] = getBriefCaseMark();
+			bCase.setRow(rooms[5].getRow());
+			bCase.setColumn(rooms[5].getColumn());
 			break;
 		case 6:
-			grid[rooms[0].getRoomRow3()][rooms[0].getRoomColumn1()] = getBriefCaseMark();
+			grid[rooms[6].getRow()][rooms[6].getColumn()] = getBriefCaseMark();
+			bCase.setRow(rooms[6].getRow());
+			bCase.setColumn(rooms[6].getColumn());
 			break;
 		case 7:
-			grid[rooms[0].getRoomRow3()][rooms[0].getRoomColumn2()] = getBriefCaseMark();
+			grid[rooms[7].getRow()][rooms[7].getColumn()] = getBriefCaseMark();
+			bCase.setRow(rooms[7].getRow());
+			bCase.setColumn(rooms[7].getColumn());
 			break;
 		case 8:
-			grid[rooms[0].getRoomRow3()][rooms[0].getRoomColumn3()] = getBriefCaseMark();
+			grid[rooms[8].getRow()][rooms[8].getColumn()] = getBriefCaseMark();
+			bCase.setRow(rooms[8].getRow());
+			bCase.setColumn(rooms[8].getColumn());
 			break;	
 		}
 	}
@@ -174,17 +194,16 @@ public class GameBoard {
 	public void calculateBulletPosition()
 	{
 		int counter = 0;
-		int randRow = bullet.calculateRow();
-		int randColumn = bullet.calculateColumn();
 		
 		while(counter < 1)
 		{
+			int randRow = bullet.calculateRow();
+			int randColumn = bullet.calculateColumn();
+		
 			if(grid[randRow][randColumn] == null)
 			{
 				grid[randRow][randColumn] = getBulletMark();
 				counter++;
-			}else{
-			    calculateBulletPosition();
 			}
 		}
 	}
@@ -192,17 +211,16 @@ public class GameBoard {
 	public void calculateRadarPosition()
 	{
 		int counter = 0;
-		int randRow = radar.calculateRow();
-		int randColumn = radar.calculateColumn();
 		
 		while(counter < 1)
 		{
+			int randRow = radar.calculateRow();
+			int randColumn = radar.calculateColumn();
+		
 			if(grid[randRow][randColumn] == null)
 			{
 				grid[randRow][randColumn] = getRadarMark();
 				counter++;
-			}else{
-			    calculateRadarPosition();
 			}
 		}
 	}
@@ -210,17 +228,16 @@ public class GameBoard {
 	public void calculateInvinciblePosition()
 	{
 		int counter = 0;
-		int randRow = invincible.calculateRow();
-		int randColumn = invincible.calculateColumn();
 		
 		while(counter < 1)
 		{
+			int randRow = invincible.calculateRow();
+			int randColumn = invincible.calculateColumn();
+		
 			if(grid[randRow][randColumn] == null)
 			{
 				grid[randRow][randColumn] = getInvincibleMark();
 				counter++;
-			}else{
-			    calculateInvinciblePosition();
 			}
 		}
 	}	
