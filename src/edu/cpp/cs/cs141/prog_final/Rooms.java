@@ -21,51 +21,69 @@ public class Rooms
 	
 	private int roomColumn3 = 7;
 	
+	private int row;
+	
+	private int column;
+	
 	private String roomMark = "R";
-	
-	public Rooms()
-	{
-		roomRow1 = getRoomRow1();
-		roomRow2 = getRoomRow2();
-		roomRow3 = getRoomRow3();
-		roomColumn1 = getRoomColumn1();
-		roomColumn2 = getRoomColumn2();
-		roomColumn3 = getRoomColumn3();
-	}
-	
-	public int getRoomRow1()
-	{
-		return roomRow1;
-	}
-	
-	public int getRoomRow2() 
-	{
-		return roomRow2;
-	}
-
-	public int getRoomRow3() 
-	{
-		return roomRow3;
-	}
-
-	public int getRoomColumn1() 
-	{
-		return roomColumn1;
-	}
-
-	public int getRoomColumn2() 
-	{
-		return roomColumn2;
-	}
-
-	public int getRoomColumn3() 
-	{
-		return roomColumn3;
-	}
 
 	public String getRoomMark() 
 	{
 		return roomMark;
+	}
+	
+	public void setRow(int num) 
+	{
+		switch(num)
+		{
+		case 0:
+		case 1:
+		case 2:
+			row = roomRow1;
+			break;
+		case 3:
+		case 4:
+		case 5:
+			row = roomRow2;
+			break;
+		case 6:
+		case 7:
+		case 8:
+			row = roomRow3;
+			break;
+		}
+	}
+
+	public void setColumn(int num) 
+	{
+		switch(num)
+		{
+		case 0:
+		case 3:
+		case 6:
+			column = roomColumn1;
+			break;
+		case 1:
+		case 4:
+		case 7:
+			column = roomColumn2;
+			break;
+		case 2:
+		case 5:
+		case 8:
+			column = roomColumn3;
+			break;
+		}		
+	}
+
+	public int getRow() 
+	{
+		return row;
+	}
+
+	public int getColumn() 
+	{
+		return column;
 	}
  
 }
