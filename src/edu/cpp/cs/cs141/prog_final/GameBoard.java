@@ -259,4 +259,135 @@ public class GameBoard {
 	{
 		return radar.getRadarMark();
 	}
+	
+	public void printNewBoard()
+	{		
+		for(int i = 0; i < grid.length; i++)
+		{
+			for(int j = 0; j < grid[i].length; j++)
+			{
+				if(grid[i][j] == getPlayerMark() || grid[i][j] == getNinjaMark())
+				{
+					grid[i][j] = " ";
+				}
+				grid[player.getRow()][player.getColumn()] = getPlayerMark();
+				for(int k = 0; k < ninjas.length; k++)
+				{
+					grid[ninjas[k].getRow()][ninjas[k].getColumn()] = getNinjaMark();
+				}
+				System.out.print("[" + grid[i][j] + "]");
+			}
+			System.out.println();
+		}
+	}
+	
+	public int getPlayerRow()
+	{
+		return player.getRow();
+	}
+	
+	public int getPlayerColumn()
+	{
+		return player.getColumn();
+	}
+	
+	public void movePlayerUp()
+	{
+		player.moveUp();
+	}
+	
+	public void movePlayerDown()
+	{
+		player.moveDown();
+	}
+	
+	public void movePlayerRight()
+	{
+		player.moveRight();
+	}
+	
+	public void movePlayerLeft()
+	{
+		player.moveLeft();
+	}
+	
+	public int getNinjaRow(int num)
+	{
+		if(num == 0)
+		{
+			return ninjas[0].getRow();
+		}
+		else
+			if(num == 1)
+			{
+				return ninjas[1].getRow();
+			}
+			else
+				if(num == 2)
+				{
+					return ninjas[2].getRow();
+				}
+				else
+					if(num == 3)
+					{
+						return ninjas[3].getRow();
+					}
+					else
+						if(num == 4)
+						{
+							return ninjas[4].getRow();
+						}
+						else
+							return ninjas[5].getRow();
+	}
+	
+	public int getNinjaColumn(int num)
+	{
+		if(num == 0)
+		{
+			return ninjas[0].getColumn();
+		}
+		else
+			if(num == 1)
+			{
+				return ninjas[1].getColumn();
+			}
+			else
+				if(num == 2)
+				{
+					return ninjas[2].getColumn();
+				}
+				else
+					if(num == 3)
+					{
+						return ninjas[3].getColumn();
+					}
+					else
+						if(num == 4)
+						{
+							return ninjas[4].getColumn();
+						}
+						else
+							return ninjas[5].getColumn();
+	}
+	
+	public void moveNinjaDown(int num)
+	{
+		ninjas[num].moveDown();
+	}
+	
+	public void moveNinjaUp(int num)
+	{
+		ninjas[num].moveUp();
+	}
+	
+	public void moveNinjaRight(int num)
+	{
+		ninjas[num].moveRight();
+	}
+	
+	public void moveNinjaLeft(int num)
+	{
+		ninjas[num].moveLeft();
+	}
 }
