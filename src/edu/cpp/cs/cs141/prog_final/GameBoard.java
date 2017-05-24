@@ -173,16 +173,16 @@ public class GameBoard {
 	
 	public void calculateBulletPosition()
 	{
-		boolean validCell = false;
+		int counter = 0;
 		int randRow = bullet.calculateRow();
 		int randColumn = bullet.calculateColumn();
 		
-		while(!validCell)
+		while(counter < 1)
 		{
 			if(grid[randRow][randColumn] == null)
 			{
 				grid[randRow][randColumn] = getBulletMark();
-				validCell = true;
+				counter++;
 			}else{
 			    calculateBulletPosition();
 			}
@@ -191,16 +191,16 @@ public class GameBoard {
 	
 	public void calculateRadarPosition()
 	{
-		boolean validCell = false;
+		int counter = 0;
 		int randRow = radar.calculateRow();
 		int randColumn = radar.calculateColumn();
 		
-		while(!validCell)
+		while(counter < 1)
 		{
 			if(grid[randRow][randColumn] == null)
 			{
 				grid[randRow][randColumn] = getRadarMark();
-				validCell = true;
+				counter++;
 			}else{
 			    calculateRadarPosition();
 			}
@@ -209,16 +209,16 @@ public class GameBoard {
 	
 	public void calculateInvinciblePosition()
 	{
-		boolean validCell = false;
+		int counter = 0;
 		int randRow = invincible.calculateRow();
 		int randColumn = invincible.calculateColumn();
 		
-		while(!validCell)
+		while(counter < 1)
 		{
 			if(grid[randRow][randColumn] == null)
 			{
 				grid[randRow][randColumn] = getInvincibleMark();
-				validCell = true;
+				counter++;
 			}else{
 			    calculateInvinciblePosition();
 			}

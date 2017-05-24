@@ -135,7 +135,7 @@ public class UserInterface {
 
 		/**
 		 * About/help page.
-		 * Displays information about how to play, backstory, and returns to firstMenu() if any input is received.
+		 * Displays information about how to play, backstory, and returns to firstMenu() if any input is recieved.
 		 */
 		private void aboutMenu() {
 			System.out.println("This is a placeholder about page...");
