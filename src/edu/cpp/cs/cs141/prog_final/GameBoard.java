@@ -183,6 +183,8 @@ public class GameBoard {
 			{
 				grid[randRow][randColumn] = getBulletMark();
 				counter++;
+			}else{
+			    calculateBulletPosition();
 			}
 		}
 	}
@@ -199,6 +201,8 @@ public class GameBoard {
 			{
 				grid[randRow][randColumn] = getRadarMark();
 				counter++;
+			}else{
+			    calculateRadarPosition();
 			}
 		}
 	}
@@ -215,6 +219,8 @@ public class GameBoard {
 			{
 				grid[randRow][randColumn] = getInvincibleMark();
 				counter++;
+			}else{
+			    calculateInvinciblePosition();
 			}
 		}
 	}	
