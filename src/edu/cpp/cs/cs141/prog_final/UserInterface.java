@@ -92,6 +92,8 @@ public class UserInterface {
 		
 		ge.move(choice);
 		
+		ge.moveNinja();
+		
 		ge.printNewBoard();
 		
 		
