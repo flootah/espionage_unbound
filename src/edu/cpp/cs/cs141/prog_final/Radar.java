@@ -13,10 +13,17 @@ public class Radar extends PowerUps
 	
 	private int column;
 	
+	private String radarMark = "r";
+	
 	public Radar()
 	{
-		row = calculateRow();
-		column = calculateColumn();
+		//row = calculateRow();
+		//column = calculateColumn();
+	}
+
+	public String getRadarMark() 
+	{
+		return radarMark;
 	}
 	
 }

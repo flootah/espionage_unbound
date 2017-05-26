@@ -52,29 +52,84 @@ public class UserInterface
 	 * 
 	 * After page 4, mainMenu ends by calling either TUI or GUI, which will take over main UI responsibilities.
 	 */
+	
 	public void mainMenu()
+	{
+		printStartScreen();
+		boolean exit = false;
+		
+		while(!exit)
+		{
+			int choice = startMenu();
+		
+			switch(choice)
+			{
+			case 1:
+				runGame();
+				break;
+				
+			case 2:
+				ge.createBuilding();
+				debugBoard();
+				break;
+				
+			case 3:
+				exit = true;
+				break;
+				
+			default:
+				System.out.println("Invalid choice, please choose again.");					
+			}
+		}		
+	}
+	
+
+	
+	private int startMenu() 
 	{
 		int choice = 0;
 		
-		System.out.println("Choose a board.");
+		System.out.println("Select an option: ");
 		System.out.println("1. Normal ");
 		System.out.println("2. Debug  ");
 		System.out.println("3. Exit   ");
 		
 		choice = sc.nextInt();
+		sc.nextLine();
 		
-			switch(choice)
-			{
-			case 1:
-				printBoard();
-				break;
-			case 2:
-				debugBoard();
-				break;
-				default:
-					System.out.println("Invalid choice please choose again.");
-					break;	
-			}
+		return choice;
+	}
+
+	private void runGame()
+	{
+		ge.createBuilding();
+		ge.displayDebugBoard();
+		
+		while(!gamePlay());
+	}
+
+	private boolean gamePlay() 
+	{
+		String choice = "";
+		System.out.println("Choose your move: W A S D");
+		
+		choice = sc.nextLine();
+		
+		ge.movePlayer(choice);
+		
+		ge.moveNinja();
+		
+		ge.printNewBoard();
+		
+		
+		return false;
+	}
+
+
+	private void printStartScreen() 
+	{
+		System.out.println("Welcome to Espionage Unbound!");
+		
 	}
 	
 	/**
@@ -84,16 +139,6 @@ public class UserInterface
 	 * 
 	 */
 	private void TUI() {
-		//code
-	}
-	
-	/**
-	 * The Graphical User Interface method.
-	 * Used when player is ingame.
-	 * Creates a user interface based on graphical images. Uses TODO x game states.
-	 * 
-	 */
-	private void GUI() {
 		//code
 	}
 	
@@ -113,8 +158,9 @@ public class UserInterface
 	 * Asks the player if they want to start a new game, load a save, display a help page, or exit.
 	 * changes game state accordingly, or exit the program.
 	 */
-	private void firstMenu() {
-		//code
+	private void firstMenu() 
+	{
+
 	}
 	
 	/**
@@ -137,15 +183,17 @@ public class UserInterface
 	 * Asks the player to choose the type of UI they would like to use for the duration of the program.
 	 * Sets a global variable accordingly, then send the game state to inGame()
 	 */
-	private void uiMenu() {
-		//code
+	private void uiMenu()
+	{
+
 	}
 	/**
 	 * Main ui state, for when the player is ingame.
 	 * Displays the map, player stats, and follows prompts from the player.
 	 */
-	private void inGame() {
-		//code
+	private void inGame() 
+	{
+		
 	}
 	/**
 	 * Pause menu.
@@ -171,8 +219,9 @@ public class UserInterface
 	 * Method handling debug mode.
 	 * Prints the map for the player in a different way, giving full vision to the board.
 	 */
-	public void debugMode() {
-		//code
+	public void debugMode() 
+	{
+		
 	}
 	/**
 	 * Moves an entity on the board.
@@ -181,13 +230,13 @@ public class UserInterface
 
 	public void printBoard() 
 	{
-		ge.createBuilding();
+		//ge.createBuilding();
 		ge.displayBoard();
 	}
 	
 	public void debugBoard()
 	{
-		ge.createBuilding();
+		//ge.createBuilding();
 		ge.displayDebugBoard();
 	}
 

@@ -9,4 +9,6 @@ package edu.cpp.cs.cs141.prog_final;
  */
 public abstract class ActiveAgents {
 	
+    private int row;
+    private int column;
 }

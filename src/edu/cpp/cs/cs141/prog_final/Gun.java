@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.cpp.cs.cs141.prog_final;
+package edu.cpp.cs.cs141.final_project;
 
 /**
  * @author Corey Perez
@@ -21,7 +21,10 @@ public class Gun
 	
 	public void shoot()
 	{
-		ammo--;
+		if(ammo > 0)
+		{
+			ammo--;
+		}
 	}
 	
 	public void reload()

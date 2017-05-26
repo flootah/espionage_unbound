@@ -10,7 +10,7 @@ import java.util.Random;
  *
  */
 public abstract class PowerUps 
-{	
+{		
 	public int calculateRow()
 	{
 		int randRow = new Random().nextInt(9);
