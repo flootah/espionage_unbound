@@ -44,7 +44,7 @@ public class Player
 		return lives;
 	}
 	
-	public void move(String userMove)
+	private void move(String userMove)
 	{
 		switch (userMove) 
 		{

@@ -9,10 +9,6 @@ package edu.cpp.cs.cs141.prog_final;
  */
 public class Bullet extends PowerUps 
 {
-	private int row;
-	
-	private int column;
-	
 	private String bulletMark = "b";
 	
 	public Bullet()
@@ -24,15 +20,5 @@ public class Bullet extends PowerUps
 	public String getBulletMark() 
 	{
 		return bulletMark;
-	}
-	
-	public int getRow()
-	{
-		return row;
-	}
-	
-	public int getColumn()
-	{
-		return column;
 	}
 }

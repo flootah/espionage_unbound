@@ -25,13 +25,20 @@ public class Ninja
 
 	public int calculateColumn() 
 	{
-		int randColumn = new Random().nextInt(9);
+		Random rng = new Random();
+		int randColumn = rng.nextInt(9);
+		while(randColumn ==  1 || randColumn == 4 || randColumn == 7) {
+			randColumn = rng.nextInt(9);
+		}
 		return randColumn;
 	}
 
 	public int calculateRow() 
 	{
 		int randRow = new Random().nextInt(9);
+		while(randRow ==  1 || randRow == 4 || randRow == 7) {
+			randRow = new Random().nextInt(9);
+		}
 		return randRow;
 	}
 

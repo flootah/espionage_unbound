@@ -9,10 +9,6 @@ package edu.cpp.cs.cs141.prog_final;
  */
 public class Invincibility extends PowerUps 
 {
-	private int row;
-	
-	private int column;
-	
 	private String invincibleMark = "i";
 
 	public Invincibility()
