@@ -113,7 +113,7 @@ public class UserInterface {
 			boolean gameOver = ge.gameOver();
 			int[] stats = playerStats();
 
-			while(!gameOver) {
+			while(true) {
 			if(debug) {
 				ge.printDebugGrid();
 				} else {
@@ -122,15 +122,11 @@ public class UserInterface {
 			
 			String choice = "";
 			System.out.println("Choose your move: W A S D");
-/*TODO*/			System.out.print("Lives: " + stats[0]);
-/*TODO*/			System.out.println("          Ammo: " + stats[1]);
-			
+/*TODO*/	System.out.print("Lives: " + stats[0]);
+/*TODO*/	System.out.println("          Ammo: " + stats[1]);		
 			choice = sc.nextLine();
-			
 			ge.movePlayer(choice);
-			
 			ge.moveNinja();
-
 			}
 		}
 		/**
@@ -182,9 +178,7 @@ public class UserInterface {
 			case 3:
 				state = 2;
 				break;
-			}
-			System.out.println(state);
-		}
+			}		}
 		
 		private void changeState(int i) {
 			state = i;

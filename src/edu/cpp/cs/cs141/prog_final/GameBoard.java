@@ -31,7 +31,7 @@ public class GameBoard {
 					//set Ninjas
 					if(grid[i][j] == " ") {
 						for(int n = 0; n < NUM_NINJAS; n++) {
-							if(j == ge.getRoomColumn(n) && i == ge.getNinjaRow(n)) {
+							if(j == ge.getNinjaColumn(n) && i == ge.getNinjaRow(n)) {
 								grid[i][j] = ge.getNinjaMark();
 							}
 						}

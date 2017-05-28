@@ -66,55 +66,6 @@ public class Ninja
 	{
 		return column;
 	}
-	
-	public void move()
-	{
-	     int rng = new Random().nextInt(4);
-		    switch (rng) 
-		    {
-		    case 0:
-				if (row > 0) 
-				{
-					row--;
-				} 
-				else 
-				{
-					move();
-				}
-		        break;
-		    case 1:
-				if (row < 8) 
-				{
-					row++;
-				} 
-				else 
-				{
-					move();
-				}
-		        break;
-		    case 2:
-				if (column > 0) 
-				{
-					column--;
-				} 
-				else 
-				{
-					move();
-				}
-		        break;
-		    case 3:
-				if (column < 8) 
-				{
-					column++;
-				} 
-				else 
-				{
-					move();
-				}
-		        break;
-		    }
-
-	}
 
 	public void moveDown() 
 	{

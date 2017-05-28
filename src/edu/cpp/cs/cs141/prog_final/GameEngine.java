@@ -71,47 +71,46 @@ public class GameEngine
 	public void printDebugGrid() {
 		gb.printDebugGrid();
 	}
-/**
-  * THIS WAS HERE BEFORE I MOVED IT TO TH GAME BOARD, IM SCARED TO DELETE IT BUT FEEL FREE TO IF THIS ENDS UP WORKING WELL.
+
+//  * THIS WAS HERE BEFORE I MOVED IT TO TH GAME BOARD, IM SCARED TO DELETE IT BUT FEEL FREE TO IF THIS ENDS UP WORKING WELL.
 //Print Debug Grid Method 
-	public void printDebugGrid()
+/*	public void printDebugGriddebug()
 	{
+		System.out.println("running printDebugGriddebug()");
+		//double for loop, for running thru each of the grid[][]'s coordinates.
 		for(int i = 0; i < grid.length; i++) {
 			for(int j = 0; j < grid[i].length; j++) {
 				//set all cells empty
 					grid[i][j] = " ";
-				//Set player
-				if(grid[i][j] == " " && (j == player.getColumn() && i == player.getRow())) {
-					grid[i][j] = player.getPlayerMark();
-				}
-				//set Ninjas
-				if(grid[i][j] == " ") {
-					for(int n = 0; n < ninjas.length; n++) {
-						if(j == rooms[n].getColumn() && i == ninjas[n].getRow()) {
-							grid[i][j] = ninjas[n].getNinjaMark();
-						}
-					}
-				}
 				/**set rooms
 				 * Runs through every cell on the board.
-				 * 	-if the cell is empty, then it will check if it's coordinates matches any of the rooms' coordinates.
+				 * 	-loops each cell, and check if it's coordinates matches any of the rooms' coordinates.
 				 *  -if they match, then the object's corresponding mark is placed.
 				 * All the rest of these setters go through essentially the same process.
 				 */
-	
-	/*
-				if(grid[i][j] == " ") {
-					for(int n = 0; n < rooms.length; n++) {
-						if(j == rooms[n].getColumn() && i == rooms[n].getRow()) {
-							grid[i][j] = rooms[n].getRoomMark();
-						}
+/*				for(int n = 0; n < rooms.length; n++) {
+					if(j == rooms[n].getColumn() && i == rooms[n].getRow()) {
+						grid[i][j] = rooms[n].getRoomMark();
+					}
+				}
+				//set player
+				if((j == player.getColumn() && i == player.getRow())) {
+					grid[i][j] = player.getPlayerMark();
+				}
+				//set ninjas
+				for(int n = 0; n < ninjas.length; n++) {
+					if(j == rooms[n].getColumn() && i == ninjas[n].getRow()) {
+						grid[i][j] = ninjas[n].getNinjaMark();
 					}
 				}
 				//set bCase
+				//Overrides room mark, thus room and briefcase objects can hold same coordinates
 				if(j == bCase.getColumn() && i == bCase.getRow()) {
 					grid[i][j] = bCase.getBriefCaseMark();
 				}
 				//set bullet
+				//only places if area is empty, thus if a ninja or player is on it, it will be overridden, but still keep its corrdinates.
+				//this applies for the other two powerup objects.
 				if(grid[i][j] == " " && (j == bullet.getColumn() && i == bullet.getRow())) {
 					grid[i][j] = bullet.getBulletMark();
 				}
@@ -140,6 +139,7 @@ public class GameEngine
 			if (getPlayerRow() > 0 && !roomCollisionPlayer("up")) 
 			{
 				movePlayerUp();
+				break;
 			}
 			else 
 			{
@@ -151,6 +151,7 @@ public class GameEngine
 		    if (getPlayerRow() < 8 && !roomCollisionPlayer("down")) 
 		    {
 		    	movePlayerDown();
+		    	break;
 			} 
 		    else 
 		    {
@@ -162,6 +163,7 @@ public class GameEngine
 		    if (getPlayerColumn() > 0 && !roomCollisionPlayer("left")) 
 		    {
 		    	movePlayerLeft();
+		    	break;
 			} 
 		    else 
 		    {
@@ -173,6 +175,7 @@ public class GameEngine
 		    if (getPlayerColumn() < 8 && !roomCollisionPlayer("right")) 
 		    {
 		    	movePlayerRight();
+		    	break;
 			} 
 		    else 
 		    {
@@ -186,33 +189,37 @@ public class GameEngine
 	
 	public void moveNinja()
 	{
-		int counter = 0;
-		
-		while(counter < 6)
-		{
+		for(int counter = 0; counter < NUM_NINJAS; counter++) {
+			//Below is a debug print to check ninja coordinates while running the game.
+			//System.out.println("ninja " + counter + " processing...");
+			//System.out.println("precoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
 			int rng = new Random().nextInt(4);
-			if(rng == 3 && getNinjaRow(counter) > 0 && getNinjaRow(counter) <= 8 && !roomCollisionNinja(ninjas[counter], "up"))
-			{
-				moveNinjaUp(counter);
-				counter++;
-			}
-			else
-				if(rng == 2 && getNinjaRow(counter) < 8 && getNinjaRow(counter) >= 0 && !roomCollisionNinja(ninjas[counter], "down"))
-				{
+			switch(rng) {
+			case 0: //up
+				if(getNinjaRow(counter) > 0 && getNinjaRow(counter) <= 8 && !roomCollisionNinja(counter, "up")) {
+					moveNinjaUp(counter);
+				}
+				break;
+			case 1: //down
+				if(getNinjaRow(counter) >= 0 && getNinjaRow(counter) < 8 && !roomCollisionNinja(counter, "down")) {
 					moveNinjaDown(counter);
-					counter++;
-			} else
-					if(rng == 1 && getNinjaColumn(counter) >= 0 && getNinjaColumn(counter) < 8 && !roomCollisionNinja(ninjas[counter], "down"))
-					{
-						moveNinjaRight(counter);
-						counter++;
-					}
-					else
-						if(rng == 0 && getNinjaColumn(counter) <= 8 && getNinjaColumn(counter) > 0 && !roomCollisionNinja(ninjas[counter], "down"))
-						{
-							moveNinjaLeft(counter);
-							counter++;
-						}						
+				}
+				break;
+			case 2: //left
+				if(getNinjaColumn(counter) > 0 && getNinjaColumn(counter) <= 8 && !roomCollisionNinja(counter, "left")) {
+					moveNinjaLeft(counter);
+				}
+				break;
+			case 3: //right
+				if(getNinjaColumn(counter) >= 0 && getNinjaColumn(counter) < 8 && !roomCollisionNinja(counter, "right")) {
+					moveNinjaRight(counter);
+				}
+				break;
+			default:
+				System.out.println("error in moveNinja() rng");
+				break;
+			}
+			System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
 		}
 	}
 	
@@ -252,33 +259,33 @@ public class GameEngine
 		return collision;
 	}
 	
-	public boolean roomCollisionNinja(Ninja n, String dir) {
+	public boolean roomCollisionNinja(int counter, String dir) {
 		boolean collision = false;
 		switch(dir) {
 		case "up": 
 			for(int r = 0;r < rooms.length; r++) {
-				if((n.getRow() - 1 == rooms[r].getRow()) && (n.getColumn() == rooms[r].getColumn())) {
+				if((ninjas[counter].getRow() - 1 == rooms[r].getRow()) && (ninjas[counter].getColumn() == rooms[r].getColumn())) {
 					collision = true;
 				}
 			}
 			break;
 		case "left":
 			for(int r = 0;r < rooms.length; r++) {
-				if((n.getColumn() - 1 == rooms[r].getColumn()) && (n.getRow() == rooms[r].getRow())) {
+				if((ninjas[counter].getColumn() - 1 == rooms[r].getColumn()) && (ninjas[counter].getRow() == rooms[r].getRow())) {
 					collision = true;
 				}
 			}
 			break;
 		case "right":
 			for(int r = 0;r < rooms.length; r++) {
-				if((n.getColumn() + 1 == rooms[r].getColumn()) && (n.getRow() == rooms[r].getRow())) {
+				if((ninjas[counter].getColumn() + 1 == rooms[r].getColumn()) && (ninjas[counter].getRow() == rooms[r].getRow())) {
 					collision = true;
 				}
 			}
 			break;
 		case "down":
 			for(int r = 0;r < rooms.length; r++) {
-				if((n.getRow() + 1 == rooms[r].getRow()) && (n.getColumn() == rooms[r].getColumn())) {
+				if((ninjas[counter].getRow() + 1 == rooms[r].getRow()) && (ninjas[counter].getColumn() == rooms[r].getColumn())) {
 					collision = true;
 				}
 			}
@@ -709,6 +716,7 @@ public class GameEngine
 
 	public boolean gameOver() {
 		// TODO Auto-generated method stub
+		// returns true when a game-ending scenario has been reached.
 		return false;
 	}
 	
