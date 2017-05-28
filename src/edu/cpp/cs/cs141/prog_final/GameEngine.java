@@ -121,7 +121,7 @@ public class GameEngine {
         }
     }
 
-    public void gunShoot(char direction) {
+    public void gunShoot(String direction) {
         gun.shoot(direction);
     }
 
