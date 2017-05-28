@@ -19,25 +19,25 @@ public class Gun
 	}
 
 	
-	public void shoot(char direction)
+	public void shoot(String direction)
 	{
 		if(ammo > 0)
 		{
 		    switch (direction) {
-		    case 'W':
-		    case 'w':
+		    case "W":
+		    case "w":
 		        shootUp();
 		        break;
-		    case 'S':
-		    case 's':
+		    case "S":
+		    case "s":
 		        shootDown();
 		        break;
-		    case 'A':
-		    case 'a':
+		    case "A":
+		    case "a":
 		        shootLeft();
 		        break;
-		    case 'D':
-		    case 'd':
+		    case "D":
+		    case "d":
 		        shootRight();
 		        break;
 		    }
