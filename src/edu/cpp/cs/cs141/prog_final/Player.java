@@ -33,9 +33,9 @@ public class Player
 		column = 0;		
 	}
 
-	public void shoot()
+	public void shoot(String direction)
 	{
-		gun.shoot();
+		gun.shoot(direction);
 	}
 	
 	public void reloadPlayerGun()
