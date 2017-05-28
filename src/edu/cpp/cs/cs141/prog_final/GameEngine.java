@@ -551,36 +551,22 @@ public class GameEngine
 							return ninjas[5].getRow();
 	}
 	
-	public int getNinjaColumn(int num)
-	{
-		if(num == 0)
-		{
-			return ninjas[0].getColumn();
-		}
-		else
-			if(num == 1)
-			{
-				return ninjas[1].getColumn();
-			}
-			else
-				if(num == 2)
-				{
-					return ninjas[2].getColumn();
-				}
-				else
-					if(num == 3)
-					{
-						return ninjas[3].getColumn();
-					}
-					else
-						if(num == 4)
-						{
-							return ninjas[4].getColumn();
-						}
-						else
-							return ninjas[5].getColumn();
+    public int getNinjaColumn(int num) {
+        if (num == 0) {
+            return ninjas[0].getColumn();
+        } else if (num == 1) {
+            return ninjas[1].getColumn();
+        } else if (num == 2) {
+            return ninjas[2].getColumn();
+        } else if (num == 3) {
+            return ninjas[3].getColumn();
+        } else if (num == 4) {
+            return ninjas[4].getColumn();
+        } else
+            return ninjas[5].getColumn();
 	}
-	///movers for ninjas.
+    
+	//movers for ninjas.
 	public void moveNinjaDown(int num)
 	{
 		ninjas[num].moveDown();

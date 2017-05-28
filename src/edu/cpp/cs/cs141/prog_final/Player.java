@@ -9,7 +9,7 @@ package edu.cpp.cs.cs141.prog_final;
  */
 public class Player 
 {
-	private final int maxLives = 3;
+	private final int MAX_LIVES = 3;
 	
 	private int lives;
 	
@@ -24,7 +24,7 @@ public class Player
 	public Player(Gun weapon)
 	{
 		gun = weapon;
-		lives = maxLives;
+		lives = MAX_LIVES;
 		row = 8;
 		column = 0;		
 	}
@@ -42,6 +42,10 @@ public class Player
 	public int getLives()
 	{
 		return lives;
+	}
+	
+	public int loselife(){
+	    return --lives;
 	}
 	
 	private void move(String userMove)
