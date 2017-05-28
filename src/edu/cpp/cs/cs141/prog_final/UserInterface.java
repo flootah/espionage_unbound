@@ -162,7 +162,7 @@ public class UserInterface {
      */
     private int[] playerStats() {
         // code
-        int[] playerStats = { ge.getAmmo(), ge.getLives() };
+        int[] playerStats = { ge.getLives(), ge.getAmmo() };
         return playerStats;
     }
 
