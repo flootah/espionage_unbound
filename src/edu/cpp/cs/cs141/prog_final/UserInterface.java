@@ -121,7 +121,7 @@ public class UserInterface {
             }
 
             char choice;
-            char gunDirection;
+            String gunDirection;
             System.out.println("Choose your move: W, A, S, D, B");
             /* TODO */ System.out.println("Lives: " + stats[0] + "\nAmmo: " + stats[1]);
             choice = sc.nextLine().charAt(0);
@@ -129,7 +129,7 @@ public class UserInterface {
             case 'B':
             case 'b':
                 System.out.print("What direction would you like to shoot (W, A, S, D)? ");
-                gunDirection = sc.nextLine().charAt(0);
+                gunDirection = sc.nextLine();
                 ge.gunShoot(gunDirection);
                 break;
             case 'W':
