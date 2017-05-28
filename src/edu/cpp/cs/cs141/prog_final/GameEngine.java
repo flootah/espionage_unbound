@@ -41,7 +41,8 @@ public class GameEngine {
     private Gun gun;
 
     public GameEngine() {
-        player = new Player(new Gun());
+        gun = new Gun();
+        player = new Player(gun);
         setNinjas();
         setRooms();
         bCase = new Briefcase();
