@@ -11,6 +11,8 @@ public class Player
 {
 	private final int MAX_LIVES = 3;
 	
+	private final int INVINCIBLE_TURNS = 5;
+	
 	private int lives;
 	
 	private Gun gun;
@@ -18,6 +20,8 @@ public class Player
 	private int row;
 	
 	private int column;
+	
+	private int invincibility;
 	
 	private String playerMark = "P";
 	
@@ -46,6 +50,17 @@ public class Player
 	
 	public int loselife(){
 	    return --lives;
+	}
+	
+	public void setInvincibility(int invincibility){
+	    this.invincibility = invincibility;
+	}
+	
+	/** WORK IN PROGRESS: method that subtracts the invincibility by one each turn.*/
+	public void invincibilityDuration(){
+	    for (int i = INVINCIBLE_TURNS; i > 0; i--){
+	        setInvincibility(i);
+	    }
 	}
 	
 	private void move(String userMove)
