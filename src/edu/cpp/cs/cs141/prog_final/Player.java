@@ -71,7 +71,7 @@ public class Player
 		case "w":
 			if (row > 0) 
 			{
-				row--;
+			    moveUp();
 			} 
 			else 
 			{
@@ -82,7 +82,7 @@ public class Player
 		case "s":
 		    if (row < 8) 
 		    {
-		    	row++;
+		        moveDown();
 			} 
 		    else 
 		    {
@@ -93,7 +93,7 @@ public class Player
 		case "a":
 		    if (column > 0) 
 		    {
-		    	column--;
+		        moveLeft();
 			} 
 		    else 
 		    {
@@ -104,7 +104,7 @@ public class Player
 		case "d":
 		    if (column < 8) 
 		    {
-		    	column++;
+		        moveRight();
 			} 
 		    else 
 		    {
