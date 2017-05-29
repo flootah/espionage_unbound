@@ -158,26 +158,26 @@ public class UserInterface
 			
             String choice;
             String gunDirection;
-            System.out.println("Choose your move: W, A, S, D, B");
+            System.out.println("Choose your move: W, A, S, D, B, K");
             System.out.println("Lives: " + ge.getLives() + "\nAmmo: " + ge.getAmmo());
             choice = sc.nextLine();
-            switch (choice) {
+            switch (choice.toUpperCase()) {
             case "B":
-            case "b":
                 System.out.print("What direction would you like to shoot (W, A, S, D)? ");
                 gunDirection = sc.nextLine();
                 ge.gunShoot(gunDirection);
                 ge.moveNinja();
                 break;
+            case "K":
+                saveGame();
             case "W":
-            case "w":
             case "A":
-            case "a":
             case "S":
-            case "s":
             case "D":
-            case "d":
                 ge.userMoveInput(choice);
+                break;
+            default:
+                System.out.println("Invalid Move");
                 break;
             }
         }
@@ -379,7 +379,7 @@ public class UserInterface
 	     System.out.println("Save Files must be more than 3 characters");
 	     while(true) {
 		     saveName = sc.next();
-		     if(saveName == "c" || saveName == "C") {
+		     if(saveName.equalsIgnoreCase("c")) {
 		    	 changeState(previousState);
 		    	 break;
 		     } else if(saveName.length() <= 3) {
@@ -398,7 +398,7 @@ public class UserInterface
 	     while(true) {
 	    String loadName;
 	    loadName = sc.nextLine();
-		     if(loadName == "c" || loadName == "C") {
+		     if(loadName.equalsIgnoreCase("c")) {
 		    	 changeState(previousState);
 		    	 break;
 		     } else if(loadName.length() <= 3) {
@@ -415,10 +415,7 @@ public class UserInterface
 	  * used to simulate screen clearing.
 	  */
 	private void cls() {
-		 System.out.println(  "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
-		 					+ "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
-		 					+ "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
-		 					+ "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n");
+		 System.out.println("\n");
 	}
 
 
