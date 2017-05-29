@@ -106,16 +106,16 @@ public class GameEngine {
      * System.out.print("[" + grid[i][j] + "]"); } System.out.println(); } }
      */
 
-    public void userMoveInput(char choice) {
+    public void userMoveInput(String choice) {
         switch (choice) {
-        case 'W':
-        case 'w':
-        case 'S':
-        case 's':
-        case 'A':
-        case 'a':
-        case 'D':
-        case 'd':
+        case "W":
+        case "w":
+        case "S":
+        case "s":
+        case "A":
+        case "a":
+        case "D":
+        case "d":
             movePlayer(choice);
             moveNinja();
             break;
@@ -126,10 +126,10 @@ public class GameEngine {
         gun.shoot(direction);
     }
 
-    public void movePlayer(char userMove) {
+    public void movePlayer(String userMove) {
         switch (userMove) {
-        case 'W':
-        case 'w':
+        case "W":
+        case "w":
             if (getPlayerRow() > 0 && !roomCollisionPlayer("up")) {
                 movePlayerUp();
                 break;
@@ -137,8 +137,8 @@ public class GameEngine {
                 System.out.println("It's a wall.");
             }
             break;
-        case 'S':
-        case 's':
+        case "S":
+        case "s":
             if (getPlayerRow() < 8 && !roomCollisionPlayer("down")) {
                 movePlayerDown();
                 break;
@@ -146,8 +146,8 @@ public class GameEngine {
                 System.out.println("It's a wall.");
             }
             break;
-        case 'A':
-        case 'a':
+        case "A":
+        case "a":
             if (getPlayerColumn() > 0 && !roomCollisionPlayer("left")) {
                 movePlayerLeft();
                 break;
@@ -155,8 +155,8 @@ public class GameEngine {
                 System.out.println("It's a wall.");
             }
             break;
-        case 'D':
-        case 'd':
+        case "D":
+        case "d":
             if (getPlayerColumn() < 8 && !roomCollisionPlayer("right")) {
                 movePlayerRight();
                 break;
@@ -174,34 +174,26 @@ public class GameEngine {
             // System.out.println("ninja " + counter + " processing...");
             // System.out.println("precoordinates: " +
             // ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
-            int rng = new Random().nextInt(4);
-            switch (rng) {
-            case 0: // up
-                if (getNinjaRow(counter) > 0 && getNinjaRow(counter) <= 8 && !roomCollisionNinja(counter, "up")) {
-                    moveNinjaUp(counter);
-                }
-                break;
-            case 1: // down
-                if (getNinjaRow(counter) >= 0 && getNinjaRow(counter) < 8 && !roomCollisionNinja(counter, "down")) {
-                    moveNinjaDown(counter);
-                }
-                break;
-            case 2: // left
-                if (getNinjaColumn(counter) > 0 && getNinjaColumn(counter) <= 8
-                        && !roomCollisionNinja(counter, "left")) {
-                    moveNinjaLeft(counter);
-                }
-                break;
-            case 3: // right
-                if (getNinjaColumn(counter) >= 0 && getNinjaColumn(counter) < 8
-                        && !roomCollisionNinja(counter, "right")) {
-                    moveNinjaRight(counter);
-                }
-                break;
-            default:
-                System.out.println("error in moveNinja() rng");
-                break;
-            }
+             int rng = new Random().nextInt(4);
+				if(rng == 3 && getNinjaRow(counter) > 0 && getNinjaRow(counter) <= 8 && !roomCollisionNinja(counter, "up"))
+				{
+					moveNinjaUp(counter);
+				}
+				else
+					if(rng == 2 && getNinjaRow(counter) < 8 && getNinjaRow(counter) >= 0 && !roomCollisionNinja(counter, "down"))
+					{
+						moveNinjaDown(counter);
+					}
+					else
+						if(rng == 1 && getNinjaColumn(counter) >= 0 && getNinjaColumn(counter) < 8 && !roomCollisionNinja(counter, "right"))
+						{
+							moveNinjaRight(counter);
+						}
+						else
+							if(rng == 0 && getNinjaColumn(counter) <= 8 && getNinjaColumn(counter) > 0 && !roomCollisionNinja(counter, "left"))
+							{
+								moveNinjaLeft(counter);
+							}						
             System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
         }
     }
