@@ -9,7 +9,9 @@ package edu.cpp.cs.cs141.prog_final;
  */
 public class Player 
 {
-	private final int maxLives = 3;
+	private final int MAX_LIVES = 3;
+	
+	private final int INVINCIBLE_TURNS = 5;
 	
 	private int lives;
 	
@@ -19,19 +21,21 @@ public class Player
 	
 	private int column;
 	
+	private int invincibility;
+	
 	private String playerMark = "P";
 	
 	public Player(Gun weapon)
 	{
 		gun = weapon;
-		lives = maxLives;
+		lives = MAX_LIVES;
 		row = 8;
 		column = 0;		
 	}
 
-	public void shoot()
+	public void shoot(String direction)
 	{
-		gun.shoot();
+		gun.shoot(direction);
 	}
 	
 	public void reloadPlayerGun()
@@ -42,6 +46,21 @@ public class Player
 	public int getLives()
 	{
 		return lives;
+	}
+	
+	public int loselife(){
+	    return --lives;
+	}
+	
+	public void setInvincibility(int invincibility){
+	    this.invincibility = invincibility;
+	}
+	
+	/** WORK IN PROGRESS: method that subtracts the invincibility by one each turn.*/
+	public void invincibilityDuration(){
+	    for (int i = INVINCIBLE_TURNS; i > 0; i--){
+	        setInvincibility(i);
+	    }
 	}
 	
 	public int getRow()
