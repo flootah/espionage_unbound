@@ -155,26 +155,27 @@ public class UserInterface {
                 ge.printDebugGrid();
             }
 
-            char choice;
+            String choice;
             String gunDirection;
             System.out.println("Choose your move: W, A, S, D, B");
-            /* TODO */ System.out.println("Lives: " + stats[0] + "\nAmmo: " + stats[1]);
-            choice = sc.nextLine().charAt(0);
+            /* TODO */ System.out.println("Lives: " + ge.getLives() + "\nAmmo: " + ge.getAmmo());
+            choice = sc.nextLine();
             switch (choice) {
-            case 'B':
-            case 'b':
+            case "B":
+            case "b":
                 System.out.print("What direction would you like to shoot (W, A, S, D)? ");
                 gunDirection = sc.nextLine();
                 ge.gunShoot(gunDirection);
+                ge.moveNinja();
                 break;
-            case 'W':
-            case 'w':
-            case 'A':
-            case 'a':
-            case 'S':
-            case 's':
-            case 'D':
-            case 'd':
+            case "W":
+            case "w":
+            case "A":
+            case "a":
+            case "S":
+            case "s":
+            case "D":
+            case "d":
                 ge.userMoveInput(choice);
                 break;
             }
@@ -188,17 +189,6 @@ public class UserInterface {
      */
     private void GUI() {
         // code
-    }
-
-    /**
-     * A getter for all the player's stats. Gets all of the player's current
-     * stats from the GameEngine. Organizes them into an array for easier
-     * access. But this might not be optimal later on, so subject to change.
-     */
-    private int[] playerStats() {
-        // code
-        int[] playerStats = { ge.getLives(), ge.getAmmo() };
-        return playerStats;
     }
 
     /**
