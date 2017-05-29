@@ -42,6 +42,8 @@ public class GameEngine
 	    private Gun gun;
 	    
 	    private boolean radarActive;
+	    
+	    private boolean invincibleActive;
 		
 		private int[][] look;
 		
@@ -630,6 +632,7 @@ public class GameEngine
 	            oos.writeObject(grid);
 	            oos.close();
 	        } catch (Exception e) {
+	            e.printStackTrace();
 
 	        }
 	    }
@@ -737,6 +740,17 @@ public class GameEngine
 		 */
 		public boolean radarActive() {
 			return radarActive;
+		}
+		
+		public void invincibility() {
+		    if(player.getColumn() == invincible.getColumn() && player.getRow() == invincible.getRow()) {
+		        invincibleActive = true;
+		        invincible = null;
+		    }
+		}
+		
+		public boolean invincibilityActive() {
+		    return invincibleActive;
 		}
 
 		public boolean getLooking() {
