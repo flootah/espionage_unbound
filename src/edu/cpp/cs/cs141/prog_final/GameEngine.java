@@ -60,7 +60,6 @@ public class GameEngine
 	}
 	
 	/** initalizes the building, calculating positions for:
-		the player,
 		the rooms,
 		the ninjas,
 		the briefcase,
@@ -81,64 +80,6 @@ public class GameEngine
 	public void printDebugGrid() {
 		gb.printDebugGrid();
 	}
-
-//  * THIS WAS HERE BEFORE I MOVED IT TO TH GAME BOARD, IM SCARED TO DELETE IT BUT FEEL FREE TO IF THIS ENDS UP WORKING WELL.
-//Print Debug Grid Method 
-/*	public void printDebugGriddebug()
-	{
-		System.out.println("running printDebugGriddebug()");
-		//double for loop, for running thru each of the grid[][]'s coordinates.
-		for(int i = 0; i < grid.length; i++) {
-			for(int j = 0; j < grid[i].length; j++) {
-				//set all cells empty
-					grid[i][j] = " ";
-				/**set rooms
-				 * Runs through every cell on the board.
-				 * 	-loops each cell, and check if it's coordinates matches any of the rooms' coordinates.
-				 *  -if they match, then the object's corresponding mark is placed.
-				 * All the rest of these setters go through essentially the same process.
-				 */
-/*				for(int n = 0; n < rooms.length; n++) {
-					if(j == rooms[n].getColumn() && i == rooms[n].getRow()) {
-						grid[i][j] = rooms[n].getRoomMark();
-					}
-				}
-				//set player
-				if((j == player.getColumn() && i == player.getRow())) {
-					grid[i][j] = player.getPlayerMark();
-				}
-				//set ninjas
-				for(int n = 0; n < ninjas.length; n++) {
-					if(j == rooms[n].getColumn() && i == ninjas[n].getRow()) {
-						grid[i][j] = ninjas[n].getNinjaMark();
-					}
-				}
-				//set bCase
-				//Overrides room mark, thus room and briefcase objects can hold same coordinates
-				if(j == bCase.getColumn() && i == bCase.getRow()) {
-					grid[i][j] = bCase.getBriefCaseMark();
-				}
-				//set bullet
-				//only places if area is empty, thus if a ninja or player is on it, it will be overridden, but still keep its corrdinates.
-				//this applies for the other two powerup objects.
-				if(grid[i][j] == " " && (j == bullet.getColumn() && i == bullet.getRow())) {
-					grid[i][j] = bullet.getBulletMark();
-				}
-				//set radar
-				if(grid[i][j] == " " && (j == radar.getColumn() && i == radar.getRow())) {
-					grid[i][j] = radar.getRadarMark();
-				}
-				//set invincible
-				if(grid[i][j] == " " && (j == invincible.getColumn() && i == invincible.getRow())) {
-					grid[i][j] = invincible.getInvincibleMark();
-				}
-						
-				System.out.print("[" + grid[i][j] + "]");
-			}
-			System.out.println();
-		}
-	}
-*/
 	
 	public void movePlayer(String userMove) 
 	{
@@ -233,7 +174,7 @@ public class GameEngine
 				System.out.println("error in moveNinja() rng");
 				break;
 			}
-			System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
+			//System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
 		}
 	}
 	

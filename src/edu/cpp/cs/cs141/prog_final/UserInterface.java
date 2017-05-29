@@ -23,6 +23,7 @@ public class UserInterface {
 		 * Represents whether debug mode is active or not.
 		 */
 		private boolean debug;
+		private boolean paused;
 		private int ui;
 		/*
 		 * Constructor for the class UserInterface.
@@ -36,6 +37,7 @@ public class UserInterface {
 			previousstate = 1;
 			debug = false;
 			ui = 0;
+			paused = false;
 		}
 
 
@@ -90,13 +92,38 @@ public class UserInterface {
 					cls();
 					exitCheck();
 					break;
+				case 10:
+					cls();
+					controlScreen();
+					break;
 				}
 			}
 		}
 		
-		private boolean exitCheck() {
+		private void controlScreen() {
 			// TODO Auto-generated method stub
-			return false;
+			
+		}
+
+
+		private boolean exitCheck() {
+			String option = "";
+			System.out.println("Are you sure you wish to exit?");
+			System.out.println("All unsaved progress will be lost!");
+			System.out.println("(y/n)");
+			while(true) {
+				option = sc.nextLine();
+				switch(option) {
+				case "y":
+				case "Y":
+					return true;
+				case "n":
+				case "N":
+					return false;
+				default:
+					System.out.println("Invalid option!");
+				}
+			}
 		}
 
 
@@ -141,7 +168,7 @@ public class UserInterface {
 		private void TUI() {
 			boolean gameOver = ge.gameOver();
 			int[] stats = playerStats();
-			while(!gameOver) {
+			while(!gameOver && !paused) {
 				if(debug) {
 					cls();
 					ge.printDebugGrid();
@@ -174,6 +201,7 @@ public class UserInterface {
 					break;
 				case "p":
 				case "P":
+					paused = true;
 					changeState(7);
 					break;
 				default:
@@ -354,13 +382,13 @@ public class UserInterface {
 			System.out.println("     2. Save Game");
 			System.out.println("     3. Controls");
 			System.out.println("     4. About");
-			System.out.println("     5. Exit to Main Menu");
-			System.out.println("     6. Exit to Desktop");
+			System.out.println("     5. Exit Program");
 			String choice = "";
 			choice = sc.nextLine();
 			switch(choice) {
 			case "p":
 			case "P":
+				paused = false;
 				changeState(5);
 				break;
 			case "1":
@@ -377,14 +405,11 @@ public class UserInterface {
 				break;
 			case "5":
 				if(exitCheck()) {
-					changeState(1);
+					System.exit(0);
 					break;
 				} else {
 					break;
 				}
-			case "6":
-				exitCheck();
-				System.exit(0);
 			}
 		}
 		/**
@@ -407,12 +432,12 @@ public class UserInterface {
 		     System.out.println("Enter save file name");
 		     System.out.println("Save Files must be more than 3 characters");
 		     while(true) {
-			     saveName = sc.next();
+			     saveName = sc.nextLine();
 			     if(saveName == "c" || saveName == "C") {
 			    	 changeState(previousstate);
 			    	 break;
 			     } else if(saveName.length() <= 3) {
-			    	 System.out.println("Invalid Name!");
+			    	 System.out.println("Invalid Name! Too Short.");
 			     } else {
 			     ge.loadGame(saveName);
 			     break;
@@ -425,8 +450,8 @@ public class UserInterface {
 		     System.out.println("Enter save file name");
 		     System.out.println("Save Files must be more than 3 characters");
 		     while(true) {
-		    String loadName;
-		    loadName = sc.nextLine();
+		    String loadName = sc.nextLine();
+		    
 			     if(loadName == "c" || loadName == "C") {
 			    	 changeState(previousstate);
 			    	 break;
