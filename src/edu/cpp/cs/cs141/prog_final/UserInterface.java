@@ -157,19 +157,16 @@ public class UserInterface
             }
 			
             String choice;
-            String gunDirection;
             System.out.println("Choose your move: W, A, S, D, B, K");
             System.out.println("Lives: " + ge.getLives() + "\nAmmo: " + ge.getAmmo());
             choice = sc.nextLine();
             switch (choice.toUpperCase()) {
             case "B":
-                System.out.print("What direction would you like to shoot (W, A, S, D)? ");
-                gunDirection = sc.nextLine();
-                ge.gunShoot(gunDirection);
-                ge.moveNinja();
+                gunDirection();
                 break;
             case "K":
                 saveGame();
+                break;
             case "W":
             case "A":
             case "S":
@@ -183,6 +180,14 @@ public class UserInterface
         }
     }
     
+    private void gunDirection() {
+        String gunDirection = null;
+        System.out.print("What direction would you like to shoot (W, A, S, D)? ");
+        gunDirection = sc.nextLine();
+        ge.gunShoot(gunDirection);
+        ge.moveNinja();
+        }
+
     /**
      * The Graphical User Interface method. Used when player is ingame. Creates
      * a user interface based on graphical images. Uses TODO x game states.
