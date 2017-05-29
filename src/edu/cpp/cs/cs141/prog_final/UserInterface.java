@@ -150,7 +150,7 @@ public class UserInterface {
 					ge.printGrid();
 					}
 			
-	/*TODO*/	System.out.print("Lives: " + stats[0]);
+		System.out.print("Lives: " + stats[0]);
 	/*TODO*/	System.out.println("          Ammo: " + stats[1]);
 				System.out.println("Press 'P' to pause the game");
 				
