@@ -181,27 +181,30 @@ public class GameEngine {
 				if(rng == 3 && getNinjaRow(counter) > 0 && getNinjaRow(counter) <= 8 && !roomCollisionNinja(counter, "up"))
 				{
 					moveNinjaUp(counter);
+                    System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
                     counter++;
 				}
 				else
 					if(rng == 2 && getNinjaRow(counter) < 8 && getNinjaRow(counter) >= 0 && !roomCollisionNinja(counter, "down"))
 					{
 						moveNinjaDown(counter);
+                        System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
                         counter++;
 					}
 					else
 						if(rng == 1 && getNinjaColumn(counter) >= 0 && getNinjaColumn(counter) < 8 && !roomCollisionNinja(counter, "right"))
 						{
 							moveNinjaRight(counter);
+                            System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
                             counter++;
 						}
 						else
 							if(rng == 0 && getNinjaColumn(counter) <= 8 && getNinjaColumn(counter) > 0 && !roomCollisionNinja(counter, "left"))
 							{
 								moveNinjaLeft(counter);
+                                System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
                                 counter++;
 							}						
-            System.out.println("postcoordinates: " + ninjas[counter - 1].getColumn() + " , " + ninjas[counter - 1].getRow());
         }
     }
 
