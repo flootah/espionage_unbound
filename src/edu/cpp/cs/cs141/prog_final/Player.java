@@ -40,7 +40,9 @@ public class Player
 	
 	public void reloadPlayerGun()
 	{
-		gun.reload();
+	    if (gun.getAmmo() == 0) {
+	        gun.reload();
+	    }
 	}
 	
 	public int getLives()
