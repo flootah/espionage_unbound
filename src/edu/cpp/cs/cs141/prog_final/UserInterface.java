@@ -18,6 +18,7 @@ public class UserInterface {
 		 * Each game state will run different methods within the UI.
 		*/
 		private int state;
+		private int previousstate;
 		/**
 		 * Represents whether debug mode is active or not.
 		 */
@@ -32,6 +33,7 @@ public class UserInterface {
 			this.ge = ge;
 			sc = new Scanner(System.in);
 			state = 1;
+			previousstate = 1;
 			debug = false;
 			ui = 0;
 		}
@@ -54,31 +56,55 @@ public class UserInterface {
 			while(true) {
 				switch(state) {
 				case 1:
+					cls();
 					firstMenu();
 					break;
 				case 2:
+					cls();
 					aboutMenu();
 					break;
 				case 3:
-					loadMenu();
+					loadGame();
 					break;
 				case 4:
+					cls();
 					uiMenu();
 					break;
 				case 5:
+					cls();
 					inGame();
 					break;
 				case 6:
+					cls();
 					debugMenu();
+					break;
+				case 7:
+					cls();
+					pauseMenu();
+					break;
+				case 8:
+					cls();
+					saveGame();
+					break;
+				case 9:
+					cls();
+					exitCheck();
 					break;
 				}
 			}
 		}
 		
+		private boolean exitCheck() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+
 		private void debugMenu() {
 			System.out.println("Would you like to enter debug mode?");
 			System.out.println("   1. Yes");
 			System.out.println("   2. No");
+			System.out.println("   3. Back");
 			
 			int choice = 0;
 			if(sc.hasNextInt()) {
@@ -88,13 +114,16 @@ public class UserInterface {
 			
 			switch(choice) {
 			case 1:
-					debug = true;
-					changeState(5);
-					break;
+				debug = true;
+				changeState(5);
+				break;
 			case 2:
 				debug = false;
-					changeState(5);
-					break;
+				changeState(5);
+				break;
+			case 3:
+				changeState(previousstate);
+				break;
 			default:
 				System.out.println("Invalid option! Try Again.");
 				break;
@@ -106,33 +135,99 @@ public class UserInterface {
 		/**
 		 * The Text User Interface method.
 		 * Used when player is ingame.
-		 * Creates a user interface based only on text. Uses TODO x game states.
+		 * Creates a user interface based only on text.
 		 * 
 		 */
 		private void TUI() {
 			boolean gameOver = ge.gameOver();
 			int[] stats = playerStats();
-
-			while(true) {
-			if(debug) {
-				ge.printDebugGrid();
-				} else {
-				ge.printDebugGrid();
-				}
+			while(!gameOver) {
+				if(debug) {
+					cls();
+					ge.printDebugGrid();
+					} else {
+					cls();
+					ge.printGrid();
+					}
 			
-			String choice = "";
-			System.out.println("Choose your move: W A S D");
-/*TODO*/	System.out.print("Lives: " + stats[0]);
-/*TODO*/	System.out.println("          Ammo: " + stats[1]);		
-			choice = sc.nextLine();
-			ge.movePlayer(choice);
-			ge.moveNinja();
+	/*TODO*/	System.out.print("Lives: " + stats[0]);
+	/*TODO*/	System.out.println("          Ammo: " + stats[1]);
+				System.out.println("Press 'P' to pause the game");
+				
+				String choice = "";
+				choice = sc.nextLine();
+				switch(choice) {
+				case "w":
+				case "W":
+				case "a":
+				case "A":
+				case "s":
+				case "S":
+				case "d":
+				case "D":
+					ge.movePlayer(choice);
+					ge.moveNinja();
+					break;
+				case "l":
+				case "L":
+					look();
+					break;
+				case "p":
+				case "P":
+					changeState(7);
+					break;
+				default:
+					System.out.println("Invalid option!");
+					break;
+				}	
+			}
+		}
+		
+		private void look() {
+			System.out.println("In which direction would you like to look?");
+			System.out.println("Press C to cancel");
+			boolean exit = false;
+			String lookdir = "";
+			while(!exit) {
+			lookdir = sc.nextLine();
+			switch(lookdir) {
+				case "w":
+				case "W":
+					ge.setLooking(true);
+					ge.setLook("up");
+					exit = true;
+					break;
+				case "a":
+				case "A":
+					ge.setLooking(true);
+					ge.setLook("left");
+					exit = true;
+					 break;
+				case "s":
+				case "S":
+					ge.setLooking(true);
+					ge.setLook("down");
+					exit = true;
+					break;
+				case "d":
+				case "D":
+					ge.setLooking(true);
+					ge.setLook("right");
+					exit = true;
+					break;
+				case "c":
+				case "C":
+					exit = true;
+					break;
+				default:
+					System.out.println("Invalid selection! Please try again.");
+				}
 			}
 		}
 		/**
 		 * The Graphical User Interface method.
 		 * Used when player is ingame.
-		 * Creates a user interface based on graphical images. Uses TODO x game states.
+		 * Creates a user interface based on graphical images.
 		 * 
 		 */
 		private void GUI() {
@@ -156,7 +251,7 @@ public class UserInterface {
 		 * changes game state accordingly, or exit the program.
 		 */
 		private void firstMenu() {
-			System.out.println("Welcome to Espionage Unbound v0.6!");
+			System.out.println("Welcome to Espionage Unbound v0.7!");
 			System.out.println("");
 			System.out.println("Please select an option:");
 			System.out.println("   1. New Game");
@@ -170,17 +265,18 @@ public class UserInterface {
 			
 			switch(option) {
 			case 1:
-				state = 4;
+				changeState(4);
 				break;
 			case 2:
-				state = 3;
+				changeState(3);
 				break;
 			case 3:
-				state = 2;
+				changeState(2);
 				break;
 			}		}
 		
 		private void changeState(int i) {
+			previousstate = state;
 			state = i;
 		}
 
@@ -194,7 +290,7 @@ public class UserInterface {
 			System.out.println();
 			System.out.println("press ENTER to return");
 			sc.nextLine();
-			changeState(1);
+			changeState(previousstate);
 		}
 		/**
 		 * Save loading page.
@@ -235,7 +331,7 @@ public class UserInterface {
 				System.out.println("Sorry, this UI is under construction!");
 				break;
 			case 3:
-				changeState(1);
+				changeState(previousstate);
 				break;
 			}
 		}
@@ -263,42 +359,104 @@ public class UserInterface {
 		 * Print about page
 		 * The player's selection will take them to the according to their selection.
 		 */
-		public void pauseMenu() {
-			//code
+		private void pauseMenu() {
+			System.out.println(			"PAUSED");
+			System.out.println("Press P to Return to Game");
+			System.out.println("     1. Load Game");
+			System.out.println("     2. Save Game");
+			System.out.println("     3. Controls");
+			System.out.println("     4. About");
+			System.out.println("     5. Exit to Main Menu");
+			System.out.println("     6. Exit to Desktop");
+			String choice = "";
+			choice = sc.nextLine();
+			switch(choice) {
+			case "p":
+			case "P":
+				changeState(5);
+				break;
+			case "1":
+				changeState(3);
+				break;
+			case "2":
+				changeState(8);
+				break;
+			case "3":
+				changeState(10);
+				break;
+			case "4":
+				changeState(2);
+				break;
+			case "5":
+				if(exitCheck()) {
+					changeState(1);
+					break;
+				} else {
+					break;
+				}
+			case "6":
+				exitCheck();
+				System.exit(0);
+			}
 		}
 		/**
 		 * Game over screen
 		 * clears screen, printing "GAME OVER" onto system out.
 		 * then asks the player if they want to exit or return to main menu.
 		 */
-		public void gameOver() {
+		private void gameOver() {
 			//code
 		}
 		/**
 		 * Method handling debug mode.
 		 * Prints the map for the player in a different way, giving full vision to the board.
 		 */
-		public void debugMode() 
-		{
-			ge.printDebugGrid();
-		}
-		
-		 public void printBoard() 
-		{
-			ge.printDebugGrid();
-		}
 		 
-		 public void saveGameName() {
+		private void saveGame() {
 		     String saveName;
-		     System.out.println("Enter name for the save file: ");
-		     saveName = sc.next();
-		     ge.saveGame(saveName);
-		 }
+		     System.out.println("Press C to Cancel");
+		     System.out.println("Enter save file name");
+		     System.out.println("Save Files must be more than 3 characters");
+		     while(true) {
+			     saveName = sc.next();
+			     if(saveName == "c" || saveName == "C") {
+			    	 changeState(previousstate);
+			    	 break;
+			     } else if(saveName.length() <= 3) {
+			    	 System.out.println("Invalid Name!");
+			     } else {
+			     ge.loadGame(saveName);
+			     break;
+			     }
+		     }
+		}
 		 
-		 public void loadGameName() {
-		     String loadName;
-		     System.out.println("Enter save file name: ");
-		     loadName = sc.next();
-		     ge.loadGame(loadName);
-		 }
+		private void loadGame() {
+		     System.out.println("Press C to Cancel");
+		     System.out.println("Enter save file name");
+		     System.out.println("Save Files must be more than 3 characters");
+		     while(true) {
+		    String loadName;
+		    loadName = sc.nextLine();
+			     if(loadName == "c" || loadName == "C") {
+			    	 changeState(previousstate);
+			    	 break;
+			     } else if(loadName.length() <= 3) {
+			    	 System.out.println("Invalid Name! Too Short.");
+			     } else {
+			     ge.loadGame(loadName);
+			     break;
+			     }
+		     }
+		}
+		 /**
+		  * prints an arbitrary amount of new line commands
+		  * used to simulate screen clearing.
+		  */
+		private void cls() {
+			 System.out.println(  "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+			 					+ "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+			 					+ "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+			 					+ "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n");
+		}
 }

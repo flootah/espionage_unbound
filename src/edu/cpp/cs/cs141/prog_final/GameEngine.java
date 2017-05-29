@@ -38,6 +38,12 @@ public class GameEngine
 	private Invincibility invincible;
 	
 	private GameBoard gb;
+
+	private boolean radarActive;
+	
+	private int[][] look;
+	
+	private boolean looking;
 	
 	public GameEngine()
 	{
@@ -50,6 +56,7 @@ public class GameEngine
 		invincible = new Invincibility();
 		createBuilding();
 		gb = new GameBoard(this);
+		looking = false;
 	}
 	
 	/** initalizes the building, calculating positions for:
@@ -66,6 +73,9 @@ public class GameEngine
 		calculateBulletPosition();
 		calculateInvinciblePosition();
 		calculateRadarPosition();
+	}
+	public void printGrid() {
+		gb.printGrid();
 	}
 	
 	public void printDebugGrid() {
@@ -139,6 +149,7 @@ public class GameEngine
 			if (getPlayerRow() > 0 && !roomCollisionPlayer("up")) 
 			{
 				movePlayerUp();
+				setLooking(false);
 				break;
 			}
 			else 
@@ -151,6 +162,7 @@ public class GameEngine
 		    if (getPlayerRow() < 8 && !roomCollisionPlayer("down")) 
 		    {
 		    	movePlayerDown();
+				setLooking(false);
 		    	break;
 			} 
 		    else 
@@ -163,6 +175,7 @@ public class GameEngine
 		    if (getPlayerColumn() > 0 && !roomCollisionPlayer("left")) 
 		    {
 		    	movePlayerLeft();
+				setLooking(false);
 		    	break;
 			} 
 		    else 
@@ -175,6 +188,7 @@ public class GameEngine
 		    if (getPlayerColumn() < 8 && !roomCollisionPlayer("right")) 
 		    {
 		    	movePlayerRight();
+				setLooking(false);
 		    	break;
 			} 
 		    else 
@@ -698,7 +712,7 @@ public class GameEngine
 			grid = (String[][]) ois.readObject();
 			ois.close();
 		}catch (Exception e) {
-			System.out.println("Invalid Name");    
+			System.out.println("No Save Found!");    
 		}
 	}
 
@@ -718,6 +732,86 @@ public class GameEngine
 		// TODO Auto-generated method stub
 		// returns true when a game-ending scenario has been reached.
 		return false;
+	}
+	
+	
+	public void setLook(String dir) {
+		int[][] coordinates = new int[2][2];
+		int row = player.getRow();
+		int col = player.getColumn();
+		
+		switch(dir) {
+		case "up":
+			if(row - 1 >= 0) {
+				coordinates[0][0] = row - 1;
+				coordinates[0][1] = col;
+				if(row - 2 >= 0) {
+					coordinates[1][0] = row - 2;
+					coordinates[1][1] = col;
+				}
+			}
+			break;
+		case "down":
+			if(row + 1 <= 8) {
+				coordinates[0][0] = row + 1;
+				coordinates[0][1] = col;
+				if(row + 2 <= 8) {
+					coordinates[1][0] = row + 2;
+					coordinates[1][1] = col;
+				}
+			}
+			break;
+		case "left":
+			if(col - 1 >= 0) {
+				coordinates[0][0] = row;
+				coordinates[0][1] = col - 1;
+				if(row - 2 >= 0) {
+					coordinates[1][0] = row;
+					coordinates[1][1] = col - 2;
+				}
+			}
+			break;
+		case "right":
+			if(row + 1 <= 8) {
+				coordinates[0][0] = row;
+				coordinates[0][1] = col + 1;
+				if(row + 2 <= 8) {
+					coordinates[1][0] = row;
+					coordinates[1][1] = col + 2;
+				}
+			}
+			break;
+		}
+		look = coordinates;
+	}
+	
+	public int[][] playerLook() {
+		return look;
+	}
+
+	/*
+	 * method to process radar powerup collection.
+	 * checks if the player is on the powerup, if so the radar object is removed, and radarActive is set to true;
+	 */
+	public void radar() {
+		if(player.getColumn() == radar.getColumn() && player.getRow() == radar.getRow()) {
+			radarActive = true;
+			radar = null;
+		}
+	}
+	
+	/*
+	 * returns radarActive for printing use.
+	 */
+	public boolean radarActive() {
+		return radarActive;
+	}
+
+	public boolean getLooking() {
+		return looking;
+	}
+	public void setLooking(boolean x) {
+		looking = x;
 	}
 	
 }
