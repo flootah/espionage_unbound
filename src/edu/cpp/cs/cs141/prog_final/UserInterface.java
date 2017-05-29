@@ -65,40 +65,34 @@ public class UserInterface
 	 */
 	public void mainMenu( ){
 		while(true) {
+            cls();
 			switch(state) {
 			case 1:
-				cls();
 				firstMenu();
 				break;
 			case 2:
-				cls();
 				aboutMenu();
 				break;
 			case 3:
-				loadGame();
+				loadGameName();
 				break;
 			case 4:
-				cls();
+			    setPreviousState(1);
 				uiMenu();
 				break;
 			case 5:
-				cls();
 				inGame();
 				break;
 			case 6:
-				cls();
 				debugMenu();
 				break;
 			case 7:
-				cls();
 				pauseMenu();
 				break;
 			case 8:
-				cls();
-				saveGame();
+				saveGameName();
 				break;
 			case 9:
-				cls();
 				exitCheck();
 				break;
 			}
@@ -111,9 +105,9 @@ public class UserInterface
 
     private void debugMenu() {
         System.out.println("Would you like to enter debug mode?");
-        System.out.println("   1. Yes");
-        System.out.println("   2. No");
-        System.out.println("   3. Back");
+        System.out.println("\t1. Yes");
+        System.out.println("\t2. No");
+        System.out.println("\t3. Back");
 
         int choice = 0;
         if (sc.hasNextInt()) {
@@ -131,6 +125,7 @@ public class UserInterface
             changeState(5);
             break;
         case 3:
+            setPreviousState(4);
 			changeState(previousState);
 			break;
         default:
@@ -157,15 +152,15 @@ public class UserInterface
             }
 			
             String choice;
-            System.out.println("Choose your move: W, A, S, D, B, K");
             System.out.println("Lives: " + ge.getLives() + "\nAmmo: " + ge.getAmmo());
+            System.out.println("Choose your move (W, A, S, D, B, K): ");
             choice = sc.nextLine();
             switch (choice.toUpperCase()) {
             case "B":
                 gunDirection();
                 break;
             case "K":
-                saveGame();
+                saveGameName();
                 break;
             case "W":
             case "A":
@@ -204,12 +199,11 @@ public class UserInterface
      * accordingly, or exit the program.
      */
     private void firstMenu() {
-        System.out.println("Welcome to Espionage Unbound v0.6!");
-        System.out.println("");
+        System.out.println("Welcome to Espionage Unbound v0.6!\n");
         System.out.println("Please select an option:");
-        System.out.println("   1. New Game");
-        System.out.println("   2. Load Game");
-        System.out.println("   3. About");
+        System.out.println("\t1. New Game");
+        System.out.println("\t2. Load Game");
+        System.out.println("\t3. About");
         int option = 0;
         if (sc.hasNextInt()) {
             option = sc.nextInt();
@@ -246,29 +240,15 @@ public class UserInterface
     }
 
     /**
-     * Save loading page. Asks the player to identify their save file, which the
-     * UI will pass to the GE to load up. Note: must first send player to
-     * uiMenu() to get the type of UI to use.
-     */
-    private void loadMenu() {
-        System.out.println("This is a placeholder save loading page...");
-        System.out.println();
-        System.out.println("press ENTER to return");
-        sc.nextLine();
-        changeState(previousState);
-    }
-
-    /**
      * UI choice page. Asks the player to choose the type of UI they would like
      * to use for the duration of the program. Sets a global variable
      * accordingly, then send the game state to inGame()
      */
     private void uiMenu() {
         System.out.println("Please choose a UI type:");
-        System.out.println();
-        System.out.println("1. Text-Based");
-        System.out.println("2. Graphics-Based **UNDER CONSTRUCTION**");
-        System.out.println("3. Back");
+        System.out.println("\t1. Text-Based");
+        System.out.println("\t2. Graphics-Based **UNDER CONSTRUCTION**");
+        System.out.println("\t3. Back");
         int option = 0;
 
         if (sc.hasNextInt()) {
@@ -287,6 +267,8 @@ public class UserInterface
         case 3:
             changeState(previousState);
             break;
+        default:
+            System.out.println("Invalid choice.");
         }
     }
 
@@ -300,7 +282,7 @@ public class UserInterface
         } else if (ui == 2) {
             GUI();
         } else {
-            System.out.println("invalid ui has been chosen!");
+            System.out.println("Invalid UI has been chosen!");
         }
     }
 
@@ -362,61 +344,45 @@ public class UserInterface
         // code
     }
 
-    public void saveGameName() {
+    private void saveGameName() {
         String saveName;
-        System.out.println("Enter name for the save file: ");
+        System.out.println("Enter name for the save file or enter 'C' to cancel: ");
         saveName = sc.next();
-        ge.saveGame(saveName);;
+        if(saveName.equals("C")) {
+            changeState(previousState);
+        } else {
+            ge.saveGame(saveName);
+        }
     }
 
+    /**
+     * Loading saved game page. Asks the player to identify their save file, which the
+     * UI will pass to the GE to load up. Note: must first send player to
+     * uiMenu() to get the type of UI to use.
+     */
+    
     public void loadGameName() {
         String loadName;
-        System.out.println("Enter save file name: ");
+        System.out.println("Enter save file name or enter 'C' to cancel: ");
         loadName = sc.next();
+        if(loadName.equals("C")) {
+            changeState(previousState);
+        } else {
         ge.loadGame(loadName);
+        }
     }
-
-    private void saveGame() {
-	     String saveName;
-	     System.out.println("Press C to Cancel");
-	     System.out.println("Enter save file name");
-	     while(true) {
-		     saveName = sc.next();
-		     if(saveName.equalsIgnoreCase("c")) {
-		    	 changeState(previousState);
-		    	 break;
-		     } else {
-		     ge.saveGame(saveName);
-		     break;
-		     }
-	     }
-	}
 	 
-	private void loadGame() {
-	     System.out.println("Press C to Cancel");
-	     System.out.println("Enter save file name");
-	     System.out.println("Save Files must be more than 3 characters");
-	     while(true) {
-	    String loadName;
-	    loadName = sc.nextLine();
-		     if(loadName.equalsIgnoreCase("c")) {
-		    	 changeState(previousState);
-		    	 break;
-		     } else if(loadName.length() <= 3) {
-		    	 System.out.println("Invalid Name! Too Short.");
-		     } else {
-		     ge.loadGame(loadName);
-		     break;
-		     }
-	     }
-	}
 	
 	 /**
 	  * prints an arbitrary amount of new line commands
 	  * used to simulate screen clearing.
 	  */
 	private void cls() {
-		 System.out.println("\n");
+		 System.out.println("");
+	}
+	
+	private void setPreviousState(int state) {
+	    this.previousState = state;
 	}
 
 
