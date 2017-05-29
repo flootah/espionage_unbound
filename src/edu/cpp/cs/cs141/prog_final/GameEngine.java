@@ -201,7 +201,7 @@ public class GameEngine {
 								moveNinjaLeft(counter);
                                 counter++;
 							}						
-            System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
+            System.out.println("postcoordinates: " + ninjas[counter - 1].getColumn() + " , " + ninjas[counter - 1].getRow());
         }
     }
 
