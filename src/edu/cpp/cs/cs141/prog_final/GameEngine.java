@@ -168,7 +168,10 @@ public class GameEngine {
     }
 
     public void moveNinja() {
-        for (int counter = 0; counter < NUM_NINJAS; counter++) {
+        int counter = 0;
+    
+        while(counter < 6)
+        {
             // Below is a debug print to check ninja coordinates while running
             // the game.
             // System.out.println("ninja " + counter + " processing...");
@@ -178,21 +181,25 @@ public class GameEngine {
 				if(rng == 3 && getNinjaRow(counter) > 0 && getNinjaRow(counter) <= 8 && !roomCollisionNinja(counter, "up"))
 				{
 					moveNinjaUp(counter);
+                    counter++;
 				}
 				else
 					if(rng == 2 && getNinjaRow(counter) < 8 && getNinjaRow(counter) >= 0 && !roomCollisionNinja(counter, "down"))
 					{
 						moveNinjaDown(counter);
+                        counter++;
 					}
 					else
 						if(rng == 1 && getNinjaColumn(counter) >= 0 && getNinjaColumn(counter) < 8 && !roomCollisionNinja(counter, "right"))
 						{
 							moveNinjaRight(counter);
+                            counter++;
 						}
 						else
 							if(rng == 0 && getNinjaColumn(counter) <= 8 && getNinjaColumn(counter) > 0 && !roomCollisionNinja(counter, "left"))
 							{
 								moveNinjaLeft(counter);
+                                counter++;
 							}						
             System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
         }
