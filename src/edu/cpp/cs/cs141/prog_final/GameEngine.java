@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.cpp.cs141.cs.finalp;
+package edu.cpp.cs.cs141.prog_final;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
