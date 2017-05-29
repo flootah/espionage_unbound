@@ -31,7 +31,7 @@ public abstract class PowerUps
 	}
 	
 	public void setColumn(int c) {
-		row = c;
+		column = c;
 	}
 	
 	public int getRow() {
