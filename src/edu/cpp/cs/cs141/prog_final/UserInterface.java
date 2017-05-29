@@ -35,6 +35,8 @@ public class UserInterface
     private boolean debug;
     
     private int ui;
+    
+	private boolean paused;
 
     /*
      * Constructor for the class UserInterface. Takes a game state as an input.
@@ -48,6 +50,7 @@ public class UserInterface
         previousState = 1;
         debug = false;
         ui = 0;
+        paused = false;
     }
 
     /**
@@ -142,13 +145,13 @@ public class UserInterface
 
     /**
      * The Text User Interface method. Used when player is ingame. Creates a
-     * user interface based only on text. Uses TODO x game states.
+     * user interface based only on text.
      * 
      */
     private void TUI() {
         boolean gameOver = ge.gameOver();
 
-        while (true) {
+        while (!gameOver && !paused) {
         	
             if (debug) {
                 ge.printDebugGrid();
@@ -157,13 +160,20 @@ public class UserInterface
             }
 			
             String choice;
-            System.out.println("Choose your move: W, A, S, D, B, K");
+            System.out.println("Choose your move: W, A, S, D, B, K, L, P");
             System.out.println("Lives: " + ge.getLives() + "\nAmmo: " + ge.getAmmo());
             choice = sc.nextLine();
             switch (choice.toUpperCase()) {
             case "B":
                 gunDirection();
                 break;
+            case "P":
+            	paused = true;
+            	changeState(7);
+            	break;
+            case "L":
+            	lookMenu();
+            	break;
             case "K":
                 saveGame();
                 break;
@@ -180,7 +190,51 @@ public class UserInterface
         }
     }
     
-    private void gunDirection() {
+    private void lookMenu() {
+    	if(!ge.getLooking()) {
+	    	System.out.println("What direction would you like to look? (W, A, S, D)");
+	    	boolean exit = false;
+		    	while(!exit) {
+		    	String lookDirection = sc.nextLine();
+		    	switch(lookDirection) {
+		    	case "c":
+		    	case "C":
+		    		exit = true;
+		    		break;
+		    	case "w":
+		    	case "W":
+		    		ge.setLook("up");
+		    		ge.setLooking(true);
+		    		exit = true;
+		    		break;
+		    	case "a":
+		    	case "A":
+		    		ge.setLook("left");
+		    		ge.setLooking(true);
+		    		exit = true;
+		    		break;
+		    	case "s":
+		    	case "S":
+		    		ge.setLook("down");
+		    		ge.setLooking(true);
+		    		exit = true;
+		    		break;
+		    	case "d":
+		    	case "D":
+		    		ge.setLook("right");
+		    		ge.setLooking(true);
+		    		exit = true;
+		    		break;
+		    	default:
+		    		System.out.println("You can't look that way!");
+		    	}
+	    	}
+    	} else {
+    		System.out.println("You've already looked this turn!");
+    	}
+	}
+
+	private void gunDirection() {
         String gunDirection = null;
         System.out.print("What direction would you like to shoot (W, A, S, D)? ");
         gunDirection = sc.nextLine();
@@ -190,7 +244,7 @@ public class UserInterface
 
     /**
      * The Graphical User Interface method. Used when player is ingame. Creates
-     * a user interface based on graphical images. Uses TODO x game states.
+     * a user interface based on graphical images.
      * 
      */
     private void GUI() {
@@ -210,6 +264,7 @@ public class UserInterface
         System.out.println("   1. New Game");
         System.out.println("   2. Load Game");
         System.out.println("   3. About");
+        System.out.println("   4. Controls");
         int option = 0;
         if (sc.hasNextInt()) {
             option = sc.nextInt();
@@ -230,6 +285,7 @@ public class UserInterface
     }
 
     private void changeState(int i) {
+    	previousState = state;
         state = i;
     }
 
@@ -323,35 +379,44 @@ public class UserInterface
 		System.out.println("     5. Exit to Main Menu");
 		System.out.println("     6. Exit to Desktop");
 		String choice = "";
-		choice = sc.nextLine();
-		switch(choice) {
-		case "p":
-		case "P":
-			changeState(5);
-			break;
-		case "1":
-			changeState(3);
-			break;
-		case "2":
-			changeState(8);
-			break;
-		case "3":
-			changeState(10);
-			break;
-		case "4":
-			changeState(2);
-			break;
-		case "5":
-			if(exitCheck()) {
-				changeState(1);
+		boolean exit = false;
+		while(!exit) {
+			choice = sc.nextLine();
+			switch(choice) {
+			case "p":
+			case "P":
+				paused = false;
+				exit = true;
+				changeState(5);
 				break;
-			} else {
+			case "1":
+				changeState(3);
+				exit = true;
 				break;
-			}
-		case "6":
-			exitCheck();
-			System.exit(0);
+			case "2":
+				changeState(8);
+				exit = true;
+				break;
+			case "3":
+				changeState(10);
+				exit = true;
+				break;
+			case "4":
+				changeState(2);
+				exit = true;
+				break;
+			case "5":
+				if(exitCheck()) {
+					System.exit(0);
+				} else {
+					break;
+				}
+			default:
+				System.out.println("Invalid Selection!");
+				break;
+				}
 		}
+		
 	}
 
 
@@ -398,7 +463,7 @@ public class UserInterface
 	 
 	private void loadGame() {
 	     System.out.println("Press C to Cancel");
-	     System.out.println("Enter save file name");
+	     System.out.println("Enter the save's file name");
 	     System.out.println("Save Files must be more than 3 characters");
 	     while(true) {
 	    String loadName;
@@ -410,6 +475,7 @@ public class UserInterface
 		    	 System.out.println("Invalid Name! Too Short.");
 		     } else {
 		     ge.loadGame(loadName);
+		     changeState(previousState);
 		     break;
 		     }
 	     }
