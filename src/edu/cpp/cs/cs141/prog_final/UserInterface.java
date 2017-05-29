@@ -324,8 +324,7 @@ public class UserInterface
 		System.out.println("     6. Exit to Desktop");
 		String choice = "";
 		choice = sc.nextLine();
-		switch(choice) {
-		case "p":
+		switch(choice.toUpperCase()) {
 		case "P":
 			changeState(5);
 			break;
@@ -367,7 +366,7 @@ public class UserInterface
         String saveName;
         System.out.println("Enter name for the save file: ");
         saveName = sc.next();
-        ge.saveGame(saveName);
+        ge.saveGame(saveName);;
     }
 
     public void loadGameName() {
@@ -381,16 +380,13 @@ public class UserInterface
 	     String saveName;
 	     System.out.println("Press C to Cancel");
 	     System.out.println("Enter save file name");
-	     System.out.println("Save Files must be more than 3 characters");
 	     while(true) {
 		     saveName = sc.next();
 		     if(saveName.equalsIgnoreCase("c")) {
 		    	 changeState(previousState);
 		    	 break;
-		     } else if(saveName.length() <= 3) {
-		    	 System.out.println("Invalid Name!");
 		     } else {
-		     ge.loadGame(saveName);
+		     ge.saveGame(saveName);
 		     break;
 		     }
 	     }

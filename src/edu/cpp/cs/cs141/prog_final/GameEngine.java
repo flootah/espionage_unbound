@@ -5,8 +5,10 @@ package edu.cpp.cs.cs141.prog_final;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Random;
 
 /**
@@ -123,15 +125,11 @@ public class GameEngine
 	     */
 
 	    public void userMoveInput(String choice) {
-	        switch (choice) {
+	        switch (choice.toUpperCase()) {
 	        case "W":
-	        case "w":
 	        case "S":
-	        case "s":
 	        case "A":
-	        case "a":
 	        case "D":
-	        case "d":
 	            movePlayer(choice);
 	            moveNinja();
 	            break;
@@ -143,9 +141,8 @@ public class GameEngine
 	    }
 
 	    public void movePlayer(String userMove) {
-	        switch (userMove) {
+	        switch (userMove.toUpperCase()) {
 	        case "W":
-	        case "w":
 	            if (getPlayerRow() > 0 && !roomCollisionPlayer("up")) {
 	                movePlayerUp();
 	                setLooking(false);
@@ -154,7 +151,6 @@ public class GameEngine
 	            }
 	            break;
 	        case "S":
-	        case "s":
 	            if (getPlayerRow() < 8 && !roomCollisionPlayer("down")) {
 	                movePlayerDown();
 	                setLooking(false);
@@ -163,7 +159,6 @@ public class GameEngine
 	            }
 	            break;
 	        case "A":
-	        case "a":
 	            if (getPlayerColumn() > 0 && !roomCollisionPlayer("left")) {
 	                movePlayerLeft();
 	                setLooking(false);
@@ -172,7 +167,6 @@ public class GameEngine
 	            }
 	            break;
 	        case "D":
-	        case "d":
 	            if (getPlayerColumn() < 8 && !roomCollisionPlayer("right")) {
 	                movePlayerRight();
 	                setLooking(false);
@@ -627,13 +621,19 @@ public class GameEngine
 	        return invincible.getRow();
 	    }
 
-	    public void saveGame(String saveName) {
+	    public static void saveGame(Serializable grid, String saveName) {
+	        SaveState save = new SaveState();
+	        System.out.println(save.toString());
+	        
+            FileOutputStream fos;	       
+            
 	        try {
-	            FileOutputStream fos = new FileOutputStream(saveName);
+	            fos = new FileOutputStream(saveName);
 	            ObjectOutputStream oos = new ObjectOutputStream(fos);
 	            oos.writeObject(grid);
+	            oos.flush();
 	            oos.close();
-	        } catch (Exception e) {
+	        } catch (IOException e) {
 	            e.printStackTrace();
 
 	        }
@@ -642,7 +642,7 @@ public class GameEngine
 	    /**
 	     * Loads the game's state as a file.
 	     */
-	    public void loadGame(String loadName) {
+	    public Object loadGame(String loadName) {
 
 	        try {
 	            FileInputStream fis = new FileInputStream(loadName);
@@ -651,7 +651,7 @@ public class GameEngine
 	            ois.close();
 	        } catch (Exception e) {
 	            System.out.println("Invalid Name");
-	        }
+	        }return grid;
 	    }
 
 	    public int getAmmo() {
