@@ -293,18 +293,6 @@ public class UserInterface {
 			changeState(previousstate);
 		}
 		/**
-		 * Save loading page.
-		 * Asks the player to identify their save file, which the UI will pass to the GE to load up.
-		 * Note: must first send player to uiMenu() to get the type of UI to use.
-		 */
-		private void loadMenu() {
-			System.out.println("This is a placeholder save loading page...");
-			System.out.println();
-			System.out.println("press ENTER to return");
-			sc.nextLine();
-			changeState(1);
-		}
-		/**
 		 * UI choice page.
 		 * Asks the player to choose the type of UI they would like to use for the duration of the program.
 		 * Sets a global variable accordingly, then send the game state to inGame()
@@ -400,6 +388,7 @@ public class UserInterface {
 			}
 		}
 		/**
+		 * TODO
 		 * Game over screen
 		 * clears screen, printing "GAME OVER" onto system out.
 		 * then asks the player if they want to exit or return to main menu.
