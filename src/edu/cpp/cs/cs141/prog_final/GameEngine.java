@@ -123,7 +123,7 @@ public class GameEngine {
     }
 
     public void gunShoot(String direction) {
-        gun.shoot(direction);
+        Player.shoot(direction);
     }
 
     public void movePlayer(String userMove) {
