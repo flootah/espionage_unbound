@@ -44,6 +44,8 @@ public class GameEngine
 	    private boolean radarActive;
 	    
 	    private boolean invincibleActive;
+	    
+	    private boolean bulletActive;
 		
 		private int[][] look;
 		
@@ -751,6 +753,16 @@ public class GameEngine
 		
 		public boolean invincibilityActive() {
 		    return invincibleActive;
+		}
+		
+		public void bullet() {
+		    if (player.getColumn() == bullet.getColumn() && player.getRow() == bullet.getRow()) {
+		        if (gun.getAmmo() == 0) {
+		                player.reloadPlayerGun();
+		                bulletActive = true;
+		                bullet = null;
+		        }
+		    }
 		}
 
 		public boolean getLooking() {
