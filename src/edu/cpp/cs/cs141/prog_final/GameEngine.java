@@ -55,6 +55,8 @@ public class GameEngine
 
 		private boolean briefcaseFound;
 
+		private boolean win;
+
 	    public GameEngine() {
 	    	gun = new Gun();
 	        player = new Player(gun);
@@ -773,9 +775,18 @@ public class GameEngine
 	    }
 	   
 	    public void checkForGameOver() {
-	    	if(player.getLives() <= 0 || briefcaseFound) {
+	    	if(player.getLives() < 0) {
 	    		gameOver = true;
+	    		win = false;
 	    	}
+	    	if(briefcaseFound) {
+	    		gameOver = true;
+	    		win = true;
+	    	}
+	    }
+	    
+	    public boolean winCondition() {
+	    	return win;
 	    }
 	    
 		public void playerLook(String dir)

@@ -94,6 +94,7 @@ public class Player
 	}
 
 	public void respawn() {
+		gun.reload();
 		row = 8;
 		column = 0;
 	}

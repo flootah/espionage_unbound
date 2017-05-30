@@ -39,20 +39,21 @@ public class UserInterface
     private int ui;
     
 	private boolean paused;
+	private boolean saveLoaded;
 
     /*
      * Constructor for the class UserInterface. Takes a game state as an input.
      * Creates a new Game Engine and Scanner to be used, and fills in default
      * values for the game's state.
      */
-    public UserInterface(GameEngine ge) {
-        this.ge = ge;
+    public UserInterface() {
         sc = new Scanner(System.in);
         state = 1;
         previousState = 1;
         debug = false;
         ui = 0;
         paused = false;
+        saveLoaded = false;
     }
 
     /**
@@ -88,7 +89,7 @@ public class UserInterface
 				break;
 			case 5:
 				cls();
-				inGame();
+				initGame();
 				break;
 			case 6:
 				cls();
@@ -114,26 +115,38 @@ public class UserInterface
 		}
 	}
 	
-	private boolean exitCheck() {
-		System.out.println("Are you sure you wish to exit?");
-		System.out.println("All unsaved progress will be lost!");
-		System.out.println("(y/n)");
-		boolean exit = false;
-		while(!exit) {
-			String choice = sc.nextLine();
-			switch(choice.toLowerCase()) {
-			case "y":
-				return true;
-			case "n":
-				return false;
-			default:
-				//lalala
-			}
-		}
-		return false;
+	/**
+	 * Initial menu printing. Asks the player if they want to start a new game,
+	 * load a save, display a help page, or exit. changes game state
+	 * accordingly, or exit the program.
+	 */
+	private void firstMenu() {
+	    System.out.println("Welcome to Espionage Unbound v0.6!");
+	    System.out.println("");
+	    System.out.println("Please select an option:");
+	    System.out.println("   1. New Game");
+	    System.out.println("   2. Load Game");
+	    System.out.println("   3. About & Controls");
+	    int option = 0;
+	    if (sc.hasNextInt()) {
+	        option = sc.nextInt();
+	    }
+	    sc.nextLine();
+	
+	    switch (option) {
+	    case 1:
+	        changeState(4);
+	        break;
+	    case 2:
+	        changeState(3);
+	        break;
+	    case 3:
+	        changeState(2);
+	        break;
+	    }
 	}
 
-    private void debugMenu() {
+	private void debugMenu() {
         System.out.println("Would you like to enter debug mode?");
         System.out.println("   1. Yes");
         System.out.println("   2. No");
@@ -164,62 +177,6 @@ public class UserInterface
 
     }
 
-    /**
-     * The Text User Interface method. Used when player is ingame. Creates a
-     * user interface based only on text.
-     * 
-     */
-    private void TUI() {
-        boolean gameOver = ge.gameOver();
-        if(gameOver) {
-        	changeState(10);
-        	
-        }
-        while (!gameOver && !paused) {
-            if (debug) {
-                ge.printDebugGrid();
-            } else {
-                ge.printGrid();
-            }
-			
-            String choice;
-            System.out.println("Choose your move: W, A, S, D, B, K, L, P");
-            System.out.println("Lives: " + ge.getLives() + "\nAmmo: " + ge.getAmmo());
-            choice = sc.nextLine();
-            switch (choice.toUpperCase()) {
-            case "B":
-                shootMenu();
-                ge.checkForSpy();
-                ge.moveNinja();
-                break;
-            case "P":
-            	paused = true;
-            	changeState(7);
-            	break;
-            case "L":
-            	lookMenu();
-            	break;
-            case "K":
-            	//TODO should be removed later, since a save option is availible in the PAUSE menu.
-                saveGame();
-                break;
-            case "W":
-            case "A":
-            case "S":
-            case "D":
-                ge.userMoveInput(choice);
-                ge.checkForSpy();
-                ge.moveNinja();
-                break;
-            default:
-                System.out.println("Invalid Move");
-                break;
-            }
-            ge.checkForGameOver();
-        }
-        
-    }
-    
     private void lookMenu() {
     	if(!ge.getLooking()) {
 	    	System.out.println("What direction would you like to look? (W, A, S, D)");
@@ -296,6 +253,134 @@ public class UserInterface
 	}
 
     /**
+	 * UI choice page. Asks the player to choose the type of UI they would like
+	 * to use for the duration of the program. Sets a global variable
+	 * accordingly, then send the game state to inGame()
+	 */
+	private void uiMenu() {
+	    System.out.println("Please choose a UI type:");
+	    System.out.println();
+	    System.out.println("1. Text-Based");
+	    System.out.println("2. Graphics-Based **UNDER CONSTRUCTION**");
+	    System.out.println("3. Back");
+	    int option = 0;
+	
+	    if (sc.hasNextInt()) {
+	        option = sc.nextInt();
+	    }
+	    sc.nextLine();
+	
+	    switch (option) {
+	    case 1:
+	        ui = 1;
+	        changeState(6);
+	        break;
+	    case 2:
+	        System.out.println("Sorry, this UI is under construction!");
+	        break;
+	    case 3:
+	        changeState(previousState);
+	        break;
+	    }
+	}
+
+	/**
+	 * About/help page. Displays information about how to play, backstory, and
+	 * returns to firstMenu() if any input is recieved.
+	 */
+	private void aboutMenu() {
+	    System.out.println("Welcome to Espionage Unbound!  You are trapped in a building where six ninja assassins are trying to kill you!\n"
+	            + "The goal of the game is to find a briefcase with important documents inside.  The briefcase can spawn in one of nine rooms.\n"
+	            + "If you are in an adjacent tile to a ninja, you will be stabbed and lose a life.  You are equipped with\n"
+	            + "a gun that has only one bullet.  You can shoot ninjas to kill them, but they must be horizontal or vertical to your position.\n"
+	            + "(which displays the room the suitcase is in), and an invincibility potion (which makes you immune to ninja stabbings for five\n"
+	            + "turns.  Good luck finding the briefcase!\n");
+	    System.out.println("W = Moves player up one cell.  Can also shoot bullet up.\n"
+	            + "A = Moves player left one cell.  Can also shoot bullet left.\n"
+	            + "S = Moves player down one cell.  Can also shoot bullet down.\n"
+	            + "D = Moves player right one cell.  Can also shoot bullet right.\n"
+	            + "B = Gives the player the option to choose what direction to shoot the bullet.\n"
+	            + "P = Opens a pause menu, where the player can load, save, open about menu, open control menu, exit to main menu, or exit to desktop.\n");
+	    System.out.println("press ENTER to return");
+	    sc.nextLine();
+	    changeState(previousState);
+	}
+
+	/**
+	 * Main ui state, for when the player is ingame. Displays the map, player
+	 * stats, and follows prompts from the player.
+	 */
+	private void initGame() {
+		if(saveLoaded) {
+			//ge = loadedSave;		should be a variable that contains a GE with all current parameters.
+		} else {
+			ge = new GameEngine();
+		}
+	    if (ui == 1) {
+	        TUI();
+	    } else if (ui == 2) {
+	        GUI();
+	    } else {
+	        System.out.println("invalid ui has been chosen!");
+	    }
+	}
+
+	/**
+	 * The Text User Interface method. Used when player is ingame. Creates a
+	 * user interface based only on text.
+	 * 
+	 */
+	private void TUI() {
+	    boolean gameOver = ge.gameOver();
+
+	    while (!gameOver && !paused) {
+	    	ge.checkForGameOver();
+		    gameOver = ge.gameOver();
+		    if(gameOver) {
+		    	changeState(10);
+		    	break;
+		    }
+	    	
+	        if (debug) {
+	            ge.printDebugGrid();
+	        } else {
+	            ge.printGrid();
+	        }
+			
+	        String choice;
+	        System.out.println("Choose your move: W, A, S, D, B, L, P");
+	        System.out.println("Lives: " + ge.getLives() + "\nAmmo: " + ge.getAmmo());
+	        choice = sc.nextLine();
+	        switch (choice.toUpperCase()) {
+	        case "B":
+	            shootMenu();
+	            ge.checkForSpy();
+	            ge.moveNinja();
+	            break;
+	        case "P":
+	        	paused = true;
+	        	changeState(7);
+	        	break;
+	        case "L":
+	        	lookMenu();
+	        	break;
+	        case "W":
+	        case "A":
+	        case "S":
+	        case "D":
+	            ge.userMoveInput(choice);
+	            ge.checkForSpy();
+	            ge.moveNinja();
+	            break;
+	        default:
+	            System.out.println("Invalid Move");
+	            break;
+	        }
+	    }
+	    
+	}
+
+	/**
      * The Graphical User Interface method. Used when player is ingame. Creates
      * a user interface based on graphical images.
      * 
@@ -304,109 +389,6 @@ public class UserInterface
         // code
     }
 
-
-    /**
-     * Initial menu printing. Asks the player if they want to start a new game,
-     * load a save, display a help page, or exit. changes game state
-     * accordingly, or exit the program.
-     */
-    private void firstMenu() {
-        System.out.println("Welcome to Espionage Unbound v0.6!");
-        System.out.println("");
-        System.out.println("Please select an option:");
-        System.out.println("   1. New Game");
-        System.out.println("   2. Load Game");
-        System.out.println("   3. About & Controls");
-        int option = 0;
-        if (sc.hasNextInt()) {
-            option = sc.nextInt();
-        }
-        sc.nextLine();
-
-        switch (option) {
-        case 1:
-            changeState(4);
-            break;
-        case 2:
-            changeState(3);
-            break;
-        case 3:
-            changeState(2);
-            break;
-        }
-    }
-
-    private void changeState(int i) {
-    	previousState = state;
-        state = i;
-    }
-
-    /**
-     * About/help page. Displays information about how to play, backstory, and
-     * returns to firstMenu() if any input is recieved.
-     */
-    private void aboutMenu() {
-        System.out.println("Welcome to Espionage Unbound!  You are trapped in a building where six ninja assassins are trying to kill you!\n"
-                + "The goal of the game is to find a briefcase with important documents inside.  The briefcase can spawn in one of nine rooms.\n"
-                + "If you are in an adjacent tile to a ninja, you will be stabbed and lose a life.  You are equipped with\n"
-                + "a gun that has only one bullet.  You can shoot ninjas to kill them, but they must be horizontal or vertical to your position.\n"
-                + "(which displays the room the suitcase is in), and an invincibility potion (which makes you immune to ninja stabbings for five\n"
-                + "turns.  Good luck finding the briefcase!\n");
-        System.out.println("W = Moves player up one cell.  Can also shoot bullet up.\n"
-                + "A = Moves player left one cell.  Can also shoot bullet left.\n"
-                + "S = Moves player down one cell.  Can also shoot bullet down.\n"
-                + "D = Moves player right one cell.  Can also shoot bullet right.\n"
-                + "B = Gives the player the option to choose what direction to shoot the bullet.\n"
-                + "P = Opens a pause menu, where the player can load, save, open about menu, open control menu, exit to main menu, or exit to desktop.\n");
-        System.out.println("press ENTER to return");
-        sc.nextLine();
-        changeState(previousState);
-    }
-    /**
-     * UI choice page. Asks the player to choose the type of UI they would like
-     * to use for the duration of the program. Sets a global variable
-     * accordingly, then send the game state to inGame()
-     */
-    private void uiMenu() {
-        System.out.println("Please choose a UI type:");
-        System.out.println();
-        System.out.println("1. Text-Based");
-        System.out.println("2. Graphics-Based **UNDER CONSTRUCTION**");
-        System.out.println("3. Back");
-        int option = 0;
-
-        if (sc.hasNextInt()) {
-            option = sc.nextInt();
-        }
-        sc.nextLine();
-
-        switch (option) {
-        case 1:
-            ui = 1;
-            changeState(6);
-            break;
-        case 2:
-            System.out.println("Sorry, this UI is under construction!");
-            break;
-        case 3:
-            changeState(previousState);
-            break;
-        }
-    }
-
-    /**
-     * Main ui state, for when the player is ingame. Displays the map, player
-     * stats, and follows prompts from the player.
-     */
-    private void inGame() {
-        if (ui == 1) {
-            TUI();
-        } else if (ui == 2) {
-            GUI();
-        } else {
-            System.out.println("invalid ui has been chosen!");
-        }
-    }
 
     /**
 	 * Pause menu.
@@ -468,14 +450,57 @@ public class UserInterface
 		
 	}
 
+	private boolean exitCheck() {
+		System.out.println("Are you sure you wish to exit?");
+		System.out.println("All unsaved progress will be lost!");
+		System.out.println("(y/n)");
+		boolean exit = false;
+		while(!exit) {
+			String choice = sc.nextLine();
+			switch(choice.toLowerCase()) {
+			case "y":
+				return true;
+			case "n":
+				return false;
+			default:
+				//lalala
+			}
+		}
+		return false;
+	}
 
-    /**
+	/**
      * Game over screen. clears screen, printing "GAME OVER" onto system out.
      * then asks the player if they want to exit or return to main menu.
      */
-    public void gameOver() {
-        // code
+    private void gameOver() {
+         if(ge.winCondition()) {
+        	 System.out.println("You win! Congratulations!");
+         } else {
+        	 System.out.println("Game Over!");
+         }
+         
+         System.out.println();
+         System.out.println();
+         
+         System.out.println("Play Again?");
+         System.out.println("(y/n)");
+         boolean exit = false;
+         while(!exit) {
+	         String choice = sc.nextLine();
+	         switch(choice.toUpperCase()) {
+	         case "Y":
+	        	 exit = true;
+	        	 changeState(1);
+	        	 break;
+	         case "N":
+	        	 System.exit(0);
+	         default:
+	        	 System.out.println("Invalid selection.");
+	         }
+         }
     }
+         
 
     private void saveGame() {
 	     String saveName;
@@ -496,6 +521,11 @@ public class UserInterface
 	     }
 	}
 	 
+	private void changeState(int i) {
+		previousState = state;
+	    state = i;
+	}
+
 	private void loadGame() {
 	     System.out.println("Press C to Cancel");
 	     System.out.println("Enter the save's file name");

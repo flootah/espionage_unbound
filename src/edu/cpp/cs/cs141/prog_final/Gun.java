@@ -32,5 +32,8 @@ public class Gun
 	{
 		ammo--;
 	}
+	public void gainBullet() {
+		ammo++;
+	}
 
 }

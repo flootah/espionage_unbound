@@ -14,7 +14,7 @@ public class MainLaunch {
 	 */
 	public static void main(String[] args) 
 	{
-		UserInterface ui = new UserInterface(new GameEngine());
+		UserInterface ui = new UserInterface();
 		ui.mainMenu();
 	}
 
