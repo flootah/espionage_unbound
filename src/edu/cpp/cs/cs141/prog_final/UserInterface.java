@@ -304,7 +304,7 @@ public class UserInterface
         System.out.println("Please select an option:");
         System.out.println("   1. New Game");
         System.out.println("   2. Load Game");
-        System.out.println("   3. About");
+        System.out.println("   3. About & Controls");
         int option = 0;
         if (sc.hasNextInt()) {
             option = sc.nextInt();
@@ -432,7 +432,7 @@ public class UserInterface
 				exit = true;
 				break;
 			case "3":
-				changeState(10);
+				changeState(2);
 				exit = true;
 				break;
 			case "4":
