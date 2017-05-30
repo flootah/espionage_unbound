@@ -779,7 +779,7 @@ public class GameEngine
 	    }
 	   
 	    public void checkForGameOver() {
-	    	if(player.getLives() < 0 || briefcaseFound) {
+	    	if(player.getLives() <= 0 || briefcaseFound) {
 	    		gameOver = true;
 	    	}
 	    }
