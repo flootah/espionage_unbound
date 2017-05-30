@@ -22,4 +22,14 @@ public class Invincibility extends PowerUps
 		return invincibleMark;
 	}
 	
+	public void used()
+	{
+		available = false;
+	}
+	
+	public boolean isUsed()
+	{
+		return available;
+	}
+	
 }
