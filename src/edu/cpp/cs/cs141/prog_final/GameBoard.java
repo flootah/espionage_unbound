@@ -77,15 +77,77 @@ public class GameBoard {
 		{
 			for(int i = 0; i < grid.length; i++) {
 				for(int j = 0; j < grid[i].length; j++) {
-					int[][] look = ge.playerLook();
 					//set all cells empty
 					grid[i][j] = "*";
-					//set cells that player is looking at to "clear"
-					if(ge.getLooking()) 
+					
+					if(ge.getPlayerRow() > 1 && ge.getPlayerRow() < 7)
 					{
-					if( (i == look[0][0] && j == look[0][1] ) || (i == look[1][0] && j == look[1][1])) {
-						grid[i][j] = " ";
+						grid[ge.getPlayerRow() - 1][ge.getPlayerColumn()] = " ";
+						grid[ge.getPlayerRow() - 2][ge.getPlayerColumn()] = " ";
+						grid[ge.getPlayerRow() + 1][ge.getPlayerColumn()] = " ";
+						grid[ge.getPlayerRow() + 2][ge.getPlayerColumn()] = " ";
+						
 					}
+					
+					if(ge.getPlayerRow() == 7)
+					{
+						grid[ge.getPlayerRow() - 1][ge.getPlayerColumn()] = " ";
+						grid[ge.getPlayerRow() - 2][ge.getPlayerColumn()] = " ";
+						grid[ge.getPlayerRow() + 1][ge.getPlayerColumn()] = " ";
+					}
+					
+					if(ge.getPlayerRow() == 8)
+					{
+						grid[ge.getPlayerRow() - 1][ge.getPlayerColumn()] = " ";
+						grid[ge.getPlayerRow() - 2][ge.getPlayerColumn()] = " ";
+					}
+					
+					if(ge.getPlayerRow() == 1)
+					{
+						grid[ge.getPlayerRow() + 1][ge.getPlayerColumn()] = " ";
+						grid[ge.getPlayerRow() + 2][ge.getPlayerColumn()] = " ";
+						grid[ge.getPlayerRow() - 1][ge.getPlayerColumn()] = " ";
+					}
+					
+					if(ge.getPlayerRow() == 0)
+					{
+						grid[ge.getPlayerRow() + 1][ge.getPlayerColumn()] = " ";
+						grid[ge.getPlayerRow() + 2][ge.getPlayerColumn()] = " ";
+					}
+					
+					if(ge.getPlayerColumn() > 1 && ge.getPlayerColumn() < 7)
+					{
+						grid[ge.getPlayerRow()][ge.getPlayerColumn() - 1] = " ";
+						grid[ge.getPlayerRow()][ge.getPlayerColumn() - 2] = " ";
+						grid[ge.getPlayerRow()][ge.getPlayerColumn() + 1] = " ";
+						grid[ge.getPlayerRow()][ge.getPlayerColumn() + 2] = " ";
+						
+					}
+					
+					if(ge.getPlayerColumn() == 7)
+					{
+						grid[ge.getPlayerRow()][ge.getPlayerColumn() - 1] = " ";
+						grid[ge.getPlayerRow()][ge.getPlayerColumn() - 2] = " ";
+						grid[ge.getPlayerRow()][ge.getPlayerColumn() + 1] = " ";
+					}
+					
+					if(ge.getPlayerColumn() == 8)
+					{
+						grid[ge.getPlayerRow()][ge.getPlayerColumn() - 1] = " ";
+						grid[ge.getPlayerRow()][ge.getPlayerColumn() - 2] = " ";
+					}
+					
+					if(ge.getPlayerColumn() == 1)
+					{
+						grid[ge.getPlayerRow()][ge.getPlayerColumn() + 1] = " ";
+						grid[ge.getPlayerRow()][ge.getPlayerColumn() + 2] = " ";
+						grid[ge.getPlayerRow()][ge.getPlayerColumn() - 1] = " ";
+					}
+					
+					if(ge.getPlayerColumn() == 0)
+					{
+						grid[ge.getPlayerRow()][ge.getPlayerColumn() + 1] = " ";
+						grid[ge.getPlayerRow()][ge.getPlayerColumn() + 2] = " ";
 					}
 					//Set player
 					if((j == ge.getPlayerColumn() && i == ge.getPlayerRow())) {
