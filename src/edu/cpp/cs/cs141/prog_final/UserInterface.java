@@ -288,7 +288,6 @@ public class UserInterface
         System.out.println("   1. New Game");
         System.out.println("   2. Load Game");
         System.out.println("   3. About");
-        System.out.println("   4. Controls");
         int option = 0;
         if (sc.hasNextInt()) {
             option = sc.nextInt();
@@ -318,8 +317,19 @@ public class UserInterface
      * returns to firstMenu() if any input is recieved.
      */
     private void aboutMenu() {
-        System.out.println("This is a placeholder about page...");
-        System.out.println();
+        System.out.println("Welcome to Espionage Unbound!  You are trapped in a building where six ninja assassins are trying to kill you!\n"
+                + "The goal of the game is to find a briefcase with important documents inside.  The briefcase can spawn in one of nine rooms.\n"
+                + "If you are in an adjacent tile to a ninja, you will be stabbed and your lives will decrease by one.  You are equipped with\n"
+                + "a gun that has only one bullet.  You can shoot ninjas to kill them, but they must be horizontal or vertical to your position.\n"
+                + "There are three items inside the building: a bullet (which refils your gun if you have used your initial bullet), a radar\n"
+                + "(which displays the room the suitcase is in), and an invincibility potion (which makes you immune to ninja stabbings for five\n"
+                + "turns.  Good luck finding the briefcase!\n");
+        System.out.println("W = Moves player up one cell.  Can also shoot bullet up.\n"
+                + "A = Moves player left one cell.  Can also shoot bullet left.\n"
+                + "S = Moves player down one cell.  Can also shoot bullet down.\n"
+                + "D = Moves player right one cell.  Can also shoot bullet right.\n"
+                + "B = Gives the player the option to choose what direction to shoot the bullet.\n"
+                + "P = Opens a pause menu, where the player can load, save, open about menu, open control menu, exit to main menu, or exit to desktop.\n");
         System.out.println("press ENTER to return");
         sc.nextLine();
         changeState(previousState);
@@ -384,16 +394,14 @@ public class UserInterface
 		System.out.println("Press P to Return to Game");
 		System.out.println("     1. Load Game");
 		System.out.println("     2. Save Game");
-		System.out.println("     3. Controls");
-		System.out.println("     4. About");
-		System.out.println("     5. Exit to Main Menu");
-		System.out.println("     6. Exit to Desktop");
+		System.out.println("     3. About & Controls");
+		System.out.println("     4. Exit to Main Menu");
+//		System.out.println("     5. Exit to Desktop");
 		String choice = "";
 		boolean exit = false;
 		while(!exit) {
 			choice = sc.nextLine();
-			switch(choice) {
-			case "p":
+			switch(choice.toUpperCase()) {
 			case "P":
 				paused = false;
 				exit = true;
@@ -412,10 +420,6 @@ public class UserInterface
 				exit = true;
 				break;
 			case "4":
-				changeState(2);
-				exit = true;
-				break;
-			case "5":
 				if(exitCheck()) {
 					System.exit(0);
 				} else {
