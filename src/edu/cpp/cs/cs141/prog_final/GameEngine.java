@@ -295,28 +295,28 @@ public class GameEngine
 				if(rng == 3 && getNinjaRow(counter) > 0 && getNinjaRow(counter) <= 8 && !roomCollisionNinja(counter, "up"))
 				{
 					moveNinjaUp(counter);
-					//System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
+					System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
 					counter++;
 				}
 				else
 					if(rng == 2 && getNinjaRow(counter) < 8 && getNinjaRow(counter) >= 0 && !roomCollisionNinja(counter, "down"))
 					{
 						moveNinjaDown(counter);
-						//System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
+						System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
 						counter++;
 					}
 					else
 						if(rng == 1 && getNinjaColumn(counter) >= 0 && getNinjaColumn(counter) < 8 && !roomCollisionNinja(counter, "right"))
 						{
 							moveNinjaRight(counter);
-							//System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
+							System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
 							counter++;
 						}
 						else
 							if(rng == 0 && getNinjaColumn(counter) <= 8 && getNinjaColumn(counter) > 0 && !roomCollisionNinja(counter, "left"))
 							{
 								moveNinjaLeft(counter);
-								//System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
+								System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
 								counter++;
 							}	
 	            } else {
@@ -812,29 +812,27 @@ public class GameEngine
 				if(col - 1 >= 0) {
 					coordinates[0][0] = row;
 					coordinates[0][1] = col - 1;
-					if(col - 2 >= 0) {
+					if(row - 2 >= 0) {
 						coordinates[1][0] = row;
 						coordinates[1][1] = col - 2;
 					}
 				}
 				break;
 			case "right":
-				if(col + 1 <= 8) {
+				if(row + 1 <= 8) {
 					coordinates[0][0] = row;
 					coordinates[0][1] = col + 1;
-					if(col + 2 <= 8) {
+					if(row + 2 <= 8) {
 						coordinates[1][0] = row;
 						coordinates[1][1] = col + 2;
 					}
 				}
 				break;
-			default:
-				System.out.println("You can't look that way!");
 			}
 			look = coordinates;
 		}
 		
-		public int[][] f() {
+		public int[][] playerLook() {
 			return look;
 		}
 		
@@ -886,9 +884,5 @@ public class GameEngine
 		}
 		public void setLooking(boolean x) {
 			looking = x;
-		}
-
-		public int[][] playerLook() {
-			return look;
 		}
 }
