@@ -377,6 +377,7 @@ public class UserInterface
 	            ge.userMoveInput(choice);
 	            ge.checkForSpy();
 	            ge.moveNinja();
+				ge.pickUpPowerUp();
 	            break;
 	        default:
 	            System.out.println("Invalid Move");
