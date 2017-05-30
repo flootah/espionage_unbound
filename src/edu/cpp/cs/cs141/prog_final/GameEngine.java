@@ -784,59 +784,73 @@ public class GameEngine
 	    	}
 	    }
 	    
-	    public void setLook(String dir) {
-			int[][] coordinates = new int[2][2];
-			int row = player.getRow();
-			int col = player.getColumn();
-			
-			switch(dir) {
-			case "up":
-				if(row - 1 >= 0) {
-					coordinates[0][0] = row - 1;
-					coordinates[0][1] = col;
-					if(row - 2 >= 0) {
-						coordinates[1][0] = row - 2;
-						coordinates[1][1] = col;
-					}
-				}
-				break;
-			case "down":
-				if(row + 1 <= 8) {
-					coordinates[0][0] = row + 1;
-					coordinates[0][1] = col;
-					if(row + 2 <= 8) {
-						coordinates[1][0] = row + 2;
-						coordinates[1][1] = col;
-					}
-				}
-				break;
-			case "left":
-				if(col - 1 >= 0) {
-					coordinates[0][0] = row;
-					coordinates[0][1] = col - 1;
-					if(row - 2 >= 0) {
-						coordinates[1][0] = row;
-						coordinates[1][1] = col - 2;
-					}
-				}
-				break;
-			case "right":
-				if(row + 1 <= 8) {
-					coordinates[0][0] = row;
-					coordinates[0][1] = col + 1;
-					if(row + 2 <= 8) {
-						coordinates[1][0] = row;
-						coordinates[1][1] = col + 2;
-					}
-				}
-				break;
-			}
-			look = coordinates;
-		}
-		
-		public int[][] playerLook() {
-			return look;
-		}
+		public void playerLook(String dir)
+	    {	    
+	    	boolean checkNinja = false;
+	    	
+	    	switch(dir)
+	    	{
+	    	case "up":
+	    		for(int j = 0; j < ninjas.length; j++)
+	    		{
+	    			if(player.getColumn() == getNinjaColumn(j) && player.getRow() > getNinjaRow(j))
+	    			{
+	    				checkNinja = true;
+	    			}
+	    		}
+	    		if(checkNinja)
+	    		{
+	    			System.out.println("Ninja Ahead!");
+	    		}
+	    		else
+	    			System.out.println("Clear");
+	    		
+	    	case "down":
+	    		for(int j = 0; j < ninjas.length; j++)
+	    		{
+	    			if(player.getColumn() == getNinjaColumn(j) && player.getRow() < getNinjaRow(j))
+	    			{
+	    				checkNinja = true;
+	    			}
+	    		}
+	    		if(checkNinja)
+	    		{
+	    			System.out.println("Ninja Ahead!");
+	    		}
+	    		else
+	    			System.out.println("Clear");
+	    		
+	    	case "left":
+	    		for(int j = 0; j < ninjas.length; j++)
+	    		{
+	    			if(player.getRow() == getNinjaRow(j) && player.getColumn() > getNinjaColumn(j))
+	    			{
+	    				checkNinja = true;
+	    			}
+	    		}
+	    		if(checkNinja)
+	    		{
+	    			System.out.println("Ninja Ahead!");
+	    		}
+	    		else
+	    			System.out.println("Clear");
+	    		
+	    	case "right":
+	    		for(int j = 0; j < ninjas.length; j++)
+	    		{
+	    			if(player.getRow() == getNinjaRow(j) && player.getColumn() < getNinjaColumn(j))
+	    			{
+	    				checkNinja = true;
+	    			}
+	    		}
+	    		if(checkNinja)
+	    		{
+	    			System.out.println("Ninja Ahead!");
+	    		}
+	    		else
+	    			System.out.println("Clear");
+	    	}
+	    }
 		
 		/*
 		 * method to process radar powerup collection.
