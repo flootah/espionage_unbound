@@ -139,7 +139,7 @@ public class UserInterface
 			changeState(previousState);
 			break;
         default:
-            System.out.println("Invalid option! Try Again.");
+            System.out.println("Invalid option.");
             break;
         }
 
@@ -162,15 +162,19 @@ public class UserInterface
             }
 			
             String choice;
-            System.out.println("Lives: " + ge.getLives() + "\nAmmo: " + ge.getAmmo());
-            System.out.println("Choose your move (W, A, S, D, B, K): ");
-            choice = sc.nextLine();
+            System.out.println("Live(s): " + ge.getLives() + "\nAmmo: " + ge.getAmmo());
+            System.out.println("Choose your move (W, A, S, D, B, K, P): ");
+            choice = sc.next();
+            sc.nextLine();
             switch (choice.toUpperCase()) {
             case "B":
                 gunDirection();
                 break;
             case "K":
                 saveGameName();
+                break;
+            case "P":
+                pauseMenu();
                 break;
             case "W":
             case "A":
@@ -223,7 +227,7 @@ public class UserInterface
         System.out.println("Please select an option:");
         System.out.println("\t1. New Game");
         System.out.println("\t2. Load Game");
-        System.out.println("\t3. About");
+        System.out.println("\t3. About & Control Menu");
         int option = 0;
         if (sc.hasNextInt()) {
             option = sc.nextInt();
@@ -301,8 +305,6 @@ public class UserInterface
             TUI();
         } else if (ui == 2) {
             GUI();
-        } else {
-            System.out.println("invalid UI has been chosen!");
         }
     }
 
@@ -316,42 +318,47 @@ public class UserInterface
 	 * The player's selection will take them to the according to their selection.
 	 */
 	private void pauseMenu() {
-		System.out.println(			"PAUSED");
-		System.out.println("Press P to Return to Game");
-		System.out.println("     1. Load Game");
-		System.out.println("     2. Save Game");
-		System.out.println("     3. Controls");
-		System.out.println("     4. About");
-		System.out.println("     5. Exit to Main Menu");
-		System.out.println("     6. Exit to Desktop");
+		System.out.println("\t\tPAUSED\n");
+		System.out.println("\t1. Load Game");
+		System.out.println("\t2. Save Game");
+		System.out.println("\t3. About & Controls");
+		System.out.println("\t4. Exit to Main Menu");
+		System.out.println("\t5. Exit to Desktop");
+	    System.out.println("\nEnter your choice or press P to Return to Game");
 		String choice = "";
-		choice = sc.nextLine();
+        if (sc.hasNext()) {
+            choice = sc.next();
+        }
+		sc.nextLine();
+		
 		switch(choice.toUpperCase()) {
 		case "P":
 			changeState(5);
 			break;
 		case "1":
-			changeState(3);
+			loadGameName();
 			break;
 		case "2":
-			changeState(8);
+			saveGameName();
 			break;
 		case "3":
-			changeState(10);
+			aboutMenu();
 			break;
 		case "4":
-			changeState(2);
-			break;
-		case "5":
 			if(exitCheck()) {
 				changeState(1);
 				break;
 			} else {
 				break;
 			}
-		case "6":
+		case "5":
 			exitCheck();
 			System.exit(0);
+			break;
+		default:
+		    System.out.println("Invalid choice.");
+		    pauseMenu();
+		    break;
 		}
 	}
 
@@ -366,7 +373,7 @@ public class UserInterface
 
     private void saveGameName() {
         String saveName;
-        System.out.println("Enter name for the save file or enter 'C' to cancel: ");
+        System.out.println("Enter a name to save your file or enter 'C' to cancel: ");
         saveName = sc.next();
         if(saveName.equals("C")) {
             changeState(previousState);
