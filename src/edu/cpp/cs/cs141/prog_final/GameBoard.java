@@ -56,15 +56,15 @@ public class GameBoard implements Serializable {
 						grid[i][j] = ge.getBriefCaseMark();
 					}
 					//set bullet
-					if(grid[i][j] == " " && (j == ge.getBulletColumn() && i == ge.getBulletRow())) {
+					if(ge.isBulletAvailable() && grid[i][j] == " " && (j == ge.getBulletColumn() && i == ge.getBulletRow())) {
 						grid[i][j] = ge.getBulletMark();
 					}
 					//set radar
-					if(grid[i][j] == " " && (j == ge.getRadarColumn() && i == ge.getRadarRow())) {
+					if(ge.isRadarAvailable() && grid[i][j] == " " && (j == ge.getRadarColumn() && i == ge.getRadarRow())) {
 						grid[i][j] = ge.getRadarMark();
 					}
 					//set invincible
-					if(grid[i][j] == " " && (j == ge.getInvincibleColumn() && i == ge.getInvincibleRow())) {
+					if(ge.isInvincibilityAvailable() && grid[i][j] == " " && (j == ge.getInvincibleColumn() && i == ge.getInvincibleRow())) {
 						grid[i][j] = ge.getInvincibleMark();
 					}
 							
@@ -177,15 +177,15 @@ public class GameBoard implements Serializable {
 						grid[i][j] = ge.getBriefCaseMark();
 					}
 					//set bullet if player is looking and ninja isnt there
-					if(grid[i][j] == " " && (j == ge.getBulletColumn() && i == ge.getBulletRow())) {
+					if(ge.isBulletAvailable() && grid[i][j] == " " && (j == ge.getBulletColumn() && i == ge.getBulletRow())) {
 						grid[i][j] = ge.getBulletMark();
 					}
 					//set radar if player is looking and ninja isnt there
-					if(grid[i][j] == " " && (j == ge.getRadarColumn() && i == ge.getRadarRow())) {
+					if(ge.isRadarAvailable() && grid[i][j] == " " && (j == ge.getRadarColumn() && i == ge.getRadarRow())) {
 						grid[i][j] = ge.getRadarMark();
 					}
 					//set invincible if player is looking and ninja isnt there
-					if(grid[i][j] == " " && (j == ge.getInvincibleColumn() && i == ge.getInvincibleRow())) {
+					if(ge.isInvincibilityAvailable() && grid[i][j] == " " && (j == ge.getInvincibleColumn() && i == ge.getInvincibleRow())) {
 						grid[i][j] = ge.getInvincibleMark();
 					}
 							
