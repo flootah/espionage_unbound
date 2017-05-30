@@ -139,7 +139,6 @@ public class GameEngine
 	        			}
 	        		}
 	        	}
-	        	moveNinja();
 	        	break;
 	        case "left":
 	        	if(pCol == 0) {
@@ -169,7 +168,6 @@ public class GameEngine
 	        			}
 	        		}
 	        	}
-	        	moveNinja();
 	        	break;
 	        case "right":
 	        	if(pCol == 8) {
@@ -199,7 +197,6 @@ public class GameEngine
 	        			}
 	        		}
 	        	}
-	        	moveNinja();
 	        	break;
 	        case "down":
 	        	if(pRow == 8) {
@@ -229,7 +226,6 @@ public class GameEngine
 	        			}
 	        		}
 	        	}
-	        	moveNinja();
 	        	break;
 	        default:
 	        	System.out.println("Invalid direction within ge.shootGun()");
