@@ -138,10 +138,13 @@ public class GameEngine
 
 	    public void shootGun(String dir) {
 	    	int pRow = player.getRow();
-	    	int pCol = player.getColumn();	    	
+	    	int pCol = player.getColumn();	 
+	    	if(gun.getAmmo() == 1)
+	    	{
 	        switch(dir) {
 	        case "up":
 	        	//loop through each row above the player.
+	        	gun.useBullet();
 	        	rowloop:
 	        	for(int i = pRow; i >= 0; i--) {
 	        		//loop through each ninja on board.
@@ -163,9 +166,11 @@ public class GameEngine
 	        			}
 	        		}
 	        	}
+	        	moveNinja();
 	        	break;
 	        case "left":
 	        	//loop through each column to the left of the player.
+	        	gun.useBullet();
 	        	rowloop:
 	        	for(int i = pCol; i >= 0; i--) {
 	        		//loop through each ninja on board.
@@ -187,9 +192,11 @@ public class GameEngine
 	        			}
 	        		}
 	        	}
+	        	moveNinja();
 	        	break;
 	        case "right":
 	        	//loop through each column to the right of the player.
+	        	gun.useBullet();
 	        	rowloop:
 	        	for(int i = pCol; i <= 8; i++) {
 	        		//loop through each ninja on board.
@@ -211,9 +218,11 @@ public class GameEngine
 	        			}
 	        		}
 	        	}
+	        	moveNinja();
 	        	break;
 	        case "down":
 	        	//loop through each row below the player.
+	        	gun.useBullet();
 	        	rowloop:
 	        	for(int i = pRow; i <= 8; i++) {
 	        		//loop through each ninja on board.
@@ -235,11 +244,15 @@ public class GameEngine
 	        			}
 	        		}
 	        	}
+	        	moveNinja();
 	        	break;
 	        default:
 	        	System.out.println("Invalid direction within ge.shootGun()");
 	        	break;
 	        }
+	    	}
+	    	else
+	    		System.out.println("No Ammo");
 	    }
 
 	    public void movePlayer(String userMove) {
