@@ -186,12 +186,22 @@ public class UserInterface
     }
     
     private void gunDirection() {
-        String gunDirection = null;
+        String bulletDirection = null;
         System.out.print("What direction would you like to shoot (W, A, S, D)? ");
-        gunDirection = sc.nextLine();
-        ge.gunShoot(gunDirection);
-        ge.moveNinja();
+        bulletDirection = sc.nextLine();
+        switch (bulletDirection.toUpperCase()) {
+        case "W":
+        case "A":
+        case "S":
+        case "D":
+            ge.gunShoot(bulletDirection);
+            ge.moveNinja();
+            break;
+        default:
+            System.out.println("Invalid choice.");
+            break;
         }
+    }
 
     /**
      * The Graphical User Interface method. Used when player is ingame. Creates
