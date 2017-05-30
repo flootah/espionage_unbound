@@ -49,8 +49,6 @@ public class GameEngine
 	    
 	    private boolean bulletActive;
 		
-		private int[][] look;
-		
 		private boolean looking;
 
 		private boolean gameOver;
