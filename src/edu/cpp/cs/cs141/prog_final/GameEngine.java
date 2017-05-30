@@ -112,7 +112,6 @@ public class GameEngine implements Serializable
 	        case "up":
 	        	if(pRow == 0) {
 	        		System.out.println("You shot into a wall...");
-	        		break;
 	        	}
 	        	//loop through each row above the player.
 	        	gun.useBullet();
@@ -141,7 +140,6 @@ public class GameEngine implements Serializable
 	        case "left":
 	        	if(pCol == 0) {
 	        		System.out.println("You shot into a wall...");
-	        		break;
 	        	}
 	        	//loop through each column to the left of the player.
 	        	gun.useBullet();
@@ -170,7 +168,6 @@ public class GameEngine implements Serializable
 	        case "right":
 	        	if(pCol == 8) {
 	        		System.out.println("You shot into a wall...");
-	        		break;
 	        	}
 	        	//loop through each column to the right of the player.
 	        	gun.useBullet();
@@ -199,7 +196,6 @@ public class GameEngine implements Serializable
 	        case "down":
 	        	if(pRow == 8) {
 	        		System.out.println("You shot into a wall...");
-	        		break;
 	        	}
 	        	//loop through each row below the player.
 	        	gun.useBullet();
@@ -914,4 +910,37 @@ public class GameEngine implements Serializable
 			System.out.println("You were stabbed!");
 			player.respawn();
 		}
+		
+		public boolean isBulletAvailable()
+	    {
+	    	return bullet.isUsed();
+	    }
+	    
+	    public boolean isRadarAvailable()
+	    {
+	    	return radar.isUsed();
+	    }
+	    
+	    public boolean isInvincibilityAvailable()
+	    {
+	    	return invincible.isUsed();
+	    }
+	    
+	    public void pickUpPowerUp()
+	    {
+	    	if(isBulletAvailable() && getPlayerRow() == getBulletRow() && getPlayerColumn() == getBulletColumn())
+	    	{
+	    		bullet.used();
+	    	}
+	    	
+	    	if(isRadarAvailable() && getPlayerRow() == getRadarRow() && getPlayerColumn() == getRadarColumn())
+	    	{
+	    		radar.used();
+	    	}
+	    	
+	    	if(isInvincibilityAvailable() && getPlayerRow() == getInvincibleRow() && getPlayerColumn() == getInvincibleColumn())
+	    	{
+	    		invincible.used();
+	    	}
+	    }
 }
