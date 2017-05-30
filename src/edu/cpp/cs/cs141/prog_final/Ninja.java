@@ -16,11 +16,14 @@ public class Ninja
 	private int column;
 	
 	private String ninjaMark = "A";
+
+	private boolean alive;
 	
 	public Ninja()
 	{
 		row = calculateRow();
 		column = calculateColumn();
+		alive = true;
 	}
 
 	public int calculateColumn() 
@@ -85,6 +88,14 @@ public class Ninja
 	public void moveLeft() 
 	{
 		column--;
+	}
+
+	public void die() {
+		alive = false;
+	}
+	
+	public boolean isAlive() {
+		return alive;
 	}
 	
 	

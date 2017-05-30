@@ -136,8 +136,110 @@ public class GameEngine
 	        }
 	    }
 
-	    public void gunShoot(String direction) {
-	        player.shoot(direction);
+	    public void shootGun(String dir) {
+	    	int pRow = player.getRow();
+	    	int pCol = player.getColumn();	    	
+	        switch(dir) {
+	        case "up":
+	        	//loop through each row above the player.
+	        	rowloop:
+	        	for(int i = pRow; i >= 0; i--) {
+	        		//loop through each ninja on board.
+	        		for(int n = 0; n < NUM_NINJAS; n++) {
+	        			//check if current row and column match current ninja location.
+	        			if(ninjas[n].isAlive() && i == ninjas[n].getRow() && pCol == ninjas[n].getColumn()) {
+	        				//delete the ninja, and break the loop.
+	        				ninjas[n].die();
+	        				break rowloop;
+	        			} else {
+	        				//missing debug messages
+	        				/*
+	        				System.out.println("i = " + i);
+	        				System.out.println("missed ninja " + n);
+	        				System.out.println("row: " + ninjas[n].calculateRow());
+	        				System.out.println("col: " + ninjas[n].calculateColumn());
+	        				*/
+	        				//go to next ninja/column
+	        			}
+	        		}
+	        	}
+	        	break;
+	        case "left":
+	        	//loop through each column to the left of the player.
+	        	rowloop:
+	        	for(int i = pCol; i >= 0; i--) {
+	        		//loop through each ninja on board.
+	        		for(int n = 0; n < NUM_NINJAS; n++) {
+	        			//check if current row and column match current ninja location.
+	        			if(ninjas[n].isAlive() && i == ninjas[n].getColumn() && pRow == ninjas[n].getRow()) {
+	        				//delete the ninja, and break the loop.
+	        				ninjas[n].die();
+	        				break rowloop;
+	        			} else {
+	        				//missing debug messages
+	        				/*
+	        				System.out.println("i = " + i);
+	        				System.out.println("missed ninja " + n);
+	        				System.out.println("row: " + ninjas[n].calculateRow());
+	        				System.out.println("col: " + ninjas[n].calculateColumn());
+	        				*/
+	        				//go to next ninja/column
+	        			}
+	        		}
+	        	}
+	        	break;
+	        case "right":
+	        	//loop through each column to the right of the player.
+	        	rowloop:
+	        	for(int i = pCol; i <= 8; i++) {
+	        		//loop through each ninja on board.
+	        		for(int n = 0; n < NUM_NINJAS; n++) {
+	        			//check if current row and column match current ninja location.
+	        			if(ninjas[n].isAlive() && i == ninjas[n].getColumn() && pRow == ninjas[n].getRow()) {
+	        				//delete the ninja, and break the loop.
+	        				ninjas[n].die();
+	        				break rowloop;
+	        			} else {
+	        				//missing debug messages
+	        				/*
+	        				System.out.println("i = " + i);
+	        				System.out.println("missed ninja " + n);
+	        				System.out.println("row: " + ninjas[n].calculateRow());
+	        				System.out.println("col: " + ninjas[n].calculateColumn());
+	        				*/
+	        				//go to next ninja/column
+	        			}
+	        		}
+	        	}
+	        	break;
+	        case "down":
+	        	//loop through each row below the player.
+	        	rowloop:
+	        	for(int i = pRow; i <= 8; i++) {
+	        		//loop through each ninja on board.
+	        		for(int n = 0; n < NUM_NINJAS; n++) {
+	        			//check if current row and column match current ninja location.
+	        			if(ninjas[n].isAlive() && i == ninjas[n].getRow() && pCol == ninjas[n].getColumn()) {
+	        				//delete the ninja, and break the loop.
+	        				ninjas[n].die();
+	        				break rowloop;
+	        			} else {
+	        				//missing debug messages
+	        				/*
+	        				System.out.println("i = " + i);
+	        				System.out.println("missed ninja " + n);
+	        				System.out.println("row: " + ninjas[n].calculateRow());
+	        				System.out.println("col: " + ninjas[n].calculateColumn());
+	        				*/
+	        				//go to next ninja/column
+	        			}
+	        		}
+	        	}
+	        	break;
+	        default:
+	        	System.out.println("Invalid direction within ge.shootGun()");
+	        	break;
+	        }
 	    }
 
 	    public void movePlayer(String userMove) {
@@ -188,6 +290,8 @@ public class GameEngine
 	            // System.out.println("pre-coordinates: " +
 	            // ninja's[counter].getColumn() + " , " + ninja's[counter].getRow());
 	            int rng = new Random().nextInt(4);
+	            if(ninjas[counter].isAlive())
+	            {
 				if(rng == 3 && getNinjaRow(counter) > 0 && getNinjaRow(counter) <= 8 && !roomCollisionNinja(counter, "up"))
 				{
 					moveNinjaUp(counter);
@@ -215,7 +319,14 @@ public class GameEngine
 								//System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
 								counter++;
 							}	
+	            } else {
+	            	counter++;
+	            }
 	        }
+	    }
+	    
+	    public boolean isNinjaAlive(int n) {
+	    	return ninjas[n].isAlive();
 	    }
 
 	    public boolean roomCollisionPlayer(String dir) {
@@ -621,7 +732,8 @@ public class GameEngine
 	        return invincible.getRow();
 	    }
 
-	    public static void saveGame(Serializable grid, String saveName) {
+	    //TODO removed static from method, was causing errors.
+	    public void saveGame(Serializable grid, String saveName) {
 	        SaveState save = new SaveState();
 	        System.out.println(save.toString());
 	        
@@ -655,13 +767,11 @@ public class GameEngine
 	    }
 
 	    public int getAmmo() {
-	        // TODO Auto-generated method stub
 	        // Returns player's current ammo.
 	        return gun.getAmmo();
 	    }
 
 	    public int getLives() {
-	        // TODO Auto-generated method stub
 	        // Returns player's current life count.
 	        return player.getLives();
 	    }
@@ -765,6 +875,10 @@ public class GameEngine
 		                bullet = null;
 		        }
 		    }
+		}
+		
+		public boolean bulletActive() {
+			return bulletActive;
 		}
 
 		public boolean getLooking() {

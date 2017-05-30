@@ -31,7 +31,7 @@ public class GameBoard {
 					//set Ninjas
 					if(grid[i][j] == " ") {
 						for(int n = 0; n < NUM_NINJAS; n++) {
-							if(j == ge.getNinjaColumn(n) && i == ge.getNinjaRow(n)) {
+							if(ge.isNinjaAlive(n) && j == ge.getNinjaColumn(n) && i == ge.getNinjaRow(n)) {
 								grid[i][j] = ge.getNinjaMark();
 							}
 						}
@@ -93,7 +93,7 @@ public class GameBoard {
 					}
 					//set Ninjas if player is looking
 					for(int n = 0; n < NUM_NINJAS; n++) {
-						if(grid[i][j] == " " && j == ge.getNinjaColumn(n) && i == ge.getNinjaRow(n)) {
+						if(ge.isNinjaAlive(n) && grid[i][j] == " " && j == ge.getNinjaColumn(n) && i == ge.getNinjaRow(n)) {
 							grid[i][j] = ge.getNinjaMark();
 						}
 					}

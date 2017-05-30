@@ -165,7 +165,7 @@ public class UserInterface
             choice = sc.nextLine();
             switch (choice.toUpperCase()) {
             case "B":
-                gunDirection();
+                shootMenu();
                 break;
             case "P":
             	paused = true;
@@ -175,6 +175,7 @@ public class UserInterface
             	lookMenu();
             	break;
             case "K":
+            	//TODO should be removed later, since a save option is availible in the PAUSE menu.
                 saveGame();
                 break;
             case "W":
@@ -193,33 +194,29 @@ public class UserInterface
     private void lookMenu() {
     	if(!ge.getLooking()) {
 	    	System.out.println("What direction would you like to look? (W, A, S, D)");
+	    	System.out.println("Press C to cancel.");
 	    	boolean exit = false;
 		    	while(!exit) {
 		    	String lookDirection = sc.nextLine();
-		    	switch(lookDirection) {
-		    	case "c":
+		    	switch(lookDirection.toUpperCase()) {
 		    	case "C":
 		    		exit = true;
 		    		break;
-		    	case "w":
 		    	case "W":
 		    		ge.setLook("up");
 		    		ge.setLooking(true);
 		    		exit = true;
 		    		break;
-		    	case "a":
 		    	case "A":
 		    		ge.setLook("left");
 		    		ge.setLooking(true);
 		    		exit = true;
 		    		break;
-		    	case "s":
 		    	case "S":
 		    		ge.setLook("down");
 		    		ge.setLooking(true);
 		    		exit = true;
 		    		break;
-		    	case "d":
 		    	case "D":
 		    		ge.setLook("right");
 		    		ge.setLooking(true);
@@ -234,13 +231,40 @@ public class UserInterface
     	}
 	}
 
-	private void gunDirection() {
+	private void shootMenu() { //TODO you're working on this now.
         String gunDirection = null;
         System.out.print("What direction would you like to shoot (W, A, S, D)? ");
-        gunDirection = sc.nextLine();
-        ge.gunShoot(gunDirection);
-        ge.moveNinja();
+        System.out.println("Press C to cancel.");
+        boolean exit = false;
+        while(!exit) {
+	        gunDirection = sc.nextLine();
+	        switch(gunDirection.toUpperCase()) {
+	        case "C":
+	        	exit = true;
+	        	break;
+	        	//cancel
+	        case "W":
+	        	ge.shootGun("up");
+	        	exit = true;
+	        	//TODO decide whether ge.moveNinja() should be called here or in the ge.shootGun() method.
+	        	break;
+	        case "A":
+	        	ge.shootGun("left");
+	        	exit = true;
+	        	break;
+	        case "S":
+	        	ge.shootGun("down");
+	        	exit = true;
+	        	break;
+	        case "D":
+	        	ge.shootGun("right");
+	        	exit = true;
+	        	break;
+	        default:
+	        	System.out.println("You cant shoot that way!");
+	        }
         }
+	}
 
     /**
      * The Graphical User Interface method. Used when player is ingame. Creates
@@ -300,20 +324,6 @@ public class UserInterface
         sc.nextLine();
         changeState(previousState);
     }
-
-    /**
-     * Save loading page. Asks the player to identify their save file, which the
-     * UI will pass to the GE to load up. Note: must first send player to
-     * uiMenu() to get the type of UI to use.
-     */
-    private void loadMenu() {
-        System.out.println("This is a placeholder save loading page...");
-        System.out.println();
-        System.out.println("press ENTER to return");
-        sc.nextLine();
-        changeState(previousState);
-    }
-
     /**
      * UI choice page. Asks the player to choose the type of UI they would like
      * to use for the duration of the program. Sets a global variable
@@ -421,7 +431,7 @@ public class UserInterface
 
 
     /**
-     * Game over screen clears screen, printing "GAME OVER" onto system out.
+     * Game over screen. clears screen, printing "GAME OVER" onto system out.
      * then asks the player if they want to exit or return to main menu.
      */
     public void gameOver() {
@@ -432,7 +442,8 @@ public class UserInterface
         String saveName;
         System.out.println("Enter name for the save file: ");
         saveName = sc.next();
-        ge.saveGame(saveName);
+        //TODO fix this null, only placed to remove errors.
+        ge.saveGame(null, saveName);
     }
 
     public void loadGameName() {
