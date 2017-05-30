@@ -3,11 +3,13 @@
  */
 package edu.cpp.cs.cs141.prog_final;
 
+import java.io.Serializable;
+
 /**
  * @author Corey Perez
  *
  */
-public class Player 
+public class Player implements Serializable
 {
 	private final int MAX_LIVES = 3;
 	

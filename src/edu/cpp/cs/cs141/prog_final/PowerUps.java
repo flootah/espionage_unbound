@@ -3,13 +3,14 @@
  */
 package edu.cpp.cs.cs141.prog_final;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
  * @author Corey Perez
  *
  */
-public abstract class PowerUps 
+public abstract class PowerUps implements Serializable
 {	
 	protected int row;
 	protected int column;

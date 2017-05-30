@@ -3,13 +3,14 @@
  */
 package edu.cpp.cs.cs141.prog_final;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
  * @author Corey Perez
  *
  */
-public class Ninja 
+public class Ninja implements Serializable
 {
 	private int row;
 	

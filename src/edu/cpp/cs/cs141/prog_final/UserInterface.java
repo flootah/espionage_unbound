@@ -3,6 +3,8 @@
  */
 package edu.cpp.cs.cs141.prog_final;
 
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.util.Scanner;
 
 import javax.swing.plaf.synth.SynthSeparatorUI;
@@ -40,6 +42,7 @@ public class UserInterface
     
 	private boolean paused;
 	private boolean saveLoaded;
+	private GameEngine loadedSave;
 
     /*
      * Constructor for the class UserInterface. Takes a game state as an input.
@@ -54,6 +57,7 @@ public class UserInterface
         ui = 0;
         paused = false;
         saveLoaded = false;
+        ge = null;
     }
 
     /**
@@ -81,7 +85,7 @@ public class UserInterface
 				aboutMenu();
 				break;
 			case 3:
-				loadGame();
+				loadGameMenu();
 				break;
 			case 4:
 				cls();
@@ -101,7 +105,7 @@ public class UserInterface
 				break;
 			case 8:
 				cls();
-				saveGame();
+				saveGameMenu();
 				break;
 			case 9:
 				cls();
@@ -127,6 +131,8 @@ public class UserInterface
 	    System.out.println("   1. New Game");
 	    System.out.println("   2. Load Game");
 	    System.out.println("   3. About & Controls");
+	    ge = null;
+	    saveLoaded = false;
 	    int option = 0;
 	    if (sc.hasNextInt()) {
 	        option = sc.nextInt();
@@ -217,7 +223,7 @@ public class UserInterface
     	}
 	}
 
-	private void shootMenu() { //TODO you're working on this now.
+	private void shootMenu() {
         String gunDirection = null;
         System.out.print("What direction would you like to shoot (W, A, S, D)? ");
         System.out.println("Press C to cancel.");
@@ -232,7 +238,6 @@ public class UserInterface
 	        case "W":
 	        	ge.shootGun("up");
 	        	exit = true;
-	        	//TODO decide whether ge.moveNinja() should be called here or in the ge.shootGun() method.
 	        	break;
 	        case "A":
 	        	ge.shootGun("left");
@@ -279,7 +284,7 @@ public class UserInterface
 	        System.out.println("Sorry, this UI is under construction!");
 	        break;
 	    case 3:
-	        changeState(previousState);
+	        changeState(1);
 	        break;
 	    }
 	}
@@ -312,7 +317,7 @@ public class UserInterface
 	 */
 	private void initGame() {
 		if(saveLoaded) {
-			//ge = loadedSave;		should be a variable that contains a GE with all current parameters.
+			ge = loadedSave;
 		} else {
 			ge = new GameEngine();
 		}
@@ -437,7 +442,7 @@ public class UserInterface
 					break;
 				}
 				break;
-			case "6":
+			case "5":
 				if(exitCheck()) {
 					System.exit(0);
 				}
@@ -502,7 +507,7 @@ public class UserInterface
     }
          
 
-    private void saveGame() {
+    private void saveGameMenu() {
 	     String saveName;
 	     System.out.println("Press C to Cancel");
 	     System.out.println("Enter save file name");
@@ -516,6 +521,8 @@ public class UserInterface
 		    	 System.out.println("Invalid Name!");
 		     } else {
 		     ge.saveGame(saveName);
+		     System.out.println("Game Saved.");
+		     changeState(previousState);
 		     break;
 		     }
 	     }
@@ -526,25 +533,47 @@ public class UserInterface
 	    state = i;
 	}
 
-	private void loadGame() {
+	private void loadGameMenu() {
 	     System.out.println("Press C to Cancel");
-	     System.out.println("Enter the save's file name");
-	     System.out.println("Save Files must be more than 3 characters");
-	     while(true) {
+	     System.out.println("Enter the save file's name");
+	     System.out.println("Save Files are always more than than 3 characters");
+	     boolean exit = false;
+	     while(!exit) {
 	    String loadName;
 	    loadName = sc.nextLine();
 		     if(loadName.equalsIgnoreCase("c")) {
 		    	 changeState(previousState);
+		    	 exit = true;
 		    	 break;
 		     } else if(loadName.length() <= 3) {
 		    	 System.out.println("Invalid Name! Too Short.");
 		     } else {
-		     ge.loadGame(loadName);
-		     changeState(previousState);
-		     break;
+		     GameEngine saveState = loadGame(loadName);
+		     if(saveState == null) {
+		    	 System.out.println("Invalid name, no save found!");
+		     } else {
+		    	 loadedSave = saveState;
+		    	 saveLoaded = true;
+		    	 exit = true;
+			     changeState(4);
+			     break;
+		     }
 		     }
 	     }
 	}
+	
+    private GameEngine loadGame(String loadName) {
+        try {
+            FileInputStream fis = new FileInputStream(loadName);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            ge = (GameEngine) ois.readObject();
+            ois.close();
+        } catch (Exception e) {
+        	return null;
+        }
+        return ge;
+    }
+	
 	
 	 /**
 	  * prints an arbitrary amount of new line commands

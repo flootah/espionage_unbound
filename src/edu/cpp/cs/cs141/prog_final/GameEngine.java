@@ -15,7 +15,7 @@ import java.util.Random;
  * @author Corey Perez
  *
  */
-public class GameEngine 
+public class GameEngine implements Serializable
 {
 		public static final int GRID_SIZE = 9;
 
@@ -726,38 +726,18 @@ public class GameEngine
 	        return invincible.getRow();
 	    }
 
-	    //TODO removed static from method, was causing errors.
+	    //TODO saveGame
 	    public void saveGame(String saveName) {
-	        SaveState save = new SaveState();
-	        System.out.println(save.toString());
-	        
             FileOutputStream fos;	       
-            
 	        try {
 	            fos = new FileOutputStream(saveName);
 	            ObjectOutputStream oos = new ObjectOutputStream(fos);
-	            oos.writeObject(grid);
+	            oos.writeObject(this);
 	            oos.flush();
 	            oos.close();
 	        } catch (IOException e) {
 	            e.printStackTrace();
-
 	        }
-	    }
-
-	    /**
-	     * Loads the game's state as a file.
-	     */
-	    public Object loadGame(String loadName) {
-
-	        try {
-	            FileInputStream fis = new FileInputStream(loadName);
-	            ObjectInputStream ois = new ObjectInputStream(fis);
-	            grid = (String[][]) ois.readObject();
-	            ois.close();
-	        } catch (Exception e) {
-	            System.out.println("Invalid Name");
-	        }return grid;
 	    }
 
 	    public int getAmmo() {

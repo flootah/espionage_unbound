@@ -1,6 +1,8 @@
 package edu.cpp.cs.cs141.prog_final;
 
-public class GameBoard {
+import java.io.Serializable;
+
+public class GameBoard implements Serializable {
 	
 	private static int GRID_SIZE;
 	private static int NUM_NINJAS;
