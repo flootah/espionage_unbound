@@ -555,7 +555,11 @@ public class UserInterface
 		    	 loadedSave = saveState;
 		    	 saveLoaded = true;
 		    	 exit = true;
-			     changeState(4);
+		    	 if(previousState == 1) {
+		    		 changeState(4);
+		    	 } else {
+		    		 changeState(previousState);
+		    	 }
 			     break;
 		     }
 		     }
