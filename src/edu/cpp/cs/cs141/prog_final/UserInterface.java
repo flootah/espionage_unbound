@@ -437,7 +437,7 @@ public class UserInterface
 					break;
 				}
 				break;
-			case "6":
+			case "5":
 				if(exitCheck()) {
 					System.exit(0);
 				}
