@@ -416,7 +416,8 @@ public class UserInterface
 		String choice = "";
 		boolean exit = false;
 		while(!exit) {
-			choice = sc.nextLine();
+			choice = sc.next();
+			sc.nextLine();
 			switch(choice.toUpperCase()) {
 			case "P":
 				paused = false;
