@@ -106,6 +106,10 @@ public class UserInterface
 				cls();
 				exitCheck();
 				break;
+			case 10:
+				cls();
+				gameOver();
+				break;
 			}
 		}
 	}
@@ -167,9 +171,11 @@ public class UserInterface
      */
     private void TUI() {
         boolean gameOver = ge.gameOver();
-
-        while (!gameOver && !paused) {
+        if(gameOver) {
+        	changeState(10);
         	
+        }
+        while (!gameOver && !paused) {
             if (debug) {
                 ge.printDebugGrid();
             } else {
@@ -183,6 +189,8 @@ public class UserInterface
             switch (choice.toUpperCase()) {
             case "B":
                 shootMenu();
+                ge.checkForSpy();
+                ge.moveNinja();
                 break;
             case "P":
             	paused = true;
@@ -200,12 +208,16 @@ public class UserInterface
             case "S":
             case "D":
                 ge.userMoveInput(choice);
+                ge.checkForSpy();
+                ge.moveNinja();
                 break;
             default:
                 System.out.println("Invalid Move");
                 break;
             }
+            ge.checkForGameOver();
         }
+        
     }
     
     private void lookMenu() {
@@ -336,9 +348,8 @@ public class UserInterface
     private void aboutMenu() {
         System.out.println("Welcome to Espionage Unbound!  You are trapped in a building where six ninja assassins are trying to kill you!\n"
                 + "The goal of the game is to find a briefcase with important documents inside.  The briefcase can spawn in one of nine rooms.\n"
-                + "If you are in an adjacent tile to a ninja, you will be stabbed and your lives will decrease by one.  You are equipped with\n"
+                + "If you are in an adjacent tile to a ninja, you will be stabbed and lose a life.  You are equipped with\n"
                 + "a gun that has only one bullet.  You can shoot ninjas to kill them, but they must be horizontal or vertical to your position.\n"
-                + "There are three items inside the building: a bullet (which refils your gun if you have used your initial bullet), a radar\n"
                 + "(which displays the room the suitcase is in), and an invincibility potion (which makes you immune to ninja stabbings for five\n"
                 + "turns.  Good luck finding the briefcase!\n");
         System.out.println("W = Moves player up one cell.  Can also shoot bullet up.\n"
@@ -439,7 +450,7 @@ public class UserInterface
 				if(exitCheck()) {
 					paused = false;
 					ge.resetGrid();
-					changeState(1); //TODO
+					changeState(1); 
 					exit = true;
 					break;
 				}
@@ -513,5 +524,5 @@ public class UserInterface
 		 System.out.println("\n");
 	}
 
-
+	
 }

@@ -48,7 +48,7 @@ public class Player
 		return lives;
 	}
 	
-	public int loselife(){
+	public int loseLife(){
 	    return --lives;
 	}
 	
@@ -96,5 +96,10 @@ public class Player
 	public void moveDown()
 	{
 		row++;
+	}
+
+	public void respawn() {
+		row = 8;
+		column = 0;
 	}
 }

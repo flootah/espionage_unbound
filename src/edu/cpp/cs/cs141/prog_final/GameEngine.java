@@ -53,6 +53,10 @@ public class GameEngine
 		
 		private boolean looking;
 
+		private boolean gameOver;
+
+		private boolean briefcaseFound;
+
 	    public GameEngine() {
 	    	gun = new Gun();
 	        player = new Player(gun);
@@ -65,6 +69,8 @@ public class GameEngine
 	        createBuilding();
 	        gb = new GameBoard(this);
 	        looking = false;
+	        gameOver = false;
+	        briefcaseFound = false;
 	    }
 
 	    /**
@@ -88,42 +94,6 @@ public class GameEngine
 	        gb.printDebugGrid();
 	    }
 
-	    // * THIS WAS HERE BEFORE I MOVED IT TO TH GAME BOARD, IM SCARED TO DELETE
-	    // IT BUT FEEL FREE TO IF THIS ENDS UP WORKING WELL.
-	    // Print Debug Grid Method
-	    /*
-	     * public void printDebugGriddebug() {
-	     * System.out.println("running printDebugGriddebug()"); //double for loop,
-	     * for running thru each of the grid[][]'s coordinates. for(int i = 0; i <
-	     * grid.length; i++) { for(int j = 0; j < grid[i].length; j++) { //set all
-	     * cells empty grid[i][j] = " "; /**set rooms Runs through every cell on the
-	     * board. -loops each cell, and check if it's coordinates matches any of the
-	     * rooms' coordinates. -if they match, then the object's corresponding mark
-	     * is placed. All the rest of these setters go through essentially the same
-	     * process.
-	     */
-	    /*
-	     * for(int n = 0; n < rooms.length; n++) { if(j == rooms[n].getColumn() && i
-	     * == rooms[n].getRow()) { grid[i][j] = rooms[n].getRoomMark(); } } //set
-	     * player if((j == player.getColumn() && i == player.getRow())) { grid[i][j]
-	     * = player.getPlayerMark(); } //set ninjas for(int n = 0; n <
-	     * ninjas.length; n++) { if(j == rooms[n].getColumn() && i ==
-	     * ninjas[n].getRow()) { grid[i][j] = ninjas[n].getNinjaMark(); } } //set
-	     * bCase //Overrides room mark, thus room and briefcase objects can hold
-	     * same coordinates if(j == bCase.getColumn() && i == bCase.getRow()) {
-	     * grid[i][j] = bCase.getBriefCaseMark(); } //set bullet //only places if
-	     * area is empty, thus if a ninja or player is on it, it will be overridden,
-	     * but still keep its corrdinates. //this applies for the other two powerup
-	     * objects. if(grid[i][j] == " " && (j == bullet.getColumn() && i ==
-	     * bullet.getRow())) { grid[i][j] = bullet.getBulletMark(); } //set radar
-	     * if(grid[i][j] == " " && (j == radar.getColumn() && i == radar.getRow()))
-	     * { grid[i][j] = radar.getRadarMark(); } //set invincible if(grid[i][j] ==
-	     * " " && (j == invincible.getColumn() && i == invincible.getRow())) {
-	     * grid[i][j] = invincible.getInvincibleMark(); }
-	     * 
-	     * System.out.print("[" + grid[i][j] + "]"); } System.out.println(); } }
-	     */
-
 	    public void userMoveInput(String choice) {
 	        switch (choice.toUpperCase()) {
 	        case "W":
@@ -131,7 +101,6 @@ public class GameEngine
 	        case "A":
 	        case "D":
 	            movePlayer(choice);
-	            moveNinja();
 	            break;
 	        }
 	    }
@@ -141,6 +110,10 @@ public class GameEngine
 	    	int pCol = player.getColumn();	    	
 	        switch(dir) {
 	        case "up":
+	        	if(pRow == 0) {
+	        		System.out.println("You shot into a wall...");
+	        		break;
+	        	}
 	        	//loop through each row above the player.
 	        	rowloop:
 	        	for(int i = pRow; i >= 0; i--) {
@@ -165,6 +138,10 @@ public class GameEngine
 	        	}
 	        	break;
 	        case "left":
+	        	if(pCol == 0) {
+	        		System.out.println("You shot into a wall...");
+	        		break;
+	        	}
 	        	//loop through each column to the left of the player.
 	        	rowloop:
 	        	for(int i = pCol; i >= 0; i--) {
@@ -189,6 +166,10 @@ public class GameEngine
 	        	}
 	        	break;
 	        case "right":
+	        	if(pCol == 8) {
+	        		System.out.println("You shot into a wall...");
+	        		break;
+	        	}
 	        	//loop through each column to the right of the player.
 	        	rowloop:
 	        	for(int i = pCol; i <= 8; i++) {
@@ -213,6 +194,10 @@ public class GameEngine
 	        	}
 	        	break;
 	        case "down":
+	        	if(pRow == 8) {
+	        		System.out.println("You shot into a wall...");
+	        		break;
+	        	}
 	        	//loop through each row below the player.
 	        	rowloop:
 	        	for(int i = pRow; i <= 8; i++) {
@@ -295,28 +280,28 @@ public class GameEngine
 				if(rng == 3 && getNinjaRow(counter) > 0 && getNinjaRow(counter) <= 8 && !roomCollisionNinja(counter, "up"))
 				{
 					moveNinjaUp(counter);
-					System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
+					//System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
 					counter++;
 				}
 				else
 					if(rng == 2 && getNinjaRow(counter) < 8 && getNinjaRow(counter) >= 0 && !roomCollisionNinja(counter, "down"))
 					{
 						moveNinjaDown(counter);
-						System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
+						//System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
 						counter++;
 					}
 					else
 						if(rng == 1 && getNinjaColumn(counter) >= 0 && getNinjaColumn(counter) < 8 && !roomCollisionNinja(counter, "right"))
 						{
 							moveNinjaRight(counter);
-							System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
+							//System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
 							counter++;
 						}
 						else
 							if(rng == 0 && getNinjaColumn(counter) <= 8 && getNinjaColumn(counter) > 0 && !roomCollisionNinja(counter, "left"))
 							{
 								moveNinjaLeft(counter);
-								System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
+								//System.out.println("postcoordinates: " + ninjas[counter].getColumn() + " , " + ninjas[counter].getRow());
 								counter++;
 							}	
 	            } else {
@@ -777,9 +762,13 @@ public class GameEngine
 	    }
 
 	    public boolean gameOver() {
-	        // TODO Auto-generated method stub
-	        // returns true when a game-ending scenario has been reached.
-	        return false;
+	       return gameOver;
+	    }
+	   
+	    public void checkForGameOver() {
+	    	if(player.getLives() < 0 || briefcaseFound) {
+	    		gameOver = true;
+	    	}
 	    }
 	    
 	    public void setLook(String dir) {
@@ -888,5 +877,27 @@ public class GameEngine
 
 		public void resetGrid() {
 			gb = new GameBoard(this);
+		}
+		
+		public void checkForSpy() {
+			for(int n = 0; n < NUM_NINJAS; n++){
+				if(	ninjas[n].isAlive() && 																			//ninja is alive AND
+					(
+					(ninjas[n].getColumn() + 1 == player.getColumn() && ninjas[n].getRow() == player.getRow()) ||	//player is to the right of the ninja OR
+					(ninjas[n].getColumn() - 1 == player.getColumn() && ninjas[n].getRow() == player.getRow()) ||	//player is to the left of the ninja OR
+					(ninjas[n].getRow() + 1 == player.getRow() && ninjas[n].getColumn() == player.getColumn()) ||	//player is below the ninja OR
+					(ninjas[n].getRow() - 1 == player.getRow() && ninjas[n].getColumn() == player.getColumn())		//player is above the ninja
+					)
+				  ) 
+				{
+					stabSpy();
+				}
+			}
+		}
+		
+		public void stabSpy() {
+			player.loseLife();
+			System.out.println("You were stabbed!");
+			player.respawn();
 		}
 }
