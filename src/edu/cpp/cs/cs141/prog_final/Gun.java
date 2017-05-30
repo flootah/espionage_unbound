@@ -70,5 +70,10 @@ public class Gun
 	{
 		return ammo;
 	}
+	
+	public void useBullet()
+	{
+		ammo--;
+	}
 
 }
