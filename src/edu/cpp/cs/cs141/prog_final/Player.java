@@ -32,11 +32,6 @@ public class Player
 		row = 8;
 		column = 0;		
 	}
-
-	public void shoot(String direction)
-	{
-		gun.shoot(direction);
-	}
 	
 	public void reloadPlayerGun()
 	{
