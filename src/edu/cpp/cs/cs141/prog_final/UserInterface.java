@@ -305,6 +305,7 @@ public class UserInterface
 	            + "S = Moves player down one cell.  Can also shoot bullet down.\n"
 	            + "D = Moves player right one cell.  Can also shoot bullet right.\n"
 	            + "B = Gives the player the option to choose what direction to shoot the bullet.\n"
+	            + "L = Allows the player to check a direction to see if there are any ninjas in the row or column the player is currently in.\n"
 	            + "P = Opens a pause menu, where the player can load, save, open about menu, open control menu, exit to main menu, or exit to desktop.\n");
 	    System.out.println("press ENTER to return");
 	    sc.nextLine();
@@ -411,10 +412,12 @@ public class UserInterface
 		System.out.println("     3. About & Controls");
 		System.out.println("     4. Exit to Main Menu");
 		System.out.println("     5. Exit to Desktop");
+		System.out.println("Enter your choice or press P to return to game.");
 		String choice = "";
 		boolean exit = false;
 		while(!exit) {
-			choice = sc.nextLine();
+			choice = sc.next();
+			sc.nextLine();
 			switch(choice.toUpperCase()) {
 			case "P":
 				paused = false;
