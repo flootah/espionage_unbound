@@ -5,6 +5,8 @@ package edu.cpp.cs.cs141.prog_final;
 
 import java.util.Scanner;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 /**
  * @author Corey Perez
  *
@@ -109,6 +111,21 @@ public class UserInterface
 	}
 	
 	private boolean exitCheck() {
+		System.out.println("Are you sure you wish to exit?");
+		System.out.println("All unsaved progress will be lost!");
+		System.out.println("(y/n)");
+		boolean exit = false;
+		while(!exit) {
+			String choice = sc.nextLine();
+			switch(choice.toLowerCase()) {
+			case "y":
+				return true;
+			case "n":
+				return false;
+			default:
+				//lalala
+			}
+		}
 		return false;
 	}
 
@@ -297,13 +314,13 @@ public class UserInterface
 
         switch (option) {
         case 1:
-            state = 4;
+            changeState(4);
             break;
         case 2:
-            state = 3;
+            changeState(3);
             break;
         case 3:
-            state = 2;
+            changeState(2);
             break;
         }
     }
@@ -380,14 +397,15 @@ public class UserInterface
 	 * The player's selection will take them to the according to their selection.
 	 */
 	private void pauseMenu() {
-		System.out.println(			"PAUSED");
-		System.out.println("Press P to Return to Game");
+		System.out.println("	  PAUSED");
 		System.out.println("     1. Load Game");
 		System.out.println("     2. Save Game");
 		System.out.println("     3. Controls");
 		System.out.println("     4. About");
 		System.out.println("     5. Exit to Main Menu");
 		System.out.println("     6. Exit to Desktop");
+		System.out.println("Select an option or press P to return.");
+
 		String choice = "";
 		boolean exit = false;
 		while(!exit) {
@@ -417,10 +435,18 @@ public class UserInterface
 				break;
 			case "5":
 				if(exitCheck()) {
-					System.exit(0);
-				} else {
+					paused = false;
+					ge.resetGrid();
+					changeState(1); //TODO
+					exit = true;
 					break;
 				}
+				break;
+			case "6":
+				if(exitCheck()) {
+					System.exit(0);
+				}
+				break;
 			default:
 				System.out.println("Invalid Selection!");
 				break;
@@ -436,21 +462,6 @@ public class UserInterface
      */
     public void gameOver() {
         // code
-    }
-
-    public void saveGameName() {
-        String saveName;
-        System.out.println("Enter name for the save file: ");
-        saveName = sc.next();
-        //TODO fix this null, only placed to remove errors.
-        ge.saveGame(null, saveName);
-    }
-
-    public void loadGameName() {
-        String loadName;
-        System.out.println("Enter save file name: ");
-        loadName = sc.next();
-        ge.loadGame(loadName);
     }
 
     private void saveGame() {

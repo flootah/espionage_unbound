@@ -733,7 +733,7 @@ public class GameEngine
 	    }
 
 	    //TODO removed static from method, was causing errors.
-	    public void saveGame(Serializable grid, String saveName) {
+	    public void saveGame(String saveName) {
 	        SaveState save = new SaveState();
 	        System.out.println(save.toString());
 	        
@@ -884,5 +884,9 @@ public class GameEngine
 		}
 		public void setLooking(boolean x) {
 			looking = x;
+		}
+
+		public void resetGrid() {
+			gb = new GameBoard(this);
 		}
 }
