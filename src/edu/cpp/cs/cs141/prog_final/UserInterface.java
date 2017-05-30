@@ -411,6 +411,7 @@ public class UserInterface
 		System.out.println("     3. About & Controls");
 		System.out.println("     4. Exit to Main Menu");
 		System.out.println("     5. Exit to Desktop");
+		System.out.println("Enter your choice or press P to return to game.");
 		String choice = "";
 		boolean exit = false;
 		while(!exit) {
