@@ -490,7 +490,7 @@ public class UserInterface
 		     } else if(saveName.length() <= 3) {
 		    	 System.out.println("Invalid Name!");
 		     } else {
-		     ge.loadGame(saveName);
+		     ge.saveGame(saveName);
 		     break;
 		     }
 	     }
