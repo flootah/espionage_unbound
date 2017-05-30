@@ -232,22 +232,22 @@ public class UserInterface
 		    		exit = true;
 		    		break;
 		    	case "W":
-		    		ge.setLook("up");
+		    		ge.playerLook("up");
 		    		ge.setLooking(true);
 		    		exit = true;
 		    		break;
 		    	case "A":
-		    		ge.setLook("left");
+		    		ge.playerLook("left");
 		    		ge.setLooking(true);
 		    		exit = true;
 		    		break;
 		    	case "S":
-		    		ge.setLook("down");
+		    		ge.playerLook("down");
 		    		ge.setLooking(true);
 		    		exit = true;
 		    		break;
 		    	case "D":
-		    		ge.setLook("right");
+		    		ge.playerLook("right");
 		    		ge.setLooking(true);
 		    		exit = true;
 		    		break;
