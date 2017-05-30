@@ -804,6 +804,7 @@ public class GameEngine
 	    		}
 	    		else
 	    			System.out.println("Clear");
+				break;
 	    		
 	    	case "down":
 	    		for(int j = 0; j < ninjas.length; j++)
@@ -819,7 +820,8 @@ public class GameEngine
 	    		}
 	    		else
 	    			System.out.println("Clear");
-	    		
+	    		break;
+				
 	    	case "left":
 	    		for(int j = 0; j < ninjas.length; j++)
 	    		{
@@ -834,7 +836,8 @@ public class GameEngine
 	    		}
 	    		else
 	    			System.out.println("Clear");
-	    		
+	    		break;
+				
 	    	case "right":
 	    		for(int j = 0; j < ninjas.length; j++)
 	    		{
@@ -849,6 +852,7 @@ public class GameEngine
 	    		}
 	    		else
 	    			System.out.println("Clear");
+				break;
 	    	}
 	    }
 		
