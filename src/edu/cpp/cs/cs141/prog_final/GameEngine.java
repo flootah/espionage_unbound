@@ -930,7 +930,7 @@ public class GameEngine implements Serializable
 					(ninjas[n].getColumn() - 1 == player.getColumn() && ninjas[n].getRow() == player.getRow()) ||	//player is to the left of the ninja OR
 					(ninjas[n].getRow() + 1 == player.getRow() && ninjas[n].getColumn() == player.getColumn()) ||	//player is below the ninja OR
 					(ninjas[n].getRow() - 1 == player.getRow() && ninjas[n].getColumn() == player.getColumn())		//player is above the ninja
-					)
+					) && !gameOver()
 				  ) 
 				{
 					stabSpy();
