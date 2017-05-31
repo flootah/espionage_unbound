@@ -360,8 +360,6 @@ public class UserInterface
 	        switch (choice.toUpperCase()) {
 	        case "B":
 	            shootMenu();
-	            ge.checkForSpy();
-	            ge.moveNinja();
 	            break;
 	        case "P":
 	        	paused = true;
