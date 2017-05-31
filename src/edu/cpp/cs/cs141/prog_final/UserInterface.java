@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.cpp.cs.cs141.prog_final;
 
 import java.io.FileInputStream;
@@ -12,7 +9,16 @@ import java.util.Scanner;
 import javax.swing.plaf.synth.SynthSeparatorUI;
 
 /**
+ * Displays the game to the user, including all of the menu options and 
+ * inputs. The player can move, look, shoot and pause the game through these menus.
+ * This includes saving and loading a game as well.
+ * 
  * @author Corey Perez
+ * @author Eduardo Saenz
+ * @author Lance Dall
+ * @author Grant Posner
+ * @author Bumjoong Kim
+ * @author Jacob Chong
  *
  */
 public class UserInterface 
@@ -27,6 +33,7 @@ public class UserInterface
      * Only one is created, and used for the duration of the play session.
      */
     private Scanner sc;
+    
     /**
      * This field represents the game's current state. Each number is to
      * represent a different state, ie. MainMenu, ingame, paused, etc. Each game
@@ -35,6 +42,7 @@ public class UserInterface
     private int state;
     
     private int previousState;
+    
     /**
      * Represents whether debug mode is active or not.
      */
@@ -46,7 +54,7 @@ public class UserInterface
 	private boolean saveLoaded;
 	private GameEngine loadedSave;
 
-    /*
+    /**
      * Constructor for the class UserInterface. Takes a game state as an input.
      * Creates a new Game Engine and Scanner to be used, and fills in default
      * values for the game's state.
@@ -154,6 +162,9 @@ public class UserInterface
 	    }
 	}
 
+	/**
+	 * Allows the player to launch the game in debug mode
+	 */
 	private void debugMenu() {
         System.out.println("Would you like to enter debug mode?");
         System.out.println("   1. Yes");
@@ -185,6 +196,10 @@ public class UserInterface
 
     }
 
+	/**
+	 * Takes in the direction the player wants to move in and moves them
+	 * in that direction.
+	 */
     private void lookMenu() {
     	if(!ge.getLooking()) {
 	    	System.out.println("What direction would you like to look? (W, A, S, D)");
@@ -460,6 +475,9 @@ public class UserInterface
 		
 	}
 
+	/**
+	 * Checks if the player wants to exit the game
+	 */
 	private boolean exitCheck() {
 		System.out.println("Are you sure you wish to exit?");
 		System.out.println("All unsaved progress will be lost!");
@@ -512,6 +530,9 @@ public class UserInterface
     }
          
 
+    /**
+     * Menu for the save game
+     */
     private void saveGameMenu() {
 	     String saveName;
 	     System.out.println("Press C to Cancel");
@@ -533,11 +554,18 @@ public class UserInterface
 	     }
 	}
 	 
+    /**
+     * Changes the state of the game save
+     * @param i
+     */
 	private void changeState(int i) {
 		previousState = state;
 	    state = i;
 	}
 
+	/**
+	 * Menu for loading the game
+	 */
 	private void loadGameMenu() {
 	     System.out.println("Press C to Cancel");
 	     System.out.println("Enter the save file's name");
@@ -571,6 +599,10 @@ public class UserInterface
 	     }
 	}
 	
+	/**
+	 * Loads the game based on the save game given by the player
+	 * @param loadName
+	 */
     private GameEngine loadGame(String loadName) {
         try {
             FileInputStream fis = new FileInputStream(loadName);

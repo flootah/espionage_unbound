@@ -1,16 +1,24 @@
-/**
- * 
- */
 package edu.cpp.cs.cs141.prog_final;
 
 import java.io.Serializable;
 
 /**
+ * Rooms that the {@link Briefcase()} can be in. They have their own
+ * positions and collision with both {@link Ninja()}s and {@link Player()}s.
+ * 
  * @author Corey Perez
+ * @author Eduardo Saenz
+ * @author Lance Dall
+ * @author Grant Posner
+ * @author Bumjoong Kim
+ * @author Jacob Chong
  *
  */
 public class Rooms implements Serializable
 {	
+	/**
+	 * These next 6 lines set the possible rooms for the {@link Briefcase()}
+	 */
 	private int roomRow1 = 1;
 	
 	private int roomRow2 = 4;
@@ -23,22 +31,34 @@ public class Rooms implements Serializable
 	
 	private int roomColumn3 = 7;
 	
+	/**
+	 * The possible row that the {@link #Rooms()} can be on
+	 */
 	private int row;
 	
+	/**
+	 * The possible column the {@link #Rooms()} can be on
+	 */
 	private int column;
 	
+	/**
+	 * The mark that represents the {@link #Rooms()} on the {@link GameBoard()}
+	 */
 	private String roomMark = "R";
 	
-	public Rooms()
-	{
-		
-	}
-
+	/**
+	 * Getter for the {@link #roomMark}
+	 * @return {@link #roomMark}
+	 */
 	public String getRoomMark() 
 	{
 		return roomMark;
 	}
 
+	/**
+	 * Setter for the row that the {@link #Room()} can be on
+	 * @param num
+	 */
 	public void setRow(int num) 
 	{
 		switch(num)
@@ -61,6 +81,10 @@ public class Rooms implements Serializable
 		}
 	}
 
+	/**
+	 * Setter for the column that the {@link #Room()} can be on
+	 * @param num
+	 */
 	public void setColumn(int num) 
 	{
 		switch(num)
@@ -83,11 +107,19 @@ public class Rooms implements Serializable
 		}		
 	}
 
+	/**
+	 * Getter for the row the {@link #Rooms()} can be on
+	 * @return {@link #row}
+	 */
 	public int getRow() 
 	{
 		return row;
 	}
 
+	/**
+	 * Getter for the row the {@link #Rooms()} can be on
+	 * @return {@link #column}
+	 */
 	public int getColumn() 
 	{
 		return column;

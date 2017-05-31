@@ -2,15 +2,52 @@ package edu.cpp.cs.cs141.prog_final;
 
 import java.io.Serializable;
 
+/**
+ * The Game Board object, which includes all of the agents including {@link PowerUps()}, 
+ * {@link Ninja()}s, the {@link Player()}, {@link Rooms()} and the {@link Briefcase()}
+ * 
+ * @author Corey Perez
+ * @author Eduardo Saenz
+ * @author Lance Dall
+ * @author Grant Posner
+ * @author Bumjoong Kim
+ * @author Jacob Chong
+ *
+ */
 public class GameBoard implements Serializable {
 	
+	/**
+	 * Sets the size of the {@link #GameBoard(GameEngine))}
+	 */
 	private static int GRID_SIZE;
+	
+	/**
+	 * Sets the number of {@link Ninja()}s on the game board
+	 */
 	private static int NUM_NINJAS;
+	
+	/**
+	 * Sets the number of {@link Rooms()} on the game board
+	 */
 	private static int NUM_ROOMS;
+	
+	/**
+	 * Creates a {@link GameEngine()} to work with
+	 */
 	private GameEngine ge;
+	
+	/**
+	 * Creates an array of strings that represent each 
+	 * square of the game board
+	 */
 	private String[][] grid;
 	
-	
+	/**
+	 * Constructor for the {@link #GameBoard(GameEngine)}
+	 * Initializes {@link #GRID_SIZE}, {@link #NUM_NINJAS} and {@link #NUM_ROOMS} as per the {@link #ge}.
+	 * The {@link #grid} is created using {@link #GRID_SIZE}
+	 * @param engine
+	 */
 	public GameBoard(GameEngine engine) {
 		ge = engine;
 		GRID_SIZE = GameEngine.GRID_SIZE;
@@ -19,7 +56,14 @@ public class GameBoard implements Serializable {
 		grid = new String[GRID_SIZE][GRID_SIZE];
 	}
 	
-	//Print Debug Grid Method 
+	/**
+	 * Prints out the Grid in Debug mode, with everything being
+	 * visible to the player. 
+	 * 
+	 * Initially sets all cells to be empty, then sets the {@link Player()}, 
+	 * then the {@link Ninja()}s, then the {@link Rooms()}, then randomly sets a
+	 * {@link Briefcase()} in one of those rooms, then all the {@link PowerUps}
+	 */
 		public void printDebugGrid()
 		{
 			for(int i = 0; i < grid.length; i++) {
@@ -74,7 +118,14 @@ public class GameBoard implements Serializable {
 			}
 		}
 		
-		//Print Grid Method 
+		/**
+		 * Prints out the grid with limited view. For regular playing
+		 * 
+		 * Initially sets all cells to be '*', then sets all spaces {@link #GameEngine.VIEW_DIST}
+		 * amount away from (@link Player()}'s position, then sets the {@link Player()}, 
+		 * then the {@link Ninja()}s, then the {@link Rooms()}, then randomly sets a
+		 * {@link Briefcase()} in one of those rooms, then all the {@link PowerUps}
+		 */
 		public void printGrid()
 		{
 			for(int i = 0; i < grid.length; i++) {

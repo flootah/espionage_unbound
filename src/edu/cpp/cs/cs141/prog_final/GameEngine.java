@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.cpp.cs.cs141.prog_final;
 
 import java.io.FileOutputStream;
@@ -10,53 +7,121 @@ import java.io.Serializable;
 import java.util.Random;
 
 /**
+ * This class contains all the logic for the game, including collision with room, 
+ * Ninjas killing the player, shooting the gun, looking, win conditions, etc.
+ * 
  * @author Corey Perez
+ * @author Eduardo Saenz
+ * @author Lance Dall
+ * @author Grant Posner
+ * @author Bumjoong Kim
+ * @author Jacob Chong
  *
  */
 public class GameEngine implements Serializable
 {
-		public static final int GRID_SIZE = 9;
+	/**
+	 * The initial grid size
+	 */
+	public static final int GRID_SIZE = 9;
 
-	    public static final int NUM_NINJAS = 6;
+	/**
+	 * Initial number of {@link Ninja()}s
+	 */
+	public static final int NUM_NINJAS = 6;
 
-	    public static final int NUM_ROOMS = 9;
+	/**
+	 * Initial number of {@link Rooms()}
+	 */
+	public static final int NUM_ROOMS = 9;
 
-		public static final int VIEW_DIST = 2;
+	/**
+	 * The distance that the player can view
+	 */
+	public static final int VIEW_DIST = 2;
 
-	    private String[][] grid = new String[GRID_SIZE][GRID_SIZE];
+	/**
+	 * Creates the 2-D array to represent the {@link #grid}
+	 */
+	private String[][] grid = new String[GRID_SIZE][GRID_SIZE];
 
-	    private Player player;
+	/**
+	 * Creates the {@link Player()}
+	 */
+	private Player player;
 
-	    private Ninja[] ninjas = new Ninja[NUM_NINJAS];
+	/**
+	 * Creates an array of {@link Ninja()}s for the amount {@link #NUM_NINJAS}
+	 */
+	private Ninja[] ninjas = new Ninja[NUM_NINJAS];
 
-	    private Rooms[] rooms = new Rooms[NUM_ROOMS];
+	/**
+	 * Creates an array of {@link Rooms()} for the amount {@link #NUM_ROOMS}
+	 */
+	private Rooms[] rooms = new Rooms[NUM_ROOMS];
 
-	    private Briefcase bCase;
+	/**
+	 * Creates a {@link Briefcase()}
+	 */
+	private Briefcase bCase;
 
-	    private Bullet bullet;
+	/**
+	 * Creates a {@link Bullet()} powerup for the {@link Player()}'s {@link Gun()}
+	 */
+	private Bullet bullet;
+	
+	/**
+	 * Creates a {@link Radar()} powerup
+	 */
+	private Radar radar;
 
-	    private Radar radar;
+	/**
+	 * Create an {@link Invincibility()} powerup
+	 */
+	private Invincibility invincible;
 
-	    private Invincibility invincible;
+	/**
+	 * Creates a {@link GameBoard()} 
+	 */
+	private GameBoard gb;
 
-	    private GameBoard gb;
-
-	    private Gun gun;
+	/**
+	 * Creates a {@link Gun()} for the {@link Player()}
+	 */
+	private Gun gun;
+	/*    
+	private boolean radarActive;
 	    
-	    private boolean radarActive;
+	private boolean invincibleActive;
 	    
-	    private boolean invincibleActive;
-	    
-	    private boolean bulletActive;
-		
-		private boolean looking;
+	private boolean bulletActive;
+		*/
+	/**
+	 * Boolean to represent whether the player is looking in
+	 * a direction or not. Activates with {@link #playerLook(String)}
+	 */
+	private boolean looking;
 
-		private boolean gameOver;
+	/**
+	 * Boolean to represent whether the player is out of lives or not
+	 */
+	private boolean gameOver;
 
-		private boolean briefcaseFound;
+	/**
+	 * Boolean to represent whether the player has found the {@link Briefcase()}. 
+	 * When they do, they win
+	 */
+	private boolean briefcaseFound;
 
-		private boolean win;
+	/**
+	 * Boolean to represent whether the player has won. If true, the game ends.
+	 */
+	private boolean win;
 
+	/**
+	 * Constructor for the {@link #GameEngine()}. Initializes the {@link Player()}
+	 * with their {@link #gun}, all the {@link PowerUps()} and {@link GameBoard()}.
+	 */
 	    public GameEngine() {
 	    	gun = new Gun();
 	        player = new Player(gun);
@@ -74,8 +139,8 @@ public class GameEngine implements Serializable
 	    }
 
 	    /**
-	     * initalizes the building, calculating positions for: the player, the
-	     * rooms, the ninjas, the briefcase, and powerups.
+	     * Initalizes the building, calculating positions for: {@link Player()}, {@link Rooms()},
+	     * {@link Ninja()}, {@link Briefcase(), and {@link PowerUps()}.
 	     */
 	    public void createBuilding() {
 	        calculateRoomPositions();
@@ -86,14 +151,25 @@ public class GameEngine implements Serializable
 	        calculateRadarPosition();
 	    }
 
+	    /**
+	     * Prints a {@link #grid} without debug mode
+	     */
 	    public void printGrid() {
 			gb.printGrid();
 		}
 	    
+	    /**
+	     * Prints a {@link #grid} with debug mode
+	     */
 	    public void printDebugGrid() {
 	        gb.printDebugGrid();
 	    }
 
+	    /**
+	     * Takes in user's movement choice and runs {@link #movePlayer(String)}
+	     * to actually move the {@link #player}
+	     * @param choice
+	     */
 	    public void userMoveInput(String choice) {
 	        switch (choice.toUpperCase()) {
 	        case "W":
@@ -105,6 +181,14 @@ public class GameEngine implements Serializable
 	        }
 	    }
 
+	    /**
+	     * Shoots a gun in a direction, checking each cell in the row or
+	     * column the {@link #player()} specifies, killing a {@link Ninja()} if there
+	     * is one. 
+	     * 
+	     * This also subtracts the amount of ammo the player's {@link Gun()} has by 1
+	     * @param dir
+	     */
 	    public void shootGun(String dir) {
 	    	int pRow = player.getRow();
 	    	int pCol = player.getColumn();	 
@@ -240,6 +324,10 @@ public class GameEngine implements Serializable
 	    		System.out.println("No Ammo");
 	    }
 
+	    /**
+	     * Moves the player in the direction specified in {@link #userMoveInput(String)}
+	     * @param userMove
+	     */
 	    public void movePlayer(String userMove) {
 	        switch (userMove.toUpperCase()) {
 	        case "W":
@@ -302,6 +390,11 @@ public class GameEngine implements Serializable
 	        }
 	    }
 
+	    /**
+	     * Checks if the player is above a room or not. If they are
+	     * above a room, 
+	     * @return isAbove
+	     */
 	    private boolean playerAboveRoom() {
 	    	boolean isAbove = false;
 	    	//for all rooms
@@ -318,6 +411,9 @@ public class GameEngine implements Serializable
 	    	return isAbove;
 		}
 
+	    /**
+	     * Moves each {@link Ninja()} in a random direction every turn the player makes
+	     */
 		public void moveNinja() {
 	    	int counter = 0;
 	    	
@@ -364,10 +460,19 @@ public class GameEngine implements Serializable
 	        }
 	    }
 	    
+		/**
+		 * Determines if a {@link Ninja()} is alive from the array of ninjas created
+		 * @param n
+		 */
 	    public boolean isNinjaAlive(int n) {
 	    	return ninjas[n].isAlive();
 	    }
 
+	    /**
+	     * Checks whether or not the {@link Player()} can move in a direction. Collision is true
+	     * when the player is about to collide into a {@link #Rooms()}.
+	     * @param dir
+	     */
 	    public boolean roomCollisionPlayer(String dir) {
 	        boolean collision = false;
 	        switch (dir) {
@@ -404,6 +509,11 @@ public class GameEngine implements Serializable
 	        return collision;
 	    }
 
+	    /**
+	     * Returns true if the direction the {@link Ninja()} is moving is a {@link Rooms()}
+	     * @param counter: the counter of the ninja being checked for collision
+	     * @param dir
+	     */
 	    public boolean roomCollisionNinja(int counter, String dir) {
 	        boolean collision = false;
 	        switch (dir) {
@@ -456,7 +566,9 @@ public class GameEngine implements Serializable
 	        }
 	    }
 
-	    // calculators for positions of objects
+	    /**
+	     * Calculates the position of the {@link Rooms()} on the grid
+	     */
 	    public void calculateRoomPositions() {
 	        for (int i = 0; i < rooms.length; i++) {
 	            rooms[i].setRow(i);
@@ -465,6 +577,9 @@ public class GameEngine implements Serializable
 	        }
 	    }
 
+	    /**
+	     * Calculates the initial positions of the {@link Ninja()}s on the {@link #grid}
+	     */
 	    public void calculateNinjaPositions() {
 	        int counter = 0;
 
@@ -488,6 +603,10 @@ public class GameEngine implements Serializable
 	        }
 	    }
 
+	    /**
+	     * Calculates the position of the {@link Briefcase()}, which is randomly
+	     * set to one of the {@link Rooms()}
+	     */
 	    public void calculateBriefCasePosition() {
 	        int randNum = new Random().nextInt(9);
 
@@ -540,6 +659,9 @@ public class GameEngine implements Serializable
 	        }
 	    }
 
+	    /**
+	     * Calculates the initial position of the {@link Bullet()} powerup
+	     */
 	    public void calculateBulletPosition() {
 	        int counter = 0;
 
@@ -555,6 +677,9 @@ public class GameEngine implements Serializable
 	        }
 	    }
 
+	    /**
+	     * Calculates the initial position of the {@link Radar()} powerup
+	     */
 	    public void calculateRadarPosition() {
 	        int counter = 0;
 
@@ -569,7 +694,10 @@ public class GameEngine implements Serializable
 	            }
 	        }
 	    }
-
+	    
+	    /**
+	     * Calculates the initial position of the {@link Invincibility()} powerup
+	     */
 	    public void calculateInvinciblePosition() {
 	        int counter = 0;
 
@@ -585,62 +713,101 @@ public class GameEngine implements Serializable
 	        }
 	    }
 
-	    // several getters for Marks of objects.
+	    /**
+	     * Getter for the {@link Player()}'s mark on the {@link #grid}
+	     */
 	    public String getPlayerMark() {
 	        return player.getPlayerMark();
 	    }
 
+	    /**
+	     * Getter for the {@link Ninja()}'s mark on the {@link #grid}
+	     */
 	    public String getNinjaMark() {
 	        return ninjas[0].getNinjaMark();
 	    }
 
+	    /**
+	     * Getter for the {@link Briefcase()}'s mark on the {@link #grid}
+	     */
 	    public String getBriefCaseMark() {
 	        return bCase.getBriefCaseMark();
 	    }
 
+	    /**
+	     * Getter for the {@link Rooms()}'s mark on the {@link #grid}
+	     */
 	    public String getRoomMark() {
 	        return rooms[0].getRoomMark();
 	    }
 
+	    /**
+	     * Getter for the {@link Bullet()}'s mark on the {@link #grid}
+	     */
 	    public String getBulletMark() {
 	        return bullet.getBulletMark();
 	    }
 
+	    /**
+	     * Getter for the {@link Invincibility()}'s mark on the {@link #grid}
+	     */
 	    public String getInvincibleMark() {
 	        return invincible.getInvincibleMark();
 	    }
 
+	    /**
+	     * Getter for the {@link Radar()}'s mark on the {@link #grid}
+	     */
 	    public String getRadarMark() {
 	        return radar.getRadarMark();
 	    }
 
-	    // getters for player location
+	    /**
+	     * Getter for the {@link Player()}'s position - specifically the row - on the {@link #grid}
+	     */
 	    public int getPlayerRow() {
 	        return player.getRow();
 	    }
 
+	    /**
+	     * Getter for the {@link Player()}'s position - specifically the column - on the {@link #grid}
+	     */
 	    public int getPlayerColumn() {
 	        return player.getColumn();
 	    }
 
-	    // movers for the player's location
+	    /**
+	     * Moves the {@link Player()} up
+	     */
 	    public void movePlayerUp() {
 	        player.moveUp();
 	    }
 
+	    /**
+	     * Moves the {@link Player()} down
+	     */
 	    public void movePlayerDown() {
 	        player.moveDown();
 	    }
 
+	    /**
+	     * Moves the {@link Player()} right
+	     */
 	    public void movePlayerRight() {
 	        player.moveRight();
 	    }
 
+	    /**
+	     * Moves the {@link Player()} left
+	     */
 	    public void movePlayerLeft() {
 	        player.moveLeft();
 	    }
 
-	    // getter for ninja location
+	    /**
+	     * Getter for the {@link Ninja()}'s position - Specifically the row
+	     * @param num
+	     */
 	    public int getNinjaRow(int num) {
 	        if (num == 0) {
 	            return ninjas[0].getRow();
@@ -656,6 +823,10 @@ public class GameEngine implements Serializable
 	            return ninjas[5].getRow();
 	    }
 
+	    /**
+	     * Getter for the {@link Ninja()}'s position - Specifically the column
+	     * @param num
+	     */
 	    public int getNinjaColumn(int num) {
 	        if (num == 0) {
 	            return ninjas[0].getColumn();
@@ -671,24 +842,42 @@ public class GameEngine implements Serializable
 	            return ninjas[5].getColumn();
 	    }
 
-	    // movers for ninjas.
+	    /**
+	     * Moves a specific {@link Ninja()} down
+	     * @param num
+	     */
 	    public void moveNinjaDown(int num) {
 	        ninjas[num].moveDown();
 	    }
 
+	    /**
+	     * Moves a specific {@link Ninja()} up
+	     * @param num
+	     */
 	    public void moveNinjaUp(int num) {
 	        ninjas[num].moveUp();
 	    }
 
+	    /**
+	     * Moves a specific {@link Ninja()} right
+	     * @param num
+	     */
 	    public void moveNinjaRight(int num) {
 	        ninjas[num].moveRight();
 	    }
 
+	    /**
+	     * Moves a specific {@link Ninja()} left
+	     * @param num
+	     */
 	    public void moveNinjaLeft(int num) {
 	        ninjas[num].moveLeft();
 	    }
 
-	    // getters for other objects
+	    /**
+	     * Getter for the {@link Rooms()}' position - specifically the column
+	     * @param num
+	     */
 	    public int getRoomColumn(int num) {
 	        switch (num) {
 	        case 0:
@@ -714,6 +903,10 @@ public class GameEngine implements Serializable
 	        }
 	    }
 
+	    /**
+	     * Getter for the {@link Rooms()}' position - specifically the row
+	     * @param num
+	     */
 	    public int getRoomRow(int num) {
 	        switch (num) {
 	        case 0:
@@ -739,39 +932,66 @@ public class GameEngine implements Serializable
 	        }
 	    }
 
+	    /**
+	     * Getter for the {@link Briefcase()}'s position - specifically the column
+	     */
 	    public int getBriefcaseColumn() {
 	        return bCase.getColumn();
 	    }
-
+	    
+	    /**
+	     * Getter for the {@link Briefcase()}'s position - specifically the row
+	     */
 	    public int getBriefcaseRow() {
 	        return bCase.getRow();
 	    }
 
+	    /**
+	     * Getter for the {@link Bullet()}'s position - specifically the row
+	     */
 	    public int getBulletRow() {
 	        return bullet.getRow();
 	    }
 
+	    /**
+	     * Getter for the {@link Bullet()}'s position - specifically the column
+	     */
 	    public int getBulletColumn() {
 	        return bullet.getColumn();
 	    }
 
+	    /**
+	     * Getter for the {@link Radar()}'s position - specifically the column
+	     */
 	    public int getRadarColumn() {
 	        return radar.getColumn();
 	    }
 
+	    /**
+	     * Getter for the {@link Radar()}'s position - specifically the row
+	     */
 	    public int getRadarRow() {
 	        return radar.getRow();
 	    }
 
+	    /**
+	     * Getter for the {@link Invincibility()}'s position - specifically the column
+	     */
 	    public int getInvincibleColumn() {
 	        return invincible.getColumn();
 	    }
 
+	    /**
+	     * Getter for the {@link Invincibility()}'s position - specifically the row
+	     */
 	    public int getInvincibleRow() {
 	        return invincible.getRow();
 	    }
 
-	    //TODO saveGame
+	    /**
+	     * Saves the game with the FileName specified by the player
+	     * @param saveName
+	     */
 	    public void saveGame(String saveName) {
             FileOutputStream fos;	       
 	        try {
@@ -785,20 +1005,32 @@ public class GameEngine implements Serializable
 	        }
 	    }
 
+	    /**
+	     * Getter for the player's current ammo
+	     */
 	    public int getAmmo() {
-	        // Returns player's current ammo.
 	        return gun.getAmmo();
 	    }
 
+	    /**
+	     * Getter for the player's current amount of lives
+	     */
 	    public int getLives() {
 	        // Returns player's current life count.
 	        return player.getLives();
 	    }
 
+	    /**
+	     * Sets the {@link #gameOver} status to true or false
+	     */
 	    public boolean gameOver() {
 	       return gameOver;
 	    }
 	   
+	    /**
+	     * Checks the {@link #gameOver} status to see if the game is over.
+	     * The game is over if the player's lives reach 0, or the {@link Briefcase()} is found
+	     */
 	    public void checkForGameOver() {
 	    	if(player.getLives() < 0) {
 	    		gameOver = true;
@@ -810,10 +1042,18 @@ public class GameEngine implements Serializable
 	    	}
 	    }
 	    
+	    /**
+	     * Returns whether the player wins or not
+	     */
 	    public boolean winCondition() {
 	    	return win;
 	    }
 	    
+	    /**
+	     * Lets the player look in a specific direction and prints whether
+	     * a {@link Ninja()} is in a direction
+	     * @param dir
+	     */
 		public void playerLook(String dir)
 	    {	    
 	    	boolean checkNinja = false;
@@ -886,17 +1126,33 @@ public class GameEngine implements Serializable
 	    	}
 	    }
 
+		/**
+		 * returns whether the player is looking or not
+		 * @return
+		 */
 		public boolean getLooking() {
 			return looking;
 		}
+		
+		/**
+		 * Sets the player to looking or not looking
+		 * @param x
+		 */
 		public void setLooking(boolean x) {
 			looking = x;
 		}
 
+		/**
+		 * Resets the grid. This is done every time time player dies
+		 */
 		public void resetGrid() {
 			gb = new GameBoard(this);
 		}
 		
+		/**
+		 * Done for every {@link Ninja()} for every turn. Checks whether or not the 
+		 * player is on a space next to the ninja. Kills the player if that's the case
+		 */
 		public void checkForSpy() {
 			for(int n = 0; n < NUM_NINJAS; n++){
 				if(	ninjas[n].isAlive() && 																			//ninja is alive AND
@@ -913,6 +1169,9 @@ public class GameEngine implements Serializable
 			}
 		}
 		
+		/**
+		 * Checks if the player is invincible. If they aren't they lose a life and respawn.
+		 */
 		public void stabSpy() {
 			if(!player.isInvincible())
 			{
@@ -922,6 +1181,10 @@ public class GameEngine implements Serializable
 			}
 		}
 
+		/**
+		 * Checks the room that the player is above. If the room contains the
+		 * {@link Briefcase()}, the player wins.
+		 */
 		public void checkRoom() {
 			//for all rooms
 			for(int r = 0; r < NUM_ROOMS; r++) {
@@ -939,21 +1202,33 @@ public class GameEngine implements Serializable
 			}
 		}
 		
+		/**
+		 * Checks if the player has the {@link Bullet()} powerup
+		 */
 		public boolean isBulletAvailable()
 	    {
 	    	return bullet.isUsed();
 	    }
-	    
+
+		/**
+		 * Checks if the player has the {@link Radar()} powerup
+		 */
 	    public boolean isRadarAvailable()
 	    {
 	    	return radar.isUsed();
 	    }
-	    
+
+		/**
+		 * Checks if the player has the {@link Invincibility()} powerup
+		 */
 	    public boolean isInvincibilityAvailable()
 	    {
 	    	return invincible.isUsed();
 	    }
-	    
+
+		/**
+		 * 	Picks up {@link PowerUps()} if the player steps on top of them
+		 */
 	    public void pickUpPowerUp()
 	    {
 	    	if(isBulletAvailable() && getPlayerRow() == getBulletRow() && getPlayerColumn() == getBulletColumn())
@@ -974,6 +1249,10 @@ public class GameEngine implements Serializable
 	    	}
 	    }
 	    
+	    /**
+	     * Checks if the player's turn counter is above 5 to see if 
+	     * they've lost their invincibility.
+	     */
 	    public void checkInvincible()
 	    {
 	    	if(player.getTurnCounter() >= 5)
