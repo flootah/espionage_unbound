@@ -23,7 +23,9 @@ public class Player implements Serializable
 	
 	private int column;
 	
-	private int invincibility;
+	private boolean invincible;
+	
+	private int turnCounter;
 	
 	private String playerMark = "P";
 	
@@ -32,7 +34,9 @@ public class Player implements Serializable
 		gun = weapon;
 		lives = MAX_LIVES;
 		row = 8;
-		column = 0;		
+		column = 0;	
+		invincible = false;
+		turnCounter = 0;
 	}
 	
 	public void reloadPlayerGun()
@@ -49,15 +53,19 @@ public class Player implements Serializable
 	    return --lives;
 	}
 	
-	public void setInvincibility(int invincibility){
-	    this.invincibility = invincibility;
+	public void gainInvincibility()
+	{
+		invincible = true;
 	}
 	
-	/** WORK IN PROGRESS: method that subtracts the invincibility by one each turn.*/
-	public void invincibilityDuration(){
-	    for (int i = INVINCIBLE_TURNS; i > 0; i--){
-	        setInvincibility(i);
-	    }
+	public void loseInvincibility()
+	{
+		invincible = false;
+	}
+
+	public boolean isInvincible()
+	{
+		return invincible;
 	}
 	
 	public int getRow()
@@ -99,5 +107,15 @@ public class Player implements Serializable
 		gun.reload();
 		row = 8;
 		column = 0;
+	}
+	
+	public int getTurnCounter()
+	{
+		return turnCounter;
+	}
+	
+	public void increaseTurnCounter()
+	{
+		turnCounter++;
 	}
 }
