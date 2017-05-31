@@ -249,7 +249,12 @@ public class GameEngine implements Serializable
 	                movePlayerDown();
 	                setLooking(false);
 	            } else {
-	                System.out.println("It's a wall.");
+	            	if(playerAboveRoom()) {
+	            		System.out.println("Checking room...");
+	            		checkRoom();
+	            	} else {
+		                System.out.println("It's a wall.");
+	            	}
 	            }
 	            break;
 	        case "A":
@@ -257,7 +262,11 @@ public class GameEngine implements Serializable
 	                movePlayerLeft();
 	                setLooking(false);
 	            } else {
+	            	if(playerAboveRoom()) {
+	            		
+	            	} else {
 	                System.out.println("It's a wall.");
+	            	}
 	            }
 	            break;
 	        case "D":
@@ -271,7 +280,23 @@ public class GameEngine implements Serializable
 	        }
 	    }
 
-	    public void moveNinja() {
+	    private boolean playerAboveRoom() {
+	    	boolean isAbove = false;
+	    	//for all rooms
+	    	for(int r = 0; r < NUM_ROOMS; r++) {
+				//if player is above a room
+				if(player.getColumn() == rooms[r].getColumn() && player.getRow() + 1 == rooms[r].getRow()) {
+					isAbove = true;
+					break;
+				} else {
+					isAbove = false;
+				}
+			}
+	    	
+	    	return isAbove;
+		}
+
+		public void moveNinja() {
 	    	int counter = 0;
 	    	
 	        while(counter < 6)
@@ -913,5 +938,22 @@ public class GameEngine implements Serializable
 			player.loseLife();
 			System.out.println("You were stabbed!");
 			player.respawn();
+		}
+
+		public void checkRoom() {
+			//for all rooms
+			for(int r = 0; r < NUM_ROOMS; r++) {
+				//if player is above a room
+				if(player.getColumn() == rooms[r].getColumn() && player.getRow() + 1 == rooms[r].getRow()) {
+					//and the briefcase is in that room
+					if(rooms[r].getColumn() == bCase.getColumn() && rooms[r].getRow() == bCase.getRow()) {
+						System.out.println("The Briefcase is here!");
+						gameOver = true;
+						win = true;
+					} else {
+						System.out.println("Nothing but junk.");
+					}
+				}
+			}
 		}
 }

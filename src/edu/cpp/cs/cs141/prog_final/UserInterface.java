@@ -4,6 +4,8 @@
 package edu.cpp.cs.cs141.prog_final;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Scanner;
 
@@ -553,7 +555,7 @@ public class UserInterface
 		     } else {
 		     GameEngine saveState = loadGame(loadName);
 		     if(saveState == null) {
-		    	 System.out.println("Invalid name, no save found!");
+		    	 System.out.println("Save could not be loaded...");
 		     } else {
 		    	 loadedSave = saveState;
 		    	 saveLoaded = true;
@@ -575,9 +577,13 @@ public class UserInterface
             ObjectInputStream ois = new ObjectInputStream(fis);
             ge = (GameEngine) ois.readObject();
             ois.close();
-        } catch (Exception e) {
-        	return null;
-        }
+        } catch (FileNotFoundException e) {
+        	System.out.println("File not found!");
+        } catch (IOException e) {
+        	System.out.println("IOExeption Error");
+        } catch (ClassNotFoundException e) {
+        	System.out.println("ClassNotFound Error");
+		} 
         return ge;
     }
 	
