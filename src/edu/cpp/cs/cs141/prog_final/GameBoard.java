@@ -173,7 +173,7 @@ public class GameBoard implements Serializable {
 						}
 					}
 					//set bCase if radar is active
-					if(j == ge.getBriefcaseColumn() && i == ge.getBriefcaseRow() && ge.radarActive()) {
+					if(j == ge.getBriefcaseColumn() && i == ge.getBriefcaseRow() && !ge.isRadarAvailable()) {
 						grid[i][j] = ge.getBriefCaseMark();
 					}
 					//set bullet if player is looking and ninja isnt there
