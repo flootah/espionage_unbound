@@ -247,6 +247,10 @@ public class GameEngine implements Serializable
 	            } else {
 	                System.out.println("It's a wall.");
 	            }
+				if(player.isInvincible())
+	            {
+	            	player.increaseTurnCounter();
+	            }
 	            break;
 	        case "S":
 	            if (getPlayerRow() < 8 && !roomCollisionPlayer("down")) {
@@ -260,6 +264,10 @@ public class GameEngine implements Serializable
 		                System.out.println("It's a wall.");
 	            	}
 	            }
+				if(player.isInvincible())
+	            {
+	            	player.increaseTurnCounter();
+	            }
 	            break;
 	        case "A":
 	            if (getPlayerColumn() > 0 && !roomCollisionPlayer("left")) {
@@ -272,6 +280,10 @@ public class GameEngine implements Serializable
 	                System.out.println("It's a wall.");
 	            	}
 	            }
+				if(player.isInvincible())
+	            {
+	            	player.increaseTurnCounter();
+	            }
 	            break;
 	        case "D":
 	            if (getPlayerColumn() < 8 && !roomCollisionPlayer("right")) {
@@ -279,6 +291,10 @@ public class GameEngine implements Serializable
 	                setLooking(false);
 	            } else {
 	                System.out.println("It's a wall.");
+	            }
+				if(player.isInvincible())
+	            {
+	            	player.increaseTurnCounter();
 	            }
 	            break;
 	        }
@@ -867,49 +883,6 @@ public class GameEngine implements Serializable
 				break;
 	    	}
 	    }
-		
-		/*
-		 * method to process radar powerup collection.
-		 * checks if the player is on the powerup, if so the radar object is removed, and radarActive is set to true;
-		 */
-		public void radar() {
-			if(player.getColumn() == radar.getColumn() && player.getRow() == radar.getRow()) {
-				radarActive = true;
-				radar = null;
-			}
-		}
-		
-		/*
-		 * returns radarActive for printing use.
-		 */
-		public boolean radarActive() {
-			return radarActive;
-		}
-		
-		public void invincibility() {
-		    if(player.getColumn() == invincible.getColumn() && player.getRow() == invincible.getRow()) {
-		        invincibleActive = true;
-		        invincible = null;
-		    }
-		}
-		
-		public boolean invincibilityActive() {
-		    return invincibleActive;
-		}
-		
-		public void bullet() {
-		    if (player.getColumn() == bullet.getColumn() && player.getRow() == bullet.getRow()) {
-		        if (gun.getAmmo() == 0) {
-		                player.reloadPlayerGun();
-		                bulletActive = true;
-		                bullet = null;
-		        }
-		    }
-		}
-		
-		public boolean bulletActive() {
-			return bulletActive;
-		}
 
 		public boolean getLooking() {
 			return looking;
@@ -939,9 +912,12 @@ public class GameEngine implements Serializable
 		}
 		
 		public void stabSpy() {
-			player.loseLife();
-			System.out.println("You were stabbed!");
-			player.respawn();
+			if(!player.isInvincible())
+			{
+				player.loseLife();
+				System.out.println("You were stabbed!");
+				player.respawn();
+			}
 		}
 
 		public void checkRoom() {
@@ -981,7 +957,7 @@ public class GameEngine implements Serializable
 	    	if(isBulletAvailable() && getPlayerRow() == getBulletRow() && getPlayerColumn() == getBulletColumn())
 	    	{
 	    		bullet.used();
-				player.reloadPlayerGun();
+	    		player.reloadPlayerGun();
 	    	}
 	    	
 	    	if(isRadarAvailable() && getPlayerRow() == getRadarRow() && getPlayerColumn() == getRadarColumn())
@@ -992,6 +968,15 @@ public class GameEngine implements Serializable
 	    	if(isInvincibilityAvailable() && getPlayerRow() == getInvincibleRow() && getPlayerColumn() == getInvincibleColumn())
 	    	{
 	    		invincible.used();
+	    		player.gainInvincibility();	    			
+	    	}
+	    }
+	    
+	    public void checkInvincible()
+	    {
+	    	if(player.getTurnCounter() >= 5)
+	    	{
+	    		player.loseInvincibility();
 	    	}
 	    }
 }
