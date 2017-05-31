@@ -378,6 +378,7 @@ public class UserInterface
 	            ge.checkForSpy();
 	            ge.moveNinja();
 				ge.pickUpPowerUp();
+				ge.checkInvincible();
 	            break;
 	        default:
 	            System.out.println("Invalid Move");
