@@ -21,4 +21,14 @@ public class Bullet extends PowerUps
 	{
 		return bulletMark;
 	}
+	
+	public void used()
+	{
+		available = false;
+	}
+	
+	public boolean isUsed()
+	{
+		return available;
+	}
 }

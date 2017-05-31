@@ -14,6 +14,11 @@ public abstract class PowerUps implements Serializable
 {	
 	protected int row;
 	protected int column;
+	protected boolean available;
+	
+	public PowerUps() {
+		available = true;
+	}
 	
 	public int calculateRow()
 	{

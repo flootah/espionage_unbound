@@ -23,4 +23,14 @@ public class Radar extends PowerUps
 		return radarMark;
 	}
 	
+	public void used()
+	{
+		available = false;
+	}
+	
+	public boolean isUsed()
+	{
+		return available;
+	}
+	
 }

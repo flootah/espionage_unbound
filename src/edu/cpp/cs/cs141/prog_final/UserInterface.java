@@ -362,8 +362,6 @@ public class UserInterface
 	        switch (choice.toUpperCase()) {
 	        case "B":
 	            shootMenu();
-	            ge.checkForSpy();
-	            ge.moveNinja();
 	            break;
 	        case "P":
 	        	paused = true;
@@ -379,6 +377,7 @@ public class UserInterface
 	            ge.userMoveInput(choice);
 	            ge.checkForSpy();
 	            ge.moveNinja();
+				ge.pickUpPowerUp();
 	            break;
 	        default:
 	            System.out.println("Invalid Move");
