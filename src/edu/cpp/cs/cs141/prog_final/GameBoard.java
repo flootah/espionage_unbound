@@ -79,78 +79,74 @@ public class GameBoard implements Serializable {
 		{
 			for(int i = 0; i < grid.length; i++) {
 				for(int j = 0; j < grid[i].length; j++) {
-					//set all cells empty
+					//set all cells to "*"
 					grid[i][j] = "*";
-					
-					if(ge.getPlayerRow() > 1 && ge.getPlayerRow() < 7)
-					{
-						grid[ge.getPlayerRow() - 1][ge.getPlayerColumn()] = " ";
-						grid[ge.getPlayerRow() - 2][ge.getPlayerColumn()] = " ";
-						grid[ge.getPlayerRow() + 1][ge.getPlayerColumn()] = " ";
-						grid[ge.getPlayerRow() + 2][ge.getPlayerColumn()] = " ";
-						
+					//set viewable cells to " "
+					//Up
+					for(int d = 1; d <= GameEngine.VIEW_DIST; d++) {
+						if(	(ge.getPlayerRow() - d == i && ge.getPlayerColumn() == j)) {
+							boolean print = true;
+							for(int q = d; q >= 1; q--) {
+								for(int r = 0; r < GameEngine.NUM_ROOMS; r++) {
+									if(	(ge.getPlayerRow() - q == ge.getRoomRow(r) && ge.getPlayerColumn() == ge.getRoomColumn(r))) {
+										 print = false;
+									}
+								}
+							}
+							if(print) {
+								grid[i][j] = " ";
+							}
+						}
+					}
+					//Down
+					for(int d = 1; d <= GameEngine.VIEW_DIST; d++) {
+						if(	(ge.getPlayerRow() + d == i && ge.getPlayerColumn() == j)) {
+							boolean print = true;
+							for(int q = d; q >= 1; q--) {
+								for(int r = 0; r < GameEngine.NUM_ROOMS; r++) {
+									if(	(ge.getPlayerRow() + q == ge.getRoomRow(r) && ge.getPlayerColumn() == ge.getRoomColumn(r))) {
+										 print = false;
+									}
+								}
+							}
+							if(print) {
+								grid[i][j] = " ";
+							}
+						}
+					}
+					//Left
+					for(int d = 1; d <= GameEngine.VIEW_DIST; d++) {
+						if(	(ge.getPlayerRow() == i && ge.getPlayerColumn() + d == j)) {
+							boolean print = true;
+							for(int q = d; q >= 1; q--) {
+								for(int r = 0; r < GameEngine.NUM_ROOMS; r++) {
+									if(	(ge.getPlayerRow() == ge.getRoomRow(r) && ge.getPlayerColumn() + q == ge.getRoomColumn(r))) {
+										 print = false;
+									}
+								}
+							}
+							if(print) {
+								grid[i][j] = " ";
+							}
+						}
+					}
+					//Right
+					for(int d = 0; d <= GameEngine.VIEW_DIST; d++) {
+						if(	(ge.getPlayerRow() == i && ge.getPlayerColumn() - d == j)) {
+							boolean print = true;
+							for(int q = d; q >= 1; q--) {
+								for(int r = 0; r < GameEngine.NUM_ROOMS; r++) {
+									if(	(ge.getPlayerRow() == ge.getRoomRow(r) && ge.getPlayerColumn() - q == ge.getRoomColumn(r))) {
+										 print = false;
+									}
+								}
+							}
+							if(print) {
+								grid[i][j] = " ";
+							}
+						}
 					}
 					
-					if(ge.getPlayerRow() == 7)
-					{
-						grid[ge.getPlayerRow() - 1][ge.getPlayerColumn()] = " ";
-						grid[ge.getPlayerRow() - 2][ge.getPlayerColumn()] = " ";
-						grid[ge.getPlayerRow() + 1][ge.getPlayerColumn()] = " ";
-					}
-					
-					if(ge.getPlayerRow() == 8)
-					{
-						grid[ge.getPlayerRow() - 1][ge.getPlayerColumn()] = " ";
-						grid[ge.getPlayerRow() - 2][ge.getPlayerColumn()] = " ";
-					}
-					
-					if(ge.getPlayerRow() == 1)
-					{
-						grid[ge.getPlayerRow() + 1][ge.getPlayerColumn()] = " ";
-						grid[ge.getPlayerRow() + 2][ge.getPlayerColumn()] = " ";
-						grid[ge.getPlayerRow() - 1][ge.getPlayerColumn()] = " ";
-					}
-					
-					if(ge.getPlayerRow() == 0)
-					{
-						grid[ge.getPlayerRow() + 1][ge.getPlayerColumn()] = " ";
-						grid[ge.getPlayerRow() + 2][ge.getPlayerColumn()] = " ";
-					}
-					
-					if(ge.getPlayerColumn() > 1 && ge.getPlayerColumn() < 7)
-					{
-						grid[ge.getPlayerRow()][ge.getPlayerColumn() - 1] = " ";
-						grid[ge.getPlayerRow()][ge.getPlayerColumn() - 2] = " ";
-						grid[ge.getPlayerRow()][ge.getPlayerColumn() + 1] = " ";
-						grid[ge.getPlayerRow()][ge.getPlayerColumn() + 2] = " ";
-						
-					}
-					
-					if(ge.getPlayerColumn() == 7)
-					{
-						grid[ge.getPlayerRow()][ge.getPlayerColumn() - 1] = " ";
-						grid[ge.getPlayerRow()][ge.getPlayerColumn() - 2] = " ";
-						grid[ge.getPlayerRow()][ge.getPlayerColumn() + 1] = " ";
-					}
-					
-					if(ge.getPlayerColumn() == 8)
-					{
-						grid[ge.getPlayerRow()][ge.getPlayerColumn() - 1] = " ";
-						grid[ge.getPlayerRow()][ge.getPlayerColumn() - 2] = " ";
-					}
-					
-					if(ge.getPlayerColumn() == 1)
-					{
-						grid[ge.getPlayerRow()][ge.getPlayerColumn() + 1] = " ";
-						grid[ge.getPlayerRow()][ge.getPlayerColumn() + 2] = " ";
-						grid[ge.getPlayerRow()][ge.getPlayerColumn() - 1] = " ";
-					}
-					
-					if(ge.getPlayerColumn() == 0)
-					{
-						grid[ge.getPlayerRow()][ge.getPlayerColumn() + 1] = " ";
-						grid[ge.getPlayerRow()][ge.getPlayerColumn() + 2] = " ";
-					}
 					//Set player
 					if((j == ge.getPlayerColumn() && i == ge.getPlayerRow())) {
 						grid[i][j] = ge.getPlayerMark();

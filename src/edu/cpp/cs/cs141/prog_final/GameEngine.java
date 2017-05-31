@@ -21,6 +21,8 @@ public class GameEngine implements Serializable
 
 	    public static final int NUM_ROOMS = 9;
 
+		public static final int VIEW_DIST = 2;
+
 	    private String[][] grid = new String[GRID_SIZE][GRID_SIZE];
 
 	    private Player player;
