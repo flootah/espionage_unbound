@@ -22,7 +22,10 @@ public class Gun implements Serializable
 	
 	public void reload()
 	{
-		ammo = maxAmmo;
+		if(ammo == 0)
+		{
+			ammo = maxAmmo;
+		}
 	}
 	
 	public int getAmmo()
