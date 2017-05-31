@@ -136,6 +136,8 @@ public class GameEngine implements Serializable
 	        			}
 	        		}
 	        	}
+				checkForSpy();
+	        	moveNinja();
 	        	break;
 	        case "left":
 	        	if(pCol == 0) {
@@ -164,6 +166,8 @@ public class GameEngine implements Serializable
 	        			}
 	        		}
 	        	}
+				checkForSpy();
+	        	moveNinja();
 	        	break;
 	        case "right":
 	        	if(pCol == 8) {
@@ -192,6 +196,8 @@ public class GameEngine implements Serializable
 	        			}
 	        		}
 	        	}
+				checkForSpy();
+	        	moveNinja();
 	        	break;
 	        case "down":
 	        	if(pRow == 8) {
@@ -220,6 +226,8 @@ public class GameEngine implements Serializable
 	        			}
 	        		}
 	        	}
+				checkForSpy();
+	        	moveNinja();
 	        	break;
 	        default:
 	        	System.out.println("Invalid direction within ge.shootGun()");
@@ -931,6 +939,7 @@ public class GameEngine implements Serializable
 	    	if(isBulletAvailable() && getPlayerRow() == getBulletRow() && getPlayerColumn() == getBulletColumn())
 	    	{
 	    		bullet.used();
+				player.reloadPlayerGun();
 	    	}
 	    	
 	    	if(isRadarAvailable() && getPlayerRow() == getRadarRow() && getPlayerColumn() == getRadarColumn())
