@@ -301,13 +301,15 @@ public class GameEngine implements Serializable
 	        				ninjas[n].die();
 	        				break rowloop;
 	        			} else {
-	        				//missing debug messages
+	        				//debug message to check if missed.
+	        				
 	        				/*
 	        				System.out.println("i = " + i);
 	        				System.out.println("missed ninja " + n);
 	        				System.out.println("row: " + ninjas[n].calculateRow());
 	        				System.out.println("col: " + ninjas[n].calculateColumn());
 	        				*/
+	        				
 	        				//go to next ninja/column
 	        			}
 	        		}
@@ -1160,8 +1162,9 @@ public class GameEngine implements Serializable
 					(ninjas[n].getColumn() + 1 == player.getColumn() && ninjas[n].getRow() == player.getRow()) ||	//player is to the right of the ninja OR
 					(ninjas[n].getColumn() - 1 == player.getColumn() && ninjas[n].getRow() == player.getRow()) ||	//player is to the left of the ninja OR
 					(ninjas[n].getRow() + 1 == player.getRow() && ninjas[n].getColumn() == player.getColumn()) ||	//player is below the ninja OR
-					(ninjas[n].getRow() - 1 == player.getRow() && ninjas[n].getColumn() == player.getColumn())		//player is above the ninja
-					) && !gameOver()
+					(ninjas[n].getRow() - 1 == player.getRow() && ninjas[n].getColumn() == player.getColumn()) ||	//player is above the ninja OR
+					(ninjas[n].getRow() == player.getRow() && ninjas[n].getColumn() == player.getColumn())			//player is ON the ninja.
+					) && !gameOver()																				//AND the game is not over.
 				  ) 
 				{
 					stabSpy();

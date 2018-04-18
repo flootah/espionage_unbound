@@ -122,7 +122,7 @@ public class GameBoard implements Serializable {
 		 * Prints out the grid with limited view. For regular playing
 		 * 
 		 * Initially sets all cells to be '*', then sets all spaces {@link #GameEngine.VIEW_DIST}
-		 * amount away from (@link Player()}'s position, then sets the {@link Player()}, 
+		 * amount away from (@link Player()}'s position to " ", then sets the {@link Player()}, 
 		 * then the {@link Ninja()}s, then the {@link Rooms()}, then randomly sets a
 		 * {@link Briefcase()} in one of those rooms, then all the {@link PowerUps}
 		 */

@@ -47,11 +47,25 @@ public class UserInterface
      * Represents whether debug mode is active or not.
      */
     private boolean debug;
-    
+    /**
+     * Represents which UI is to be used for the play session.
+     * 1 = TUI
+     * 2 = GUI
+     */
     private int ui;
-    
+    /**
+     * Represents whether the game is currently paused or not.
+     * return true if paused, false otherwise;
+     */
 	private boolean paused;
+	/**
+	 * Represents whether a save is currently loaded into the game.
+	 * return true is save is loaded, false otherwise.
+	 */
 	private boolean saveLoaded;
+	/**
+	 * represents the GameEngine Object that was loaded into the game.
+	 */
 	private GameEngine loadedSave;
 
     /**
@@ -72,15 +86,19 @@ public class UserInterface
 
     /**
 	 * Main UI class.
-	 * Will act initially as the main UI for the main menu.
-	 * After the player select either a TUI or GUI, then the UI will pass the main UI responsibilities to the respective TUI/GUI method
+	 * Acts as the main UI loop, which all other calls are made from.
 	 * 
-	 * This method takes up four game states:
+	 * This method contains 10 game states:
 	 * 1. Select NewGame/LoadGame/Help
 	 * 2. About page, showing info about how to play the game, as well as a back story if we feel like it.
 	 * 3. Select a Save file page, if the player chooses to load a save.
 	 * 4. Page asking the player if they want a TUI or GUI.
-	 * 
+	 * 5. State in which a new game is initialized or a loaded save is implemented into a new GE.
+	 * 6. Page asking the player if they want to activate debug mode.
+	 * 7. State in which the game is Paused, and the player has a numebr of options to choose from.
+	 * 8. Saving page, in which the player can save their game to the file system.
+	 * 9. Page asking the player if they are sure they wish to exit their play session. This is applied for both exiting to main menu and exiting the program.
+	 * 10. State after the player has wither won or lost the game. Will ask the player if they with to play again, where they are returned to the main menu.
 	 * After page 4, mainMenu ends by calling either TUI or GUI, which will take over main UI responsibilities.
 	 */
 	public void mainMenu( ){
@@ -119,10 +137,6 @@ public class UserInterface
 				break;
 			case 9:
 				cls();
-				exitCheck();
-				break;
-			case 10:
-				cls();
 				gameOver();
 				break;
 			}
@@ -135,12 +149,13 @@ public class UserInterface
 	 * accordingly, or exit the program.
 	 */
 	private void firstMenu() {
-	    System.out.println("Welcome to Espionage Unbound v0.6!");
+	    System.out.println("Welcome to Espionage Unbound v1.01!");
 	    System.out.println("");
 	    System.out.println("Please select an option:");
 	    System.out.println("   1. New Game");
 	    System.out.println("   2. Load Game");
 	    System.out.println("   3. About & Controls");
+	    System.out.println("   4. Exit");
 	    ge = null;
 	    saveLoaded = false;
 	    int option = 0;
@@ -159,6 +174,10 @@ public class UserInterface
 	    case 3:
 	        changeState(2);
 	        break;
+	    case 4:
+	    	if(exitCheck()) {
+	    		System.exit(0);
+	    	}
 	    }
 	}
 
@@ -360,7 +379,7 @@ public class UserInterface
 	    	ge.checkForGameOver();
 		    gameOver = ge.gameOver();
 		    if(gameOver) {
-		    	changeState(10);
+		    	changeState(9);
 		    	break;
 		    }
 	    	
@@ -623,9 +642,10 @@ public class UserInterface
 	 /**
 	  * prints an arbitrary amount of new line commands
 	  * used to simulate screen clearing.
+	  * currently only one newline for development purposes.
 	  */
 	private void cls() {
-		 System.out.println("\n");
+		 System.out.println("\n\r");
 	}
 
 	
