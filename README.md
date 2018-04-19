@@ -32,10 +32,19 @@ B: Enables _Shooting Mode_; Player will shoot a bullet instead of moving for the
 P: Opens Pause Menu; Allows player to load, save, exit, or open help.
 
 ### Game
-The game begins with you placed on the bottom left cell in a pitch black 9x9 building, there are 9 rooms that could contain the briefcase.  
-There are three(?) Ninjas trying to kill you, and your gun has only one bullet.
-//TODO Map Key
-//TODO more explaining
+The game begins with you placed on the bottom left cell in a 9x9 building, there are 9 rooms that could contain the briefcase. The building is pitch black, and you can only see two cells in any direction. Move around and search each room (its entrance is always on the north side) and find the briefcase to win. There are five Assassins trying to kill you, and your gun has only one bullet. You can find an extra bullet or invinibility powerup. The player has three lives before a Game Over.
+
+##### Map and Key
+```
+P = The Player
+R = A Room
+A = An Assassin
+b = Bullet Powerup
+i = Invincibilty Powerup
+B = Briefcase Room (Debug Mode only)
+* = an empty room
+```
+
 ```
   [*][*][*][*][*][*][*][*][*]  
   [*][R][*][*][R][*][*][R][*]  
@@ -50,6 +59,7 @@ There are three(?) Ninjas trying to kill you, and your gun has only one bullet.
   Lives: 3
   Ammo: 1
 ```
+*Fig 1 : The Player in the default spawn position within the building.*
 
 Final Thoughts
 ===
