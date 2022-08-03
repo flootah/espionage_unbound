@@ -1,7 +1,5 @@
-CS 141: Final Project
+Espionage Unbound!
 ===
-Intro to Programming and Problem Solving  
-Professor: Edwin Rodríguez  
 TEAM: The Ornithologists  
 * Eduardo Saenz (Team captain)
 * Jacob Chong
@@ -10,9 +8,9 @@ TEAM: The Ornithologists
 * Corey Perez
 * Grant Posner
 
-Project Description
+Description
 ===
-This project was designed to help students create simple turn-based game using objected oriented design philosophy extended 
+This project was designed to help create simple turn-based game using objected oriented design philosophy extended 
 from the Java object-oriented coding designs originally learned from the CS141 class. A small, yet interesting text-based game is to be developed, with these certain specifications.
  
 The game design was to bring fun and challenge to the player who enjoys playing simple text-based adventure game. 
